@@ -1,0 +1,553 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://data8.berkeley.edu/hub/interact?repo=textbook&path=notebooks/Examples.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datascience</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">prob140</span> <span class="k">import</span> <span class="o">*</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">'fivethirtyeight'</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Distributions">Distributions<a class="anchor-link" href="#Distributions">¶</a></h1><p><code>Table().domain(values).probability(probs)</code> will create a distribution</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist1</span> <span class="o">=</span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">'Value'</span><span class="p">,</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span><span class="s1">'Probability'</span><span class="p">,</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+<span class="n">dist1</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Value</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2    </td> <td>0.25       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0.5        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0.25       </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">with_columns</span><span class="p">(</span><span class="s1">'Value'</span><span class="p">,</span><span class="n">make_array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span><span class="s1">'Probability'</span><span class="p">,</span><span class="n">make_array</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+<span class="n">dist2</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Value</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>2    </td> <td>0.25       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0.5        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>12   </td> <td>0.25       </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Plots">Plots<a class="anchor-link" href="#Plots">¶</a></h2><p>Plotting is currently done with Table's hist method, which automatically normalizes the plot. Thus, even if the probabilities of the distribution itself don't sum to 1, the area of the plot will be 1. This could be misleading because it makes the input look like a distribution even though it isn't. I think I might change it so that it displays the actual heights rather than the normalized versions</p>
+<p>Each distribution has a method called <code>plot()</code> that can take in the following parameters:</p>
+<ul>
+<li>width (default 1): Starts plot at minimum values - width/2</li>
+<li>mask (default none): Either a mask or a list of masks. Currently implemented with plt.bar rather than Table.hist</li>
+</ul>
+<p>Distributions can also be plotted with the function <code>plot()</code>. Plotting multiple distributions requires the function plot rather than the method plot. The function takes in the following parameters:</p>
+<ul>
+<li>An even number of arguments alternating between name of distribution and the Distribution object itself</li>
+<li>width</li>
+</ul></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">dist1</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_5_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">dist1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"A distribution"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_6_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">dist2</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_7_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">dist2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_8_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plots</span><span class="p">(</span><span class="s2">"dist1"</span><span class="p">,</span> <span class="n">dist1</span><span class="p">,</span> <span class="s2">"dist2"</span><span class="p">,</span> <span class="n">dist2</span><span class="p">,</span><span class="n">alpha</span><span class="o">=.</span><span class="mi">4</span><span class="p">);</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_9_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plots</span><span class="p">(</span><span class="s2">"dist1"</span><span class="p">,</span> <span class="n">dist1</span><span class="p">,</span> <span class="s2">"dist2"</span><span class="p">,</span> <span class="n">dist2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">alpha</span><span class="o">=.</span><span class="mi">6</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_10_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Probability-functions">Probability functions<a class="anchor-link" href="#Probability-functions">¶</a></h2><p>Distributions can also be initialized with a probability function instead of discrete probability values. The function must accept one argument and return a number</p>
+<p><code>FiniteDistribution.probability_function()</code></p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.misc</span> <span class="k">import</span> <span class="n">comb</span>
+
+<span class="n">binomial</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">comb</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">p</span><span class="o">**</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">n</span> <span class="o">=</span>  <span class="mi">10</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="n">binDist</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">binomial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">))</span>
+<span class="n">binDist</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Value</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0    </td> <td>0.000976562</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1    </td> <td>0.00976562 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0.0439453  </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0.117188   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0.205078   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0.246094   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>6    </td> <td>0.205078   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>7    </td> <td>0.117188   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>8    </td> <td>0.0439453  </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>9    </td> <td>0.00976562 </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (1 rows omitted)</p></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">binDist</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_13_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">binDist2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">9</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">binomial</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mf">0.3</span><span class="p">))</span>
+<span class="n">Plot</span><span class="p">(</span><span class="n">binDist2</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_14_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plots</span><span class="p">(</span><span class="s2">"Bin(n=10,p=0.5)"</span><span class="p">,</span> <span class="n">binDist</span><span class="p">,</span> <span class="s2">"Bin(n=8,p=0.3)"</span><span class="p">,</span> <span class="n">binDist2</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_15_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plots</span><span class="p">(</span><span class="s2">"Bindist1"</span><span class="p">,</span> <span class="n">binDist</span><span class="p">,</span> <span class="s2">"Bindist2"</span><span class="p">,</span> <span class="n">binDist2</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_16_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Events">Events<a class="anchor-link" href="#Events">¶</a></h2><ul>
+<li><code>dist.event(arg)</code> takes in a value of the domain or some kind of list of values in the domain. Returns a Table displaying them</li>
+<li><code>dist.prob_event(arg)</code> same as above but returns the sum of probabilities as a float</li>
+<li><code>dist.plot_event(arg)</code> same as above but plots the event(s)</li>
+</ul></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">binDist</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Value</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0    </td> <td>0.000976562</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1    </td> <td>0.00976562 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0.0439453  </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0.117188   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0.205078   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0.246094   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>6    </td> <td>0.205078   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>7    </td> <td>0.117188   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>8    </td> <td>0.0439453  </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>9    </td> <td>0.00976562 </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (1 rows omitted)</p></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">binDist</span><span class="o">.</span><span class="n">event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mf">0.5</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Outcome</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1      </td> <td>0.00976562 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1.5    </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2      </td> <td>0.0439453  </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2.5    </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3      </td> <td>0.117188   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3.5    </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4      </td> <td>0.205078   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4.5    </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5      </td> <td>0.246094   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5.5    </td> <td>0          </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">binDist</span><span class="o">.</span><span class="n">prob_event</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.373046875</pre></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">binDist</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_21_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">binDist</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_22_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">binDist</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]])</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_23_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Infinite-Distribution">Infinite Distribution<a class="anchor-link" href="#Infinite-Distribution">¶</a></h2><p>Infinite distributions can be represented as finite ones for visual purposes</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="k">def</span> <span class="nf">poisson</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">mu</span><span class="p">)</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">**</span> <span class="n">k</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+<span class="n">pois</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">poisson</span><span class="p">)</span>
+<span class="n">Plot</span><span class="p">(</span><span class="n">pois</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_25_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Masks">Masks<a class="anchor-link" href="#Masks">¶</a></h1><p>Right now masks only work with width=1 and plots the distribution as a plt.bar.</p>
+<p>Masks must be the same length as the domain of the distribution</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">domain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">Plot</span><span class="p">(</span><span class="n">binDist</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">domain</span><span class="o">&lt;</span><span class="mi">3</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_27_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">binDist</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="n">domain</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">,</span> <span class="n">domain</span><span class="o">&gt;</span><span class="mi">4</span><span class="p">])</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_28_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ev</span> <span class="o">=</span> <span class="n">binDist</span><span class="o">.</span><span class="n">expected_value</span><span class="p">()</span>
+<span class="n">sd</span> <span class="o">=</span> <span class="n">binDist</span><span class="o">.</span><span class="n">sd</span><span class="p">()</span>
+
+<span class="n">Plot</span><span class="p">(</span><span class="n">binDist</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="p">[</span><span class="n">domain</span><span class="o">&lt;</span><span class="n">ev</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">sd</span><span class="p">,</span>
+                  <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">domain</span><span class="o">&gt;=</span><span class="n">ev</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">sd</span><span class="p">,</span><span class="n">domain</span><span class="o">&lt;</span><span class="n">ev</span><span class="o">-</span><span class="n">sd</span><span class="p">),</span>
+                  <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">domain</span><span class="o">&gt;=</span><span class="n">ev</span><span class="o">-</span><span class="n">sd</span><span class="p">,</span><span class="n">domain</span><span class="o">&lt;</span><span class="n">ev</span><span class="p">),</span>
+                  <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">domain</span><span class="o">&gt;=</span><span class="n">ev</span><span class="p">,</span><span class="n">domain</span><span class="o">&lt;</span><span class="n">ev</span><span class="o">+</span><span class="n">sd</span><span class="p">),</span>
+                  <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">domain</span><span class="o">&gt;=</span><span class="n">ev</span><span class="o">+</span><span class="n">sd</span><span class="p">,</span><span class="n">domain</span><span class="o">&lt;</span><span class="n">ev</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">sd</span><span class="p">),</span>
+                  <span class="n">domain</span><span class="o">&gt;=</span><span class="n">ev</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">sd</span><span class="p">])</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_29_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">u</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Value</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0    </td> <td>0.1        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1    </td> <td>0.1        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0.1        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0.1        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0.1        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0.1        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>6    </td> <td>0.1        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>7    </td> <td>0.1        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>8    </td> <td>0.1        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>9    </td> <td>0.1        </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_31_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_32_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_33_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Birthday-Problem-Variants">Birthday Problem Variants<a class="anchor-link" href="#Birthday-Problem-Variants">¶</a></h2></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">previous_days</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">365</span><span class="p">)</span>
+<span class="n">prob_all_different</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumprod</span><span class="p">((</span><span class="mi">365</span><span class="o">-</span><span class="n">previous_days</span><span class="p">)</span><span class="o">/</span><span class="mi">365</span><span class="p">)</span>
+
+<span class="n">prev_people</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">365</span><span class="p">)</span>
+<span class="n">first_match</span> <span class="o">=</span> <span class="n">prob_all_different</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">prev_people</span><span class="o">/</span><span class="mi">365</span>
+<span class="n">first_match</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">first_match</span><span class="p">)</span>
+
+<span class="n">exactly_one_match</span> <span class="o">=</span> <span class="n">prob_all_different</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">prev_people</span><span class="o">*</span><span class="p">(</span><span class="n">prev_people</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">365</span><span class="p">)</span>
+<span class="n">exactly_one_match</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">exactly_one_match</span><span class="p">)</span>
+
+<span class="n">second_match</span> <span class="o">=</span> <span class="n">exactly_one_match</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">prev_people</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">365</span>
+<span class="n">second_match</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">second_match</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">match_1</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">366</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">first_match</span><span class="p">)</span>
+<span class="n">match_2</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">366</span><span class="p">))</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">second_match</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">match_1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>(0, 100)</pre></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_37_1.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">match_2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>(0, 100)</pre></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_38_1.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plots</span><span class="p">(</span><span class="s2">"First match"</span><span class="p">,</span> <span class="n">match_1</span><span class="p">,</span> <span class="s2">"Second match"</span><span class="p">,</span> <span class="n">match_2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>(0, 100)</pre></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_39_1.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot</span><span class="p">(</span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">]))</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/Examples_40_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">([</span><span class="s2">"H"</span><span class="p">,</span> <span class="s2">"T"</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Value</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>H    </td> <td>0.5        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>T    </td> <td>0.5        </td>
+        </tr>
+    </tbody>
+</table></div></div>

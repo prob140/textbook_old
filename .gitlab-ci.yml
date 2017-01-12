@@ -1,0 +1,17 @@
+# This file is a template, and might need editing before it works on your project.
+# Full project: https://gitlab.com/pages/hyde
+image: "kanec/python-node"
+
+pages:
+  stage: deploy
+  script:
+    - npm install gitbook-cli -g
+    - gitbook install
+    - pip install jupyter beautifulsoup4
+    - python convert_notebooks_to_html_partial.py
+    - gitbook build . public
+  artifacts:
+    paths:
+    - public
+  only:
+    - master
