@@ -8,6 +8,8 @@ pages:
     - npm install gitbook-cli -g
     - gitbook install
     - pip install jupyter beautifulsoup4
+    - mkdir -p notebooks-html
+    - mkdir -p notebooks-images
     - python convert_notebooks_to_html_partial.py
     - gitbook build . public
   artifacts:
