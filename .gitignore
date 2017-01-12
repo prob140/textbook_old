@@ -4,6 +4,9 @@ __pycache__/
 _book/
 textbook/
 node_modules/
+notebooks-html/
+notebooks-images/
+
 # OSX file
 .DS_Store
 
