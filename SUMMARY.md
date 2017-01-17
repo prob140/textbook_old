@@ -1,6 +1,16 @@
 # Summary
 
-* [Prob140 the Library](chapter1/summary.md)
-  * [General Distributions](chapter1/discrete.md)
-  * [Joint Distributions](chapter1/joints.md)
-* [Quick Guide to LaTeX](chapter2/latex.md)
+* [To the Student](ch1/to_the_student.md)
+
+* [Chapter 1: Fundamentals](ch1/Fundamentals.md)
+	* [1.1 Outcome Spaces and Events](ch1/Outcome_Space_and_Events.md)
+	* [1.2 Equally Likely Outcomes](ch1/Equally_Likely_Outcomes.md)
+	* [1.3 Collisions In Hashing](ch1/Collisions_in_Hashing.md)
+	* [1.4 The Birthday Problem](ch1/Birthday_Problem.md)
+	* [1.5 Exponential Approxmation](ch1/Exponential_Approximation.md)
+
+* [Chapter 2: Calculating Chances](ch2/Calculating_Chances.md)
+	* [2.1 Addition](ch2/Addition.md)
+	* [2.2 Examples](ch2/Examples.md)
+	* [2.3 Multiplication](ch2/Multiplication.md)
+	* [2.4 More Examples](ch2/More_Examples.md)

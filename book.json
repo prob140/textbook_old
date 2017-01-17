@@ -1,8 +1,12 @@
 {
-    "plugins": [  ],
+    "plugins": ["mathjax","addcssjs"],
     "links": {
         "sidebar": {
-            "Main Data Science 8 Site": "http://data8.org/"
+            "Main Prob140 Site": "http://prob140.org/"
         }
-    }
+    },
+    "pluginsConfig": { "addcssjs": { "js": ["js/custom.js"], "css": [] }, "theme-default": {
+      "showLevel": false
+    } }
+     
 }
