@@ -49,10 +49,10 @@ NOTEBOOK_IMAGE_DIR = 'notebooks-images'
 
 # The prefix for the interact button links. The path format string gets filled
 # in with the notebook as well as any datasets the notebook requires.
-INTERACT_LINK = 'http://prob140-dev.berkeley.edu/user-redirect/interact?repo=textbook&{paths}'
+INTERACT_LINK = 'http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&{paths}'
 
 # The prefix for each notebook + its dependencies
-PATH_PREFIX = 'path=notebooks/{}'
+PATH_PREFIX = 'path=textbook/{}'
 
 # The regex used to find file dependencies for notebooks. I could have used
 # triple quotes here but it messes up Python syntax highlighting :(
