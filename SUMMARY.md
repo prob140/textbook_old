@@ -1,4 +1,4 @@
-# Summary
+`# Summary
 
 * [To the Student](ch1/to_the_student.md)
 * [Chapter 1: Fundamentals](ch1/Fundamentals.md)
@@ -18,3 +18,7 @@
 	* [3.1 Functions on an Outcome Space](ch3/FunctionsOnOutcomeSpace.md)
 	* [3.2 Distributions](ch3/Distributions.md)
 	* [3.3 Equality](ch3/Equality.md)
+
+* [Chapter 4: Relations Between Variables](ch4/RelationsBetweenVariables.md)
+	* [4.1 Joint Distributions](ch4/JointDistributions.md)
+	* [4.2 Marginal Distributions](ch4/MarginalDistributions.md)

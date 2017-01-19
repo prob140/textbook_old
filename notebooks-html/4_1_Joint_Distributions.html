@@ -1,0 +1,196 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 4/4_1_Joint_Distributions.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Joint-Distributions">Joint Distributions<a class="anchor-link" href="#Joint-Distributions">¶</a></h3><p>Suppose $X$ and $Y$ are two random variables defined on the same outcome space. For example, in three tosses of a coin, $X$ could be the number of heads in the first two tosses and $Y$ the number of heads in the last two tosses.</p>
+<p>We will use the notation $P(X = x, Y = y)$ for the probability that $X$ has the value $x$ and $Y$ has the value $y$. In our example,</p>
+$$
+P(X = 1, Y = 2) = P(\text{THH}) = \frac{1}{8}
+$$<p>The <em>joint distribution of $X$ and $Y$</em> consists of all the probabilities $P(X=x, Y=y)$ where $x$ ranges over all the possible values of $X$ and $y$ ranges over all the possible values of $Y$.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In our example, both $X$ and $Y$ have values in the range 0, 1, 2, and so there are nine pairs of values. We could use <code>product</code> to list them all, but the <code>domain</code> method extends to two variables and is simpler to use. It takes as its arguments the name of one variable, the range of that variable, the name of the other variable, and the range of that variable.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">joint_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="s1">'X'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="s1">'Y'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">joint_table</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>X</th> <th>Y</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0   </td> <td>0   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0   </td> <td>1   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0   </td> <td>2   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1   </td> <td>0   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1   </td> <td>1   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1   </td> <td>2   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2   </td> <td>0   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2   </td> <td>1   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2   </td> <td>2   </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This display contains no probabilities yet, so let's put them in. For now, we will simply make an array of probabilities in the order in which the outcomes appear. Later we will see how to replace the array by a function that will compute the probability of each outcome.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">probs</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span> <span class="p">)</span>
+<span class="n">joint_table</span> <span class="o">=</span> <span class="n">joint_table</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">probs</span><span class="p">)</span>
+<span class="n">joint_table</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>X</th> <th>Y</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0   </td> <td>0   </td> <td>0.125      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0   </td> <td>1   </td> <td>0.125      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0   </td> <td>2   </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1   </td> <td>0   </td> <td>0.125      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1   </td> <td>1   </td> <td>0.25       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1   </td> <td>2   </td> <td>0.125      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2   </td> <td>0   </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2   </td> <td>1   </td> <td>0.125      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2   </td> <td>2   </td> <td>0.125      </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This table displays the joint distribution. To check that this is indeed a distribution, we can add up all the probabilities. The sum is 1, as it should be for a distribution.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">joint_table</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>1.0</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="A-Joint-Distribution-Table">A Joint Distribution Table<a class="anchor-link" href="#A-Joint-Distribution-Table">¶</a></h3><p>Though the table above does display the joint distribution, it is more conventional and also more useful to display the same data in a different way.</p>
+<p>The <code>prob140</code> method <code>toJoint</code> converts the table above into a JointDistribution object that is displayed as a conventional <em>joint distribution table</em> for $X$ and $Y$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">joint_dist</span> <span class="o">=</span> <span class="n">joint_table</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<span class="n">joint_dist</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=0</th>
+      <th>X=1</th>
+      <th>X=2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=2</th>
+      <td>0.000</td>
+      <td>0.125</td>
+      <td>0.125</td>
+    </tr>
+    <tr>
+      <th>Y=1</th>
+      <td>0.125</td>
+      <td>0.250</td>
+      <td>0.125</td>
+    </tr>
+    <tr>
+      <th>Y=0</th>
+      <td>0.125</td>
+      <td>0.125</td>
+      <td>0.000</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This way of displaying the information makes it easier to understand the relation between the two variables, as we will soon see. For now, observe that each cell corresponds to a pair $(x, y)$, where $x$ is a value of $X$ and $y$ a value of $Y$. In the cell you see $P(X = x, Y = y)$, the probability of the pair $(x, y)$.</p>
+<p>For example, the cell whose labels are <code>X=1</code> and <code>Y=0</code> contains the probability 0.125. That is because
+$$
+P(X = 1, Y = 0) = P(\text{HTT}) = \frac{1}{8} = 0.125
+$$
+You can check all the other cells in the same way.</p>
+<p>The table shows it is most likely that both $X$ and $Y$ will be equal to 1. Two outcomes make this happen: HTT and TTH.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Finding-Probabilities">Finding Probabilities<a class="anchor-link" href="#Finding-Probabilities">¶</a></h3><p>The table contains complete information about $X$ and $Y$. To find the probabiilty of any event determined by $X$ and $Y$, simply identify the cells that make the event happen, and add up their chances. This is the random variable version of the Fundamental Method of finding probabilities (see Section 2.4).</p>
+<p>For example,</p>
+\begin{align*}
+P(X &gt; Y ) &amp;= P(X = 1, Y = 0) + P(X = 2, Y = 0) + P(X = 2 , Y = 1) \\
+&amp;= 0.125 + 0 + 0.125 \\
+&amp;= 0.25
+\end{align*}</div></div></div>

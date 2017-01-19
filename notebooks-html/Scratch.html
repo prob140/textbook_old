@@ -1,0 +1,300 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 4/Scratch.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datascience</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">prob140</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">'fivethirtyeight'</span><span class="p">)</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">coins</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)</span>
+<span class="n">heads</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tbl</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">domain</span><span class="p">(</span><span class="s2">"R"</span><span class="p">,</span> <span class="n">coins</span><span class="p">,</span> <span class="s2">"H"</span><span class="p">,</span> <span class="n">heads</span><span class="p">)</span>
+<span class="n">tbl</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>R</th> <th>H</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0.2 </td> <td>0   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0.2 </td> <td>1   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0.2 </td> <td>2   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0.9 </td> <td>0   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0.9 </td> <td>1   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0.9 </td> <td>2   </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">jt_probs</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">r</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">r</span><span class="p">),</span> <span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">r</span> <span class="o">==</span> <span class="mf">0.2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.75</span><span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">r</span> <span class="o">==</span> <span class="mf">0.9</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.25</span><span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jt_table</span> <span class="o">=</span> <span class="n">tbl</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">jt_probs</span><span class="p">)</span>
+<span class="n">jt_table</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>R</th> <th>H</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0.2 </td> <td>0   </td> <td>0.48       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0.2 </td> <td>1   </td> <td>0.24       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0.2 </td> <td>2   </td> <td>0.03       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0.9 </td> <td>0   </td> <td>0.0025     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0.9 </td> <td>1   </td> <td>0.045      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0.9 </td> <td>2   </td> <td>0.2025     </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jt_dist</span> <span class="o">=</span> <span class="n">jt_table</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>//anaconda/lib/python3.5/site-packages/prob140/multi_variable.py:265: UserWarning: Your probabilities sum to 1.0000000000000002
+  warnings.warn("Your probabilities sum to {0}".format(total))
+</pre></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jt_dist</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>R=0.2</th>
+      <th>R=0.9</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>H=2</th>
+      <td>0.03</td>
+      <td>0.2025</td>
+    </tr>
+    <tr>
+      <th>H=1</th>
+      <td>0.24</td>
+      <td>0.0450</td>
+    </tr>
+    <tr>
+      <th>H=0</th>
+      <td>0.48</td>
+      <td>0.0025</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jt_dist</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>R=0.2</th>
+      <th>R=0.9</th>
+      <th>Sum: Marginal of H</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>H=2</th>
+      <td>0.03</td>
+      <td>0.2025</td>
+      <td>0.2325</td>
+    </tr>
+    <tr>
+      <th>H=1</th>
+      <td>0.24</td>
+      <td>0.0450</td>
+      <td>0.2850</td>
+    </tr>
+    <tr>
+      <th>H=0</th>
+      <td>0.48</td>
+      <td>0.0025</td>
+      <td>0.4825</td>
+    </tr>
+    <tr>
+      <th>Sum: Marginal of R</th>
+      <td>0.75</td>
+      <td>0.2500</td>
+      <td>1.0000</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jt_dist</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s1">'H'</span><span class="p">,</span> <span class="n">given</span><span class="o">=</span><span class="s1">'R'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Dist. of H | R=0.2</th>
+      <th>Dist. of H | R=0.9</th>
+      <th>Marginal of H</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>H=2</th>
+      <td>0.04</td>
+      <td>0.81</td>
+      <td>0.2325</td>
+    </tr>
+    <tr>
+      <th>H=1</th>
+      <td>0.32</td>
+      <td>0.18</td>
+      <td>0.2850</td>
+    </tr>
+    <tr>
+      <th>H=0</th>
+      <td>0.64</td>
+      <td>0.01</td>
+      <td>0.4825</td>
+    </tr>
+    <tr>
+      <th>Sum</th>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.0000</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jt_dist</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s1">'R'</span><span class="p">,</span> <span class="n">given</span><span class="o">=</span><span class="s1">'H'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>R=0.2</th>
+      <th>R=0.9</th>
+      <th>Sum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Dist. of R | H=2</th>
+      <td>0.129032</td>
+      <td>0.870968</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of R | H=1</th>
+      <td>0.842105</td>
+      <td>0.157895</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of R | H=0</th>
+      <td>0.994819</td>
+      <td>0.005181</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Marginal of R</th>
+      <td>0.750000</td>
+      <td>0.250000</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install prob140 --upgrade --no-deps
+</pre></div></div></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Collecting prob140
+  Downloading prob140-0.1.7.5.tar.gz
+Building wheels for collected packages: prob140
+  Running setup.py bdist_wheel for prob140 ... - done
+  Stored in directory: /Users/ani/Library/Caches/pip/wheels/91/e3/6c/72bce5e38b48894a5fc035600c56171913c4f764640784d430
+Successfully built prob140
+Installing collected packages: prob140
+  Found existing installation: prob140 0.1.7.4
+    Uninstalling prob140-0.1.7.4:
+      Successfully uninstalled prob140-0.1.7.4
+Successfully installed prob140-0.1.7.5
+</pre></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

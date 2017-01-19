@@ -1,0 +1,217 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 4/4_2_Marginal_Distributions.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Marginal-Distributions">Marginal Distributions<a class="anchor-link" href="#Marginal-Distributions">¶</a></h3><p>Joint distribution tables partition the entire outcome space according to the values of $X$ and $Y$.</p>
+<p>In our example, we are tossing a coin three times. $X$ is the number of heads in the first two tosses and $Y$ the number of heads in the last two tosses. Here once again is the joint distribution table for $X$ and $Y$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">joint_dist</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=0</th>
+      <th>X=1</th>
+      <th>X=2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=2</th>
+      <td>0.000</td>
+      <td>0.125</td>
+      <td>0.125</td>
+    </tr>
+    <tr>
+      <th>Y=1</th>
+      <td>0.125</td>
+      <td>0.250</td>
+      <td>0.125</td>
+    </tr>
+    <tr>
+      <th>Y=0</th>
+      <td>0.125</td>
+      <td>0.125</td>
+      <td>0.000</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The space has been partitioned into 9 pieces, each with its own chance. The total of all the chances is 1 as we saw in the previous section.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Partitioning-$\{X-=-x-\}$-According-to-$Y$">Partitioning $\{X = x \}$ According to $Y$<a class="anchor-link" href="#Partitioning-$\{X-=-x-\}$-According-to-$Y$">¶</a></h3><p>Now look along the column labeled <code>X = 0</code>. In every cell of that column, the value of $X$ is 0 and $Y$ is some element in the range of $Y$. So the column <code>X=0</code> partitions the event $\{X = 0\}$ according to the value of $Y$, and displays the probability of each piece of the partition.</p>
+<p>Indeed for every $x$,
+$$
+\{X = x \} = \bigcup_{\text{all } y} \{X = x, Y = y\}
+$$
+and this is a disjoint union. So by the addition rule,</p>
+$$
+P(X = x) = \sum_{\text{all } y} P(X = x, Y = y)
+$$<p>That is, $P(X = x)$ is the sum of the probabilities in the column <code>X=x</code>. Because $P(X = x)$ is the generic term in the distribution of $X$, we have learned that we can derive the distribution of $X$ from the joint distribution of $X$ and $Y$.</p>
+<p>To find the numerical values of the distribution of $X$, we will use a method called <code>marginal</code> which takes the name <code>X</code> as its argument and operates on a JointDistribution object. The reason for using the word "marginal" will become clear as soon as we see the output.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">joint_dist</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s1">'X'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=0</th>
+      <th>X=1</th>
+      <th>X=2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=2</th>
+      <td>0.000</td>
+      <td>0.125</td>
+      <td>0.125</td>
+    </tr>
+    <tr>
+      <th>Y=1</th>
+      <td>0.125</td>
+      <td>0.250</td>
+      <td>0.125</td>
+    </tr>
+    <tr>
+      <th>Y=0</th>
+      <td>0.125</td>
+      <td>0.125</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <th>Sum: Marginal of X</th>
+      <td>0.250</td>
+      <td>0.500</td>
+      <td>0.250</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now at the bottom of the table you have all the column sums, which constitute the distribution of $X$. These sums appear in the margin of the table, and hence the distribution is called <em>marginal</em>. It's just the old probability distribution of $X$.</p>
+<p>The numbers make sense, because $X$ is the distribution of the number of heads in two tosses.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Both-Marginals">Both Marginals<a class="anchor-link" href="#Both-Marginals">¶</a></h3><p>What you can do for $X$, you can do as well for $Y$ by looking along the rows.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">joint_dist</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s1">'Y'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=0</th>
+      <th>X=1</th>
+      <th>X=2</th>
+      <th>Sum: Marginal of Y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=2</th>
+      <td>0.000</td>
+      <td>0.125</td>
+      <td>0.125</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>Y=1</th>
+      <td>0.125</td>
+      <td>0.250</td>
+      <td>0.125</td>
+      <td>0.50</td>
+    </tr>
+    <tr>
+      <th>Y=0</th>
+      <td>0.125</td>
+      <td>0.125</td>
+      <td>0.000</td>
+      <td>0.25</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$Y$ is also the number of heads in two tosses of a coin (the last two of three tosses), so the numbers in the margin make sense.</p>
+<p>You can also get both marginals at once:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">joint_dist</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=0</th>
+      <th>X=1</th>
+      <th>X=2</th>
+      <th>Sum: Marginal of Y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=2</th>
+      <td>0.000</td>
+      <td>0.125</td>
+      <td>0.125</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>Y=1</th>
+      <td>0.125</td>
+      <td>0.250</td>
+      <td>0.125</td>
+      <td>0.50</td>
+    </tr>
+    <tr>
+      <th>Y=0</th>
+      <td>0.125</td>
+      <td>0.125</td>
+      <td>0.000</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>Sum: Marginal of X</th>
+      <td>0.250</td>
+      <td>0.500</td>
+      <td>0.250</td>
+      <td>1.00</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The bottom right corner cell is the sum of all the probabilities in the table, and also the sum of all the probabilities in each of the margins. Reassuringly, it's 1.</p>
+<p>You can see that $X \stackrel{d}{=} Y$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>
