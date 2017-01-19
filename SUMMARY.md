@@ -1,7 +1,6 @@
 # Summary
 
 * [To the Student](ch1/to_the_student.md)
-
 * [Chapter 1: Fundamentals](ch1/Fundamentals.md)
 	* [1.1 Outcome Spaces and Events](ch1/Outcome_Space_and_Events.md)
 	* [1.2 Equally Likely Outcomes](ch1/Equally_Likely_Outcomes.md)
@@ -14,3 +13,8 @@
 	* [2.2 Examples](ch2/Examples.md)
 	* [2.3 Multiplication](ch2/Multiplication.md)
 	* [2.4 More Examples](ch2/More_Examples.md)
+
+* [Chapter 3: Random Variables](ch3/RandomVariables.md)
+	* [3.1 Functions on an Outcome Space](ch3/FunctionsOnOutcomeSpace.md)
+	* [3.2 Distributions](ch3/Distributions.md)
+	* [3.3 Equality](ch3/Equality.md)
