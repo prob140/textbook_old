@@ -1,4 +1,4 @@
-`# Summary
+# Summary
 
 * [To the Student](ch1/to_the_student.md)
 * [Chapter 1: Fundamentals](ch1/Fundamentals.md)
@@ -22,3 +22,4 @@
 * [Chapter 4: Relations Between Variables](ch4/RelationsBetweenVariables.md)
 	* [4.1 Joint Distributions](ch4/JointDistributions.md)
 	* [4.2 Marginal Distributions](ch4/MarginalDistributions.md)
+	* [4.3 Conditional Distributions](ch4/ConditionalDistributions.md)
