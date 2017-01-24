@@ -1,0 +1,885 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 4/4_4_Dependence_and_Independence.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Dependence-and-Independence">Dependence and Independence<a class="anchor-link" href="#Dependence-and-Independence">¶</a></h3><p>Conditional distributions help us formalize our intuitive ideas about whether two random variables are independent of each other. Let $X$ and $Y$ be two random variables, and suppose we are given the value of $X$. Does that change our opinion about $Y$? If the answer is yes, then we will say that $X$ and $Y$ are dependent. If the answer is no, no matter what the given value of $X$ is, then we will say that $X$ and $Y$ are independent.</p>
+<p>Let's start with some examples and then move to precise definitions and results.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Dependence">Dependence<a class="anchor-link" href="#Dependence">¶</a></h3><p>Here is the joint distribution of two random variables $X$ and $Y$. From this, what can we say about whether $X$ and $Y$ are dependent or independent?</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist1</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=0</th>
+      <th>X=1</th>
+      <th>X=2</th>
+      <th>X=3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=3</th>
+      <td>0.037037</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>Y=2</th>
+      <td>0.166667</td>
+      <td>0.055556</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>Y=1</th>
+      <td>0.250000</td>
+      <td>0.166667</td>
+      <td>0.027778</td>
+      <td>0.00000</td>
+    </tr>
+    <tr>
+      <th>Y=0</th>
+      <td>0.125000</td>
+      <td>0.125000</td>
+      <td>0.041667</td>
+      <td>0.00463</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can see at once that if $X = 3$ then $Y$ can only be 0, whereas if $X = 2$ then $Y$ can be either 1 or 2. Knowing the value of $X$ changes the distribution of $Y$. That's dependence.</p>
+<p>Here are the conditional distributions of $Y$ given each of the different values of $X$. You can see that all the distributions are different, and different also from the marginal of $Y$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist1</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s1">'Y'</span><span class="p">,</span> <span class="s1">'X'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Dist. of Y | X=0</th>
+      <th>Dist. of Y | X=1</th>
+      <th>Dist. of Y | X=2</th>
+      <th>Dist. of Y | X=3</th>
+      <th>Marginal of Y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=3</th>
+      <td>0.064</td>
+      <td>0.00</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.037037</td>
+    </tr>
+    <tr>
+      <th>Y=2</th>
+      <td>0.288</td>
+      <td>0.16</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.222222</td>
+    </tr>
+    <tr>
+      <th>Y=1</th>
+      <td>0.432</td>
+      <td>0.48</td>
+      <td>0.4</td>
+      <td>0.0</td>
+      <td>0.444444</td>
+    </tr>
+    <tr>
+      <th>Y=0</th>
+      <td>0.216</td>
+      <td>0.36</td>
+      <td>0.6</td>
+      <td>1.0</td>
+      <td>0.296296</td>
+    </tr>
+    <tr>
+      <th>Sum</th>
+      <td>1.000</td>
+      <td>1.00</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is an example in which you can't quickly determine dependence or independence by just looking at the possible values.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist2</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=3</th>
+      <th>X=4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=7</th>
+      <td>0.3</td>
+      <td>0.1</td>
+    </tr>
+    <tr>
+      <th>Y=6</th>
+      <td>0.2</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>Y=5</th>
+      <td>0.1</td>
+      <td>0.1</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>But you can tell by looking at the conditional distributions of $Y$ given $X$. They are different.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist2</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s1">'Y'</span><span class="p">,</span> <span class="s1">'X'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Dist. of Y | X=3</th>
+      <th>Dist. of Y | X=4</th>
+      <th>Marginal of Y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=7</th>
+      <td>0.500000</td>
+      <td>0.25</td>
+      <td>0.4</td>
+    </tr>
+    <tr>
+      <th>Y=6</th>
+      <td>0.333333</td>
+      <td>0.50</td>
+      <td>0.4</td>
+    </tr>
+    <tr>
+      <th>Y=5</th>
+      <td>0.166667</td>
+      <td>0.25</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>Sum</th>
+      <td>1.000000</td>
+      <td>1.00</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It follows (and you should try to prove this), that at least some of the conditional distributions of $X$ given the different values of $Y$ will also be different from each other and from the marginal of $X$.</p>
+<p>Notice that not all the conditional distributions are different. The conditional distribution of $X$ given $Y=5$ is the same as the conditional distribution of $X$ given $Y=6$. But given $Y=7$, the conditional distribution changes. $X$ and $Y$ are dependent.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist2</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s1">'X'</span><span class="p">,</span> <span class="s1">'Y'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=3</th>
+      <th>X=4</th>
+      <th>Sum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Dist. of X | Y=7</th>
+      <td>0.75</td>
+      <td>0.25</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of X | Y=6</th>
+      <td>0.50</td>
+      <td>0.50</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of X | Y=5</th>
+      <td>0.50</td>
+      <td>0.50</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Marginal of X</th>
+      <td>0.60</td>
+      <td>0.40</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Conditionals,-Not-Marginals">Conditionals, Not Marginals<a class="anchor-link" href="#Conditionals,-Not-Marginals">¶</a></h3><p>Often, the nature of the randomization in an experiment helps us identify dependence without calculation. For example, suppose you make two draws at random without replacement from the set $\{1, 2, 3, 4\}$. Let $X_1$ be the number on the first draw and $X_2$ the number on the second. Then $X_1$ and $X_2$ are dependent: for example, knowing that $X_1=2$ prevents $X_2$ from being equal to 2.</p>
+<p>Here is the joint distribution of $X_1$ and $X_2$ along with the marginals. Each of the 12 possible pairs is equally likely.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">val_X1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">val_X2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">prob_wor</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="mi">12</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+<span class="n">t_wor</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">'X1'</span><span class="p">,</span> <span class="n">val_X1</span><span class="p">,</span> <span class="s1">'X2'</span><span class="p">,</span> <span class="n">val_X2</span><span class="p">)</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">prob_wor</span><span class="p">)</span>
+<span class="n">dist3</span> <span class="o">=</span> <span class="n">t_wor</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist3</span><span class="o">.</span><span class="n">both_marginals</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X1=1</th>
+      <th>X1=2</th>
+      <th>X1=3</th>
+      <th>X1=4</th>
+      <th>Sum: Marginal of X2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>X2=4</th>
+      <td>0.083333</td>
+      <td>0.083333</td>
+      <td>0.083333</td>
+      <td>0.000000</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>X2=3</th>
+      <td>0.083333</td>
+      <td>0.083333</td>
+      <td>0.000000</td>
+      <td>0.083333</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>X2=2</th>
+      <td>0.083333</td>
+      <td>0.000000</td>
+      <td>0.083333</td>
+      <td>0.083333</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>X2=1</th>
+      <td>0.000000</td>
+      <td>0.083333</td>
+      <td>0.083333</td>
+      <td>0.083333</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>Sum: Marginal of X1</th>
+      <td>0.250000</td>
+      <td>0.250000</td>
+      <td>0.250000</td>
+      <td>0.250000</td>
+      <td>1.00</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It is important to notice that both the marginals are the same. $X1$ has the uniform distribution on $\{1, 2, 3, 4\}$, and <em>so does $X_2$</em>.</p>
+<p>In a later chapter we will study these symmetries in sampling without replacement. For now, note that you can't spot dependence by just looking at the marginals. Dependence is visible in the conditionals. Given $X_1$, you can see that $X_2$ is equally likely to be any of the other three values. In the other direction, given $X_2$, you can see that $X_1$ is equally likely to be any of the other three values.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist3</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s1">'X2'</span><span class="p">,</span> <span class="s1">'X1'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Dist. of X2 | X1=1</th>
+      <th>Dist. of X2 | X1=2</th>
+      <th>Dist. of X2 | X1=3</th>
+      <th>Dist. of X2 | X1=4</th>
+      <th>Marginal of X2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>X2=4</th>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.000000</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>X2=3</th>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.000000</td>
+      <td>0.333333</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>X2=2</th>
+      <td>0.333333</td>
+      <td>0.000000</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>X2=1</th>
+      <td>0.000000</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>Sum</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.00</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist3</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s1">'X1'</span><span class="p">,</span> <span class="s1">'X2'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X1=1</th>
+      <th>X1=2</th>
+      <th>X1=3</th>
+      <th>X1=4</th>
+      <th>Sum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Dist. of X1 | X2=4</th>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.000000</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of X1 | X2=3</th>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.000000</td>
+      <td>0.333333</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of X1 | X2=2</th>
+      <td>0.333333</td>
+      <td>0.000000</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of X1 | X2=1</th>
+      <td>0.000000</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Marginal of X1</th>
+      <td>0.250000</td>
+      <td>0.250000</td>
+      <td>0.250000</td>
+      <td>0.250000</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Independence">Independence<a class="anchor-link" href="#Independence">¶</a></h3><p>If we had instead drawn the two numbers <em>with</em> replacement, then all 16 pairs would have been equally likely, and knowing the value of one of the variables would not affect your opinion about the other.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">prob_wr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="mi">16</span>
+<span class="n">t_wr</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">'X1'</span><span class="p">,</span> <span class="n">val_X1</span><span class="p">,</span> <span class="s1">'X2'</span><span class="p">,</span> <span class="n">val_X2</span><span class="p">)</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">prob_wr</span><span class="p">)</span>
+<span class="n">dist4</span> <span class="o">=</span> <span class="n">t_wr</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist4</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X1=1</th>
+      <th>X1=2</th>
+      <th>X1=3</th>
+      <th>X1=4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>X2=4</th>
+      <td>0.0625</td>
+      <td>0.0625</td>
+      <td>0.0625</td>
+      <td>0.0625</td>
+    </tr>
+    <tr>
+      <th>X2=3</th>
+      <td>0.0625</td>
+      <td>0.0625</td>
+      <td>0.0625</td>
+      <td>0.0625</td>
+    </tr>
+    <tr>
+      <th>X2=2</th>
+      <td>0.0625</td>
+      <td>0.0625</td>
+      <td>0.0625</td>
+      <td>0.0625</td>
+    </tr>
+    <tr>
+      <th>X2=1</th>
+      <td>0.0625</td>
+      <td>0.0625</td>
+      <td>0.0625</td>
+      <td>0.0625</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist4</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s1">'X2'</span><span class="p">,</span> <span class="s1">'X1'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Dist. of X2 | X1=1</th>
+      <th>Dist. of X2 | X1=2</th>
+      <th>Dist. of X2 | X1=3</th>
+      <th>Dist. of X2 | X1=4</th>
+      <th>Marginal of X2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>X2=4</th>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>X2=3</th>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>X2=2</th>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>X2=1</th>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>Sum</th>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.00</td>
+      <td>1.00</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist4</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s1">'X1'</span><span class="p">,</span> <span class="s1">'X2'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X1=1</th>
+      <th>X1=2</th>
+      <th>X1=3</th>
+      <th>X1=4</th>
+      <th>Sum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Dist. of X1 | X2=4</th>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of X1 | X2=3</th>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of X1 | X2=2</th>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of X1 | X2=1</th>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Marginal of X1</th>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>0.25</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What you are seeing in these rather monotonous tables is independence. It doesn't matter what the value of $X_1$ is; conditional on that value, $X_2$ is still uniform on all four values. And no matter what $X_2$ is, conditional on that value $X_1$ is still uniform of all four values.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is a joint distribution table in which independence becomes apparent once you condition.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist5</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=0</th>
+      <th>X=1</th>
+      <th>X=2</th>
+      <th>X=3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=4</th>
+      <td>0.000096</td>
+      <td>0.000289</td>
+      <td>0.000289</td>
+      <td>0.000096</td>
+    </tr>
+    <tr>
+      <th>Y=3</th>
+      <td>0.001929</td>
+      <td>0.005787</td>
+      <td>0.005787</td>
+      <td>0.001929</td>
+    </tr>
+    <tr>
+      <th>Y=2</th>
+      <td>0.014468</td>
+      <td>0.043403</td>
+      <td>0.043403</td>
+      <td>0.014468</td>
+    </tr>
+    <tr>
+      <th>Y=1</th>
+      <td>0.048225</td>
+      <td>0.144676</td>
+      <td>0.144676</td>
+      <td>0.048225</td>
+    </tr>
+    <tr>
+      <th>Y=0</th>
+      <td>0.060282</td>
+      <td>0.180845</td>
+      <td>0.180845</td>
+      <td>0.060282</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist5</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s1">'Y'</span><span class="p">,</span> <span class="s1">'X'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Dist. of Y | X=0</th>
+      <th>Dist. of Y | X=1</th>
+      <th>Dist. of Y | X=2</th>
+      <th>Dist. of Y | X=3</th>
+      <th>Marginal of Y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=4</th>
+      <td>0.000772</td>
+      <td>0.000772</td>
+      <td>0.000772</td>
+      <td>0.000772</td>
+      <td>0.000772</td>
+    </tr>
+    <tr>
+      <th>Y=3</th>
+      <td>0.015432</td>
+      <td>0.015432</td>
+      <td>0.015432</td>
+      <td>0.015432</td>
+      <td>0.015432</td>
+    </tr>
+    <tr>
+      <th>Y=2</th>
+      <td>0.115741</td>
+      <td>0.115741</td>
+      <td>0.115741</td>
+      <td>0.115741</td>
+      <td>0.115741</td>
+    </tr>
+    <tr>
+      <th>Y=1</th>
+      <td>0.385802</td>
+      <td>0.385802</td>
+      <td>0.385802</td>
+      <td>0.385802</td>
+      <td>0.385802</td>
+    </tr>
+    <tr>
+      <th>Y=0</th>
+      <td>0.482253</td>
+      <td>0.482253</td>
+      <td>0.482253</td>
+      <td>0.482253</td>
+      <td>0.482253</td>
+    </tr>
+    <tr>
+      <th>Sum</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>All the conditional distributions of $Y$ given different values of $X$ are the same, and hence are the same as the marginal of $Y$ too. That's independence.</p>
+<p>You could have drawn the same conclusion by conditioning $X$ on $Y$:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist5</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s1">'X'</span><span class="p">,</span> <span class="s1">'Y'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=0</th>
+      <th>X=1</th>
+      <th>X=2</th>
+      <th>X=3</th>
+      <th>Sum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Dist. of X | Y=4</th>
+      <td>0.125</td>
+      <td>0.375</td>
+      <td>0.375</td>
+      <td>0.125</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of X | Y=3</th>
+      <td>0.125</td>
+      <td>0.375</td>
+      <td>0.375</td>
+      <td>0.125</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of X | Y=2</th>
+      <td>0.125</td>
+      <td>0.375</td>
+      <td>0.375</td>
+      <td>0.125</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of X | Y=1</th>
+      <td>0.125</td>
+      <td>0.375</td>
+      <td>0.375</td>
+      <td>0.125</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of X | Y=0</th>
+      <td>0.125</td>
+      <td>0.375</td>
+      <td>0.375</td>
+      <td>0.125</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Marginal of X</th>
+      <td>0.125</td>
+      <td>0.375</td>
+      <td>0.375</td>
+      <td>0.125</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Independence-of-Two-Random-Variables">Independence of Two Random Variables<a class="anchor-link" href="#Independence-of-Two-Random-Variables">¶</a></h3><p>What we have observed in examples can be turned into a formal definition of independence.</p>
+<p>Two random variables $X$ and $Y$ are <em>independent</em> if for every value $x$ of $X$ and $y$ of $Y$,
+$$
+P(Y = y \mid X = x) = P(Y = y)
+$$
+That is, no matter what the given $x$ is, the conditional probability of any value of $Y$ is the same as if we didn't know that $X=x$.</p>
+<p>By the multiplication rule, the definition of independence can be written in a different way. For any values $x$ of $X$ and $y$ of $Y$,</p>
+\begin{align*} 
+P(X = x, Y = y) &amp;= P(X = x)P(Y = y \mid X = x) ~~~ \text{(multiplication rule)} \\
+&amp;= P(X=x)P(Y=y) ~~~~~~~~~~~~~~~~~ \text{(independence)}
+\end{align*}<p>Independence simplifies the conditional probabilities in the multiplication rule.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Independence-of-Two-Events">Independence of Two Events<a class="anchor-link" href="#Independence-of-Two-Events">¶</a></h3><p>Correspondingly, there are two equivalent definitions of the independence of two events. The first encapsulates the main idea of independence, and the second is useful for calculation.</p>
+<p>Two events $A$ and $B$ are <em>independent</em> if $P(B \mid A) = P(B)$. Equivalently, $A$ and $B$ are independent if $P(AB) = P(A)P(B)$.</p>
+<p>It is a fact that if $X$ and $Y$ are independent random variables, then any event determined by $X$ is independent of any event determined by $Y$. For example, if $X$ and $Y$ are independent and $x$ is a number, then $\{X=x\}$ is independent of $\{Y&gt;x\}$. Also, any function of $X$ is independent of any function of $Y$.</p>
+<p>You can prove these facts by partitioning and then using the definition of independence. The proofs are routine but somewhat labor intensive. You are welcome to just accept the facts if you don't want to prove them.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id='"i.i.d."-Random-Variables'>"i.i.d." Random Variables<a class="anchor-link" href='#"i.i.d."-Random-Variables'>¶</a></h3><p>If two random variables $X$ and $Y$ are independent and identically distributed, they are called "i.i.d." That's one of the most famous acronyms in probability theory. You can think of i.i.d. random variables as draws with replacement from a population, or as the results of independent replications of the same experiment.</p>
+<p>Suppose the distribution of $X$ is given by
+$$
+P(X = i) = p_i, ~~~ i = 1, 2, \ldots, n
+$$
+where $\sum_{i=1}^n p_i = 1$. Now let $X$ and $Y$ be i.i.d. What is $P(X = Y)$? We'll answer this question by using the fundamental method, now in random variable notation.</p>
+\begin{align*}
+P(X = Y) &amp;= \sum_{i=1}^n P(X = i, Y = i) ~~~ \text{(partitioning)} \\
+&amp;= \sum_{i=1}^n P(X = i)P(Y = i) ~~~ \text{(independence)} \\
+&amp;= \sum_{i=1}^n p_i \cdot p_i ~~~ \text{(identical distributions)} \\
+&amp;= \sum_{i=1}^n p_i^2
+\end{align*}<p>The last expression is easy to calculate if you know the numerical values of all the $p_i$.</p>
+<p>In the same way,</p>
+\begin{align*}
+P(Y &gt; X) &amp;= \sum_{i=1}^n P(X = i, Y &gt; i) \\
+&amp;= \sum_{i=1}^n P(X = i)P(Y &gt; i) \\
+&amp;= \sum_{i=1}^{n-1} P(X = i)P(Y &gt; i)
+\end{align*}<p>because $P(Y &gt; n) = 0$. Now for each $i &lt; n$, $P(Y &gt; i) = P(X &gt; i) = \sum_{j=i+1}^n p_i$. Call this sum $b_i$ for "bigger than $i$". Then</p>
+\begin{align*}
+P(Y &gt; X) &amp;= \sum_{i=1}^{n-1} P(X = i)P(Y &gt; i) \\
+&amp;= \sum_{i=1}^{n-1} p_ib_i
+\end{align*}<p>This is also a straightforward calculation if you know all the $p_i$. For $n=4$ it boils down to
+$$
+p_1 \cdot(p_2 + p_3 + p_4) ~~ + ~~ p_2 \cdot (p_3 + p_4) ~~ + ~~ p_3 \cdot p_4
+$$</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

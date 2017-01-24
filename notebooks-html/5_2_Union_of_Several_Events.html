@@ -1,0 +1,144 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 5/5_2_Union_of_Several_Events.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Union-of-Several-Events">Union of Several Events<a class="anchor-link" href="#Union-of-Several-Events">¶</a></h3><p>The third axiom of probability says that if $A$ and $B$ are two mutually exclusive events, then $P(A \cup B) = P(A)+P(B)$. We have happily extended this to the union of several mutually exclusive events and used it throughout:
+$$
+P(\bigcup_{i=1}^n A_i) = \sum_{i=1}^n P(A_i) ~~~ \text{ if }
+A_iA_j = \phi \text{ for all } i \ne j
+$$</p>
+<p>But we never proved the result for more than two mutually exclusive events. Let's do that now by induction. The axiom says the result is true for $n=2$, so we will assume it is true for $n$ as above and then show that 
+$$
+P(\bigcup_{i=1}^{n+1} A_i) = \sum_{i=1}^{n+1} P(A_i) ~~~ \text{ if }
+A_iA_j = \phi \text{ for all } i \ne j
+$$</p>
+<p>The induction is straightforward.</p>
+\begin{align*}
+P(\bigcup_{i=1}^{n+1} A_i) &amp;= P\big{(}(\cup_{i=1}^n A_i)\cup A_{n+1}\big{)} \\
+&amp;= P\big{(}(\cup_{i=1}^n A_i)\big{)} + P(A_{n+1}) ~~~ \text{(addition rule)} \\
+&amp;= \sum_{i=1}^n P(A_i) + P(A_{n+1}) ~~~~~~~ \text{(induction hypothesis)} \\
+&amp;= \sum_{i=1}^{n+1} P(A_i)
+\end{align*}</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="An-Inclusion-Exclusion-Formula">An Inclusion-Exclusion Formula<a class="anchor-link" href="#An-Inclusion-Exclusion-Formula">¶</a></h3><p>How would we find the chance of a union of two events that are not mutually exclusive? The diagram below shows two such events. The union is the entire colored region: the blue, the gold, as well as the intersection.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">show_intersection</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/5_2_Union_of_Several_Events_4_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can find $P(A \cup B)$ by partitioning. A partition of $A \cup B$ is "all of $A$ union the part of $B$ that is not also in $A$": 
+$$
+A \cup B = A \cup (B \backslash AB)
+$$
+Therefore</p>
+\begin{align*}
+P(A \cup B) &amp;= P(A) + P(B \backslash AB) ~~~~~~~~~~ \text{(addition rule)} \\
+&amp;= P(A) + P(B) - P(AB) ~~~ \text{(difference rule)}
+\end{align*}<p>We now have a formula for the case $n = 2$. It calculates the probability of the union of two events, by first <em>including</em> the chance of each event, and then <em>excluding</em> the chance of the intersection. This gives rise to its name:</p>
+<h4 id="Inclusion-Exclusion-Formula:-Union-of-Two-Events">Inclusion-Exclusion Formula: Union of Two Events<a class="anchor-link" href="#Inclusion-Exclusion-Formula:-Union-of-Two-Events">¶</a></h4>$$
+P(A \cup B) = P(A) + P(B) - P(AB)
+$$</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Union-of-$n$-Events">Union of $n$ Events<a class="anchor-link" href="#Union-of-$n$-Events">¶</a></h3><p>For a general $n$, we are going to guess the formula and prove it by induction. Let $A_1, A_2, \ldots , A_n$ be events, and let us try to find
+$$
+P\big{(}\bigcup_{i=1}^n A_i \big{)}
+$$</p>
+<p>Writing will be easier if we have some rough-and-ready abbreviations of descriptions, so for example let "all the double-intersections" mean "all terms of the form $P(A_iA_j)$ where $i$ and $j$ are different".</p>
+<p>It is important to note that the set "$1 \le i &lt; j \le n$" specifies all unordered pairs of distinct indices. If the indices are distinct, one of them has to be less than the other, so it is part of the indicated set. If $i$ and $j$ are in the set, then $i &lt; j$, so $i$ and $j$ are distinct.</p>
+<p>In the same way, $1 \le i &lt; j &lt; k \le n$ specifies all unordered triples of distinct indices. And so on.</p>
+<p><strong>Guess.</strong> Based on what we saw for two events, we will guess that the chance of the union of $n$ events can be calculated by:</p>
+<ul>
+<li>including all the events; then</li>
+<li>excluding all the double-intersections; then</li>
+<li>including all the triple-intersections; and so on.</li>
+</ul></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="General-Inclusion-Exclusion-Formula">General Inclusion-Exclusion Formula<a class="anchor-link" href="#General-Inclusion-Exclusion-Formula">¶</a></h3><p>For events $A_1, A_2, \ldots, A_n$,</p>
+\begin{align*}
+P\big{(}\bigcup_{i=1}^n A_i \big{)} &amp;=
+\sum_{i=1}^n P(A_i) - \mathop{\sum \sum}_{1 \le i &lt; j \le n} P(A_iA_j)
++ \mathop{\sum \sum \sum}_{1 \le i &lt; j &lt; k \le n} P(A_iA_jA_j) - \cdots
++ (-1)^{n+1} P(A_1A_2 \ldots A_n)
+\end{align*}</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's be fearless and prove this by induction. We know that it is true for $n=2$, so we must assume the induction hypothesis that it is true for $n$ as stated above and then show the following:</p>
+\begin{align*}
+P\big{(}\bigcup_{i=1}^{n+1} A_i \big{)} &amp;=
+\sum_{i=1}^{n+1} P(A_i) - \mathop{\sum \sum}_{1 \le i &lt; j \le n+1} P(A_iA_j)
++ \mathop{\sum \sum \sum}_{1 \le i &lt; j &lt; k \le n+1} P(A_iA_jA_j) - \cdots
++ (-1)^n P(A_1A_2 \ldots A_{n+1})
+\end{align*}<p>The key is to observe that each sum above splits in two parts: the terms that only involve the indices 1 through $n$, and those that involve the index $n+1$.</p>
+<p>Let $B = \bigcup_{i=1}^n A_i$. Then</p>
+\begin{align*}
+P\big{(}\bigcup_{i=1}^{n+1} A_i \big{)} &amp;= P(B \cup A_{n+1}) \\
+&amp;= P(B) + P(A_{n+1}) - P(BA_{n+1})
+\end{align*}<p>by using the result for two events.</p>
+<p>By the induction hypothesis,</p>
+\begin{align*}
+P(B) &amp;=
+\sum_{i=1}^n P(A_i) - \mathop{\sum \sum}_{1 \le i &lt; j \le n} P(A_iA_j)
++ \mathop{\sum \sum \sum}_{1 \le i &lt; j &lt; k \le n} P(A_iA_jA_j) - \cdots
++ (-1)^{n+1} P(A_1A_2 \ldots A_n)
+\end{align*}<p>That means we've already got all the terms that involve on the indices 1 through $n$. Now we need only the terms that involve $A_{n+1}$. We can see one of those: $P(A_{n+1})$. That completes the first term in the right hand side of what we have to prove, which is the sum of all $n+1$ probabilities.</p>
+<p>To complete the second sum, we need all terms of the form $P(A_iA_{n+1})$, and we have to remember the negative sign. These terms must come from the term $-P(BA_{n+1})$. How?</p>
+<p>Notice that
+$$
+BA_{n+1} = \big{(}\bigcup_{i=1}^n A_i \big{)} \cap A_{n+1}
+= \bigcup_{i=1}^n A_iA_{n+1}
+$$</p>
+<p>That is a union of $n$ events, so we can use the induction hypothesis to find it by inclusion-exclusion. Notice that 
+$$
+(A_iA_{n+1})\cap(A_jA_{n+1}) = A_iA_jA_{n+1}
+$$</p>
+<p>So</p>
+\begin{align*}
+-P(BA_{n+1}) &amp;= -P(\bigcup_{i=1}^n A_iA_{n+1}) \\
+&amp;= -\sum_{i=1}^n P(A_iA_{n+1}) + \mathop{\sum \sum}_{1 \le i &lt; j \le n} P(A_iA_jA_{n+1}) + \cdots + (-1)^n P(A_1A_2 \ldots A_{n+1})
+\end{align*}<p>These are exactly the remaining terms that we need. The induction is complete.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Number-of-Terms-in-Each-Sum">The Number of Terms in Each Sum<a class="anchor-link" href="#The-Number-of-Terms-in-Each-Sum">¶</a></h3><p>To end this section we will count the number of terms in each of the sums in the inclusion-exclusion formula, so we know the extent of the work that has to be done to apply it.</p>
+<p>Here is the formula again for reference:</p>
+\begin{align*}
+P\big{(}\bigcup_{i=1}^n A_i \big{)} &amp;=
+\sum_{i=1}^n P(A_i) - \mathop{\sum \sum}_{1 \le i &lt; j \le n} P(A_iA_j)
++ \mathop{\sum \sum \sum}_{1 \le i &lt; j &lt; k \le n} P(A_iA_jA_j) - \cdots
++ (-1)^{n+1} P(A_1A_2 \ldots A_n)
+\end{align*}<p>Clearly there are $n$ terms in the first sum. For reasons that will become clear in the next step, we will write that as
+$$
+\binom{n}{1} = n
+$$</p>
+<p>In the second sum the terms correspond to distinct unordered pairs chosen from the indices 1 through $n$. That number is
+$$
+\binom{n}{2} = \frac{n(n-1)}{2}
+$$</p>
+<p>In the third sum, the number of terms is the number of sets of three:
+$$
+\binom{n}{3} = \frac{n(n-1)(n-2)}{3!}
+$$
+and so on.</p>
+<p>This shows that a lot of terms are being added and subtracted in the inclusion-exclusion formula.</p>
+<p>But sometimes we get lucky, and many of the terms are equal. Then the sums simplify dramatically. For a beautiful example, keep reading.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

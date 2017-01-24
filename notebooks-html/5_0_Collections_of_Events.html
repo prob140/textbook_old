@@ -1,0 +1,57 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 5/5_0_Collections_of_Events.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Collections-of-Events">Collections of Events<a class="anchor-link" href="#Collections-of-Events">¶</a></h2><p>Probability theory is based on the addition and mulitplication rules, both of which we have stated as rules about two events. We have defined joint distributions of two random variables. Our definition of independence, too, refers to two events or two random variables.</p>
+<p>But we naturally want to use – and have used – extensions of these results to several events. For example, we have routinely used
+$$
+P(A \cup B \cup C) = P(A) + P(B) + P(C) ~~~ \text{if } A, B, C
+\text{ are mutually exclusive}
+$$
+when we have found probabilities by partitioning events into three disjoint pieces.</p>
+<p>In this chapter we will study a common method of extending results, and develop methods that will allow us to work with collections of events. In doing so we will encounter some classical applications that arise in data science.</p>
+<p>The main method of extension that we will use is <em>the method of mathematical induction</em>.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Induction">Induction<a class="anchor-link" href="#Induction">¶</a></h3><p>The method of mathematical induction can be used to prove results when:</p>
+<ul>
+<li>you have guessed a result for all positive integers $n$;</li>
+<li>you can prove the result directly for small $n$; and</li>
+<li>you need to prove it for general $n$.</li>
+</ul>
+<p>Then the method says that if you can show that the result is true for $n+1$ by assuming the <em>induction hypothesis</em> that it is true for $n$, then your proof is complete.</p>
+<p>The method often applies when you find yourself writing, "In the same way," or "$\ldots$" to justify a step in a calculation. Induction can help turn the "$\ldots$" into math.</p>
+<p>Here is a quick example from math that has been used already in this course. More examples will appear later in this chapter and in the course.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Sum-of-the-First-$n$-Positive-Integers">The Sum of the First $n$ Positive Integers<a class="anchor-link" href="#The-Sum-of-the-First-$n$-Positive-Integers">¶</a></h3><p>To prove that 
+$$
+\sum_{i=1}^n i = \frac{n(n+1)}{2}
+$$
+first notice that the formula can be checked easily for $n=2$. Even checking it for $n=1$ is enough as a "base" case. Now assume the induction hypothesis that the formula is true for $n$ as stated above, and show that it is true for $n+1$. That is, show that
+$$
+\sum_{i=1}^{n+1} i = \frac{(n+1)(n+2)}{2}
+$$</p>
+<p>To show this, notice that</p>
+\begin{align*}
+\sum_{i=1}^{n+1} i &amp;= \sum_{i=1}^n i ~ + ~ (n+1) \\ \\
+&amp;= \frac{n(n+1)}{2} ~ + ~ (n+1) ~~~ \text{(induction hypothesis)} \\ \\
+&amp;= (n+1)\big{(} \frac{n}{2} + 1\big{)} \\ \\
+&amp;= \frac{(n+1)(n+2)}{2}
+\end{align*}</div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

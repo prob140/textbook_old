@@ -23,3 +23,10 @@
 	* [4.1 Joint Distributions](ch4/JointDistributions.md)
 	* [4.2 Marginal Distributions](ch4/MarginalDistributions.md)
 	* [4.3 Conditional Distributions](ch4/ConditionalDistributions.md)
+	* [4.4 Dependence and Independence](ch4/DependenceAndIndependence.md)
+
+* [Chapter 5: Collections of Events](ch5/CollectionsOfEvents.md)
+	* [5.1 Intersection of Several Events](ch5/IntersectionOfSeveralEvents.md)
+	* [5.2 Union of Several Events](ch5/UnionOfSeveralEvents.md)
+	* [5.3 The Matching Problem](ch5/TheMatchingProblem.md)
+	* [5.4 Booles Inequality](ch5/BoolesInequality.md)
