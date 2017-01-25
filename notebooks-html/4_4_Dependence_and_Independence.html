@@ -871,7 +871,7 @@ P(X = Y) &amp;= \sum_{i=1}^n P(X = i, Y = i) ~~~ \text{(partitioning)} \\
 P(Y &gt; X) &amp;= \sum_{i=1}^n P(X = i, Y &gt; i) \\
 &amp;= \sum_{i=1}^n P(X = i)P(Y &gt; i) \\
 &amp;= \sum_{i=1}^{n-1} P(X = i)P(Y &gt; i)
-\end{align*}<p>because $P(Y &gt; n) = 0$. Now for each $i &lt; n$, $P(Y &gt; i) = P(X &gt; i) = \sum_{j=i+1}^n p_i$. Call this sum $b_i$ for "bigger than $i$". Then</p>
+\end{align*}<p>because $P(Y &gt; n) = 0$. Now for each $i &lt; n$, $P(Y &gt; i) = P(X &gt; i) = \sum_{j=i+1}^n p_j$. Call this sum $b_i$ for "bigger than $i$". Then</p>
 \begin{align*}
 P(Y &gt; X) &amp;= \sum_{i=1}^{n-1} P(X = i)P(Y &gt; i) \\
 &amp;= \sum_{i=1}^{n-1} p_ib_i
