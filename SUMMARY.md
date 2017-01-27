@@ -30,3 +30,9 @@
 	* [5.2 Union of Several Events](ch5/UnionOfSeveralEvents.md)
 	* [5.3 The Matching Problem](ch5/TheMatchingProblem.md)
 	* [5.4 Booles Inequality](ch5/BoolesInequality.md)
+
+* [Chapter 6: Random Counts](ch6/RandomCounts.md)
+	* [6.1 The Binomial Distribution](ch6/BinomialDistribution.md)
+	* [6.2 Examples](ch6/Examples.md)
+	* [6.3 Odds Ratios](ch6/OddsRatios.md)
+	* [6.4 The Law of Small Numbers](ch6/LLSNs.md)

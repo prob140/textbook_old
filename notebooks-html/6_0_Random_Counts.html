@@ -1,0 +1,54 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 6/6_0_Random_Counts.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Random-Counts">Random Counts<a class="anchor-link" href="#Random-Counts">¶</a></h1><p>These form a class of random variables that is of fundamental importance in probability theory. You have seen an example already: the number of matches (fixed points) in a random permutation of $n$ elements is an example of a "random count". You can think of each element as a trial, and a match as a "success". Then the "number of matches" is another way of expressing the random number of successes among the $n$ trials.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Bernoulli-$(p)$-Distributions">Bernoulli $(p)$ Distributions<a class="anchor-link" href="#Bernoulli-$(p)$-Distributions">¶</a></h3><p>The smallest possible number of trials is 1, and results in either 0 successes or 1 success. The resulting distribution on those two values is called the <em>Bernoulli $(p)$ distribution</em>, where $p$ is the probability of success.</p>
+<p>Here is the probability histogram of the Bernoulli $(1/3)$ distribution.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bern_13</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">probability</span><span class="p">([</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">Plot</span><span class="p">(</span><span class="n">bern_13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Bernoulli (1/3)'</span><span class="p">);</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/6_0_Random_Counts_3_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let $X_1, X_2, \ldots, X_n$ be random variables defined on a common probability space, and let each be a Bernoulli $(p)$ random variable. Then $X_i$ can be thought of as "the number of successes in Trial $i$".</p>
+<p>The sum of these $n$ counts
+$$
+S_n = X_1 + X_2 + \cdots + X_n
+$$
+is then the total number of successes in the $n$ trials. For example, if $n=3$ and $X_1 = 0$, $X_2 = 0$, and $X_3 = 1$, then there is one success in the three trials and $S_3 = 1$.</p>
+<p>If $p = 1/n$, you can place these random variables in the context of the matching problem. Suppose you have a random permuatation of $\{1, 2, \ldots n\}$. For each $i$, let $X_i$ count the number of matches at Position $i$. Then $X_i$ is a Bernoulli $(1/n)$ random variable, by results we proved in an earlier chapter. Also, $S_n$ as defined above is the number of matches in the permutation.</p>
+<p>We figured out earlier that
+$$
+P(S_n = 0) = 1 - \frac{1}{1!} + \frac{1}{2!} - \frac{1}{3!} + \cdots + (-1)^n\frac{1}{n!}
+$$</p>
+<p>To find the distribution of $S_n$ we will need $P(S_n = k)$ for $k = 1, 2, \ldots, n$ as well. The calculation has to take into account the fact that the $X_i$'s are not independent of each other. For example, 
+$$
+P(X_n = 1 \mid X_1 = 1, X_2 = 1, \ldots, X_{n-1} = 1) = 1 \ne \frac{1}{n} = P(X_n = 1)
+$$</p>
+<p>Given that the first $n-1$ letters fell in their matching envelopes, the $n$th one has to do so too – there is nowhere else for it to go.</p>
+<p>Such dependences mean that we have to be very careful in our calculations of the distribution of the number of matches. We will outline the calculation in a later exercise.</p>
+<p>In this chapter, we will start out with the much simpler case when all the $X_i$'s are i.i.d. That is, trials are independent of each other, and chance of success in a fixed trial is the same for all trials.</p>
+<p>To fix such an example in your mind, think of the trials as being 7 rolls of a die, and let $S_7$ be the number of sixes in the 7 rolls. Then each $X_i$ as defined above has the Bernoulli $(1/6)$ distribution and all the $X_i$'s are independent.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>
