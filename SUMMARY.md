@@ -36,3 +36,7 @@
 	* [6.2 Examples](ch6/Examples.md)
 	* [6.3 Odds Ratios](ch6/OddsRatios.md)
 	* [6.4 The Law of Small Numbers](ch6/LLSNs.md)
+
+* [Chapter 7: Poissonization](ch7/Poissonization.md)
+	* [7.1 Poissonizing the Binomial](ch7/PoissonizingTheBinomial.md)
+	* [7.2 Poissonizing the Multinomial](ch7/PoissonizingTheMultinomial.md)
