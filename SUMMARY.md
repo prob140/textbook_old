@@ -40,3 +40,9 @@
 * [Chapter 7: Poissonization](ch7/Poissonization.md)
 	* [7.1 Poissonizing the Binomial](ch7/PoissonizingTheBinomial.md)
 	* [7.2 Poissonizing the Multinomial](ch7/PoissonizingTheMultinomial.md)
+
+* [Chapter 8: Dependence](ch8/Dependence.md)
+	* [8.1 Updating Probabilities](ch8/Updating_Probabilities.md)
+	* [8.2 Randomizing a Parameter](ch8/Randomizing_a_Parameter.md)
+	* [8.3 Sampling Without Replacement](ch8/Sampling_Without_Replacement.md)
+	* [8.4 The Hypergeometric Distribution](ch8/Hypergeometric_Distribution.md)

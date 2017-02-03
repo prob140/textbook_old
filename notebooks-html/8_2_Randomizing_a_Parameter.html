@@ -1,0 +1,164 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 8/8_2_Randomizing_a_Parameter.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Randomizing-a-Parameter">Randomizing a Parameter<a class="anchor-link" href="#Randomizing-a-Parameter">¶</a></h3><p>In an earlier chapter we saw that Poissonizing the number of i.i.d. Bernoulli trials has a remarkable effect on the relation between the number of successes and the number of failures. In other situations too, randomizing the parameter of a standard model can affect supposedly well-understood relations between random variables.</p>
+<p>In this section we will study one simple example of how randomizing a parameter affects dependence and independence.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Tossing-a-Random-Coin">Tossing a Random Coin<a class="anchor-link" href="#Tossing-a-Random-Coin">¶</a></h3><p>Suppose I have three coins. Coin 1 lands heads with chance 0.25, Coin 2 with chance 0.5, and Coin 3 with chance 0.75. I pick a coin at random and toss it twice. Let's define some notation:</p>
+<ul>
+<li>$X$ is the label of the coin that I pick.</li>
+<li>$Y$ is the number of heads in the two tosses.</li>
+</ul>
+<p>Then $X$ is uniform on $\{1, 2, 3\}$, and given $X$, the conditional distribution of $Y$ is binomial with $n=2$ and $p$ corresponding to the given coin. Here is the joint distribution table for $X$ and $Y$, along with the marginal of $X$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">jt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
+<span class="n">dist_tbl</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">'X'</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s1">'Y'</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">jt</span><span class="p">)</span>
+<span class="n">dist</span> <span class="o">=</span> <span class="n">dist_tbl</span><span class="o">.</span><span class="n">toJoint</span><span class="p">()</span>
+<span class="n">dist</span><span class="o">.</span><span class="n">marginal</span><span class="p">(</span><span class="s1">'X'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=1</th>
+      <th>X=2</th>
+      <th>X=3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=2</th>
+      <td>0.020833</td>
+      <td>0.083333</td>
+      <td>0.187500</td>
+    </tr>
+    <tr>
+      <th>Y=1</th>
+      <td>0.125000</td>
+      <td>0.166667</td>
+      <td>0.125000</td>
+    </tr>
+    <tr>
+      <th>Y=0</th>
+      <td>0.187500</td>
+      <td>0.083333</td>
+      <td>0.020833</td>
+    </tr>
+    <tr>
+      <th>Sum: Marginal of X</th>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And here is the posterior distribution of $X$ given each different value of $Y$:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dist</span><span class="o">.</span><span class="n">conditional_dist</span><span class="p">(</span><span class="s1">'X'</span><span class="p">,</span> <span class="s1">'Y'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=1</th>
+      <th>X=2</th>
+      <th>X=3</th>
+      <th>Sum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Dist. of X | Y=2</th>
+      <td>0.071429</td>
+      <td>0.285714</td>
+      <td>0.642857</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of X | Y=1</th>
+      <td>0.300000</td>
+      <td>0.400000</td>
+      <td>0.300000</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Dist. of X | Y=0</th>
+      <td>0.642857</td>
+      <td>0.285714</td>
+      <td>0.071429</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>Marginal of X</th>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>0.333333</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we have seen in earlier examples, when the given number of heads is low, the posterior distribution favors the coin that is biased towards tails. When the given number of heads is high, it favors the coin that is biased towards heads.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Are-the-Two-Tosses-Independent?">Are the Two Tosses Independent?<a class="anchor-link" href="#Are-the-Two-Tosses-Independent?">¶</a></h3><p>We have always assumed that tosses of a coin are independent of each other. But within that assumption was another assumption, unspoken: <em>we knew which coin we were tossing</em>. That is, the chance of heads $p$ was a fixed number. But now we don't know which coin we are tossing, so we have to be careful.</p>
+<p>Let $H_i$ be the event that Toss $i$ lands heads. Then</p>
+$$
+P(H_1) = \frac{1}{3}\cdot 0.25 ~+~ \frac{1}{3}\cdot 0.5 ~+~ \frac{1}{3}\cdot 0.75 ~=~ 0.5 ~=~ P(H_2)
+$$<p>So each toss is equally likely to be heads or tails. Now let's find $P(H_1H_2)$. If the two tosses are independent, our answer shoud be 0.25.</p>
+$$
+P(H_1H_2) = \frac{1}{3}\cdot 0.25^2 ~+~ \frac{1}{3}\cdot 0.5^2 ~+~ \frac{1}{3}\cdot 0.75^2 ~=~ 0.2917 ~ \ne P(H_1)P(H_2)
+$$</div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">0.25</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">0.75</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.29166666666666663</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>The two tosses are not independent.</strong> Because the coin itself is random, knowing the result of Toss 1 tells you something about which coin was picked, and hence affects the probability that Toss 2 lands heads.</p>
+$$
+P(H_2 \mid H_1) = \frac{P(H_1H_2)}{P(H_1)} = \frac{0.2917}{0.5} = 0.5834 &gt; 0.5 = P(H_2)
+$$</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Knowing that the first coin landed heads makes it more likely that Coin 3 was picked, and hence increases the conditional chance that that the second toss will be a head.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This example shows that you have to be careful about how data can affect probabilities. To make justifiable conclusions based on your data, keep assumptions in mind when you calculate probabilities, and use the division rule to update probabilities as more data comes in.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>
