@@ -46,3 +46,8 @@
 	* [8.2 Randomizing a Parameter](ch8/Randomizing_a_Parameter.md)
 	* [8.3 Sampling Without Replacement](ch8/Sampling_Without_Replacement.md)
 	* [8.4 The Hypergeometric Distribution](ch8/Hypergeometric_Distribution.md)
+
+* [Chapter 9: Expectations](ch9/Expectation.md)
+	* [9.1 Definition](ch9/Definition.md)
+	* [9.2 Additivity](ch9/Additivity.md)
+	* [9.3 Expectations of Functions](ch9/Expectation_of_Functions.md)
