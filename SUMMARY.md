@@ -51,3 +51,9 @@
 	* [9.1 Definition](ch9/Definition.md)
 	* [9.2 Additivity](ch9/Additivity.md)
 	* [9.3 Expectations of Functions](ch9/Expectation_of_Functions.md)
+
+* [Chapter 10: Standard Deviations](ch10/Standard_Deviation.md)
+	* [10.1 Definition](ch10/Definition.md)
+	* [10.2 Prediction and Estimation](ch10/Prediction_and_Estimation.md)
+	* [10.3 Bounds](ch10/Bounds.md)
+	* [10.4 Heavy Tails](ch10/Heavy_Tails.md)

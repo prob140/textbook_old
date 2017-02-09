@@ -1,0 +1,31 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 10/10_0_Standard_Deviation.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Standard-Deviation">Standard Deviation<a class="anchor-link" href="#Standard-Deviation">¶</a></h1><p>The expected value $\mu_X$ of a random variable $X$ is a measure of the center of the distribution of $X$. But we know that $X$ need not be equal to $\mu_X$; indeed, $\mu_X$ need not even be a possible value of $X$.</p>
+<p>How far from $\mu_X$ can $X$ be? This chapter develops an answer to that question.</p>
+<p>As a starting point, it is natural to look at the <em>deviation from the mean</em></p>
+$$
+X - \mu_X
+$$<p>and try to get a sense of what we expect that to be. By the linear function rule,</p>
+$$
+E(X - \mu_X) = E(X) - \mu_X = \mu_X - \mu_X = 0
+$$<p>For every random variable, the expected deviation from the mean is 0. The positive deviations exactly cancel out the negative ones.</p>
+<p>This cancellation prevents us from understanding how big the deviations are regardless of their sign. But that's what we need to measure, if we want to measure the distance between the random variable $X$ and its expectation $\mu_X$.</p>
+<p>We have to get rid of the sign of the deviation somehow. One time-honored way of getting rid of the sign of a number is to take the absolute value. The other is to square the number. That's the method we will use. As you will see, it results in a measure of spread that is crucial for understanding the sums and averages of large samples.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>
