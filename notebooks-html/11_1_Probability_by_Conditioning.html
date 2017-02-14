@@ -1,0 +1,91 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 11/11_1_Probability_by_Conditioning.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Probability-by-Conditioning">Probability by Conditioning<a class="anchor-link" href="#Probability-by-Conditioning">¶</a></h3><p>The theory in this section isn't new. It's the old familiar multiplication rule. We are just going to use it in the context of processes indexed by time, in a method that we are going to call <em>conditioning on early moves</em>.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Winning-a-Game-of-Dice">Winning a Game of Dice<a class="anchor-link" href="#Winning-a-Game-of-Dice">¶</a></h3><p>Suppose Jo and Bo play the following game. Jo rolls a die, then Bo rolls it, then Jo rolls again, and so on, until the first time one of them gets the face with six spots. That person is the winner.</p>
+<p><strong>Question.</strong> What is the chance that Jo wins?</p>
+<p><strong>Answer.</strong> Before you do any calculations, notice that the game isn't symmetric in the two players. Jo has the advantage of going first, and could win on the first roll. So the probability that Jo wins should be greater than half.</p>
+<p>To see exactly what it is, notice that there's a natural recursion or "renewal" in the setup. For Jo to win, we can <em>condition on the first two moves</em> as follows:</p>
+<ul>
+<li>either Jo wins on Roll 1;</li>
+<li>or Jo gets a non-six on Roll 1, then Bo gets a non-six on Roll 2, and then <em>the game starts over</em> and Jo wins.</li>
+</ul>
+<p>So if $x$ is the chance that Jo is the winner, then $x$ satisfies an equation:</p>
+$$
+x = \frac{1}{6} + \big{(}\frac{5}{6}\big{)}^2 x
+$$<p>This is easy to solve.</p>
+$$
+\frac{11}{36}x = \frac{6}{36} ~~~~ \text{and so } ~~~~ x = \frac{6}{11}
+$$<p>which is greater than half as we had guessed.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Gambler's-Ruin:-Fair-Coin">Gambler's Ruin: Fair Coin<a class="anchor-link" href="#Gambler's-Ruin:-Fair-Coin">¶</a></h3><p>Let $a &lt; b$ be two positive integers. Suppose a gambler starts with $\$a$ and bets on the tosses of a coin. Every time the coin lands heads, the gambler wins a dollar. Every time it lands tails, the gambler loses a dollar.</p>
+<p>Now suppose the gambler has a <em>stopping rule</em>: he will stop once his fortune gets to $\$b$ or to $\$0$, whichever happens first. If the gambler ends up stopping at $\$0$, he is ruined. Our goal in this example is to find the probability of ruin.</p>
+<p>It's a good idea to start visualizing the random trajectory of the gambler's fortune as a <em>path</em>. Here are two graphs that assume $a = 3$ and $b = 10$. The first graph shows a path that leads to the gambler reaching $\$10$. The second shows a path to ruin.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/11_1_Probability_by_Conditioning_4_0.png"/></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/11_1_Probability_by_Conditioning_5_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Question.</strong> What is the probability that the gambler is ruined?</p>
+<p><strong>Answer.</strong> Let's start by setting up some notation. For $0 \le k \le b$, Let $p_k$ be the chance that the gambler is ruined given that he starts with $\$k$. Then the answer that we want is $p_a$. By *conditioning on the first move*, we can see that $p_k$ satisfies an equation:</p>
+$$ 
+p_k = \frac{1}{2}p_{k-1} + \frac{1}{2}p_{k+1}, ~~~~ 1 \le k \le b-1
+$$<p>with the "edge cases" defined as</p>
+$$
+p_0 = 1 ~~~~~ \text{and} ~~~~~ p_b = 0
+$$<p>Write the left hand side of the equation as $\frac{1}{2}p_k + \frac{1}{2}p_k$ and rearrange it to see that</p>
+$$
+p_k - p_{k-1} = p_{k+1} - p_k
+$$<p>The successive differences are equal, which means that $p_k$ is a linear function of $k$.</p>
+<p>Here is the line assuming $a= \$3$ and $b = \$10$ as before. The red lines show that $p_3 = 0.7$.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/11_1_Probability_by_Conditioning_7_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For general $a$ and $b$, the line starts at $(0, 1)$ and has slope $-1/b$. So
+the chance of ruin, starting with $\$a$, is</p>
+$$
+p_a = \frac{b-a}{b}
+$$<p>This makes sense. For fixed $b$, the bigger $a$ is, the closer the gambler's starting fortune is to $\$b$ and hence the smaller his chance of ending in ruin. And correspondingly, the higher his chance of ending up with $\$b$:</p>
+$$
+1 - p_a = \frac{a}{b}
+$$</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Gambler's-Ruin:-Unfair-Coin">Gambler's Ruin: Unfair Coin<a class="anchor-link" href="#Gambler's-Ruin:-Unfair-Coin">¶</a></h3><p>If the gambler bets on tosses of a coin that lands heads with $p \ne 1/2$, then the equations become</p>
+$$
+p_k = q\cdot p_{k-1} + p\cdot p_{k+1}, ~~~~ 1 \le k \le b-1
+$$<p>where $q = 1-p$, and the edge cases are</p>
+$$
+p_0 = 1 ~~~~~ \text{and} ~~~~~ p_b = 0
+$$<p>as before. Now the rearrangement is</p>
+$$
+q(p_k - p_{k-1}) = p(p_{k+1} - p_k)
+$$<p>which means that the ratio of the successive differences is constant and equal to $r = \frac{q}{p}$. So the probabilities $p_k$ are the sums of the terms in a geometric progression with common ratio $r$. You can check that this works out to</p>
+$$
+p_k = \frac{r^k - r^b}{1 - r^b}, ~~~~~ 0 \le k \le b
+$$<p>Note that if $p &lt; 1/2$ then $r &gt; 1$ and both the numerator and denominator are negative.</p>
+<p>Here is a graph of the probabilities, for $a = 3$ and $b = 10$ as before, but now with a coin that is biased towards heads with $p = 0.6$. Not surprisingly, as the initial fortune increases the probability of ruin falls more sharply for this coin than for the fair coin. Even when the gambler starts with only $\$3$, his chance of ruin is less than 30%.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/11_1_Probability_by_Conditioning_10_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

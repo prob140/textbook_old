@@ -57,3 +57,8 @@
 	* [10.2 Prediction and Estimation](ch10/Prediction_and_Estimation.md)
 	* [10.3 Bounds](ch10/Bounds.md)
 	* [10.4 Heavy Tails](ch10/Heavy_Tails.md)
+
+* [Chapter 11: Conditioning Revisited](ch11/ConditioningRevisited.md)
+	* [11.1 Probability by Conditioning](ch11/ProbabilityByConditioning.md)
+	* [11.2 Expectation by Conditioning](ch11/ExpectationByConditioning.md)
+	* [11.3 Expected Waiting Times](ch11/ExpectedWaitingTimes.md)
