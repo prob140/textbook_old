@@ -62,3 +62,9 @@
 	* [11.1 Probability by Conditioning](ch11/ProbabilityByConditioning.md)
 	* [11.2 Expectation by Conditioning](ch11/ExpectationByConditioning.md)
 	* [11.3 Expected Waiting Times](ch11/ExpectedWaitingTimes.md)
+
+* [Chapter 12: Markov Chains](ch12/MarkovChains.md)
+	* [12.1 Chain at a Fixed Time](ch12/ChainataFixedTime.md)
+	* [12.2 Notation and Terminology](ch12/NotationandTerminology.md)
+	* [12.3 Long Run Behavior](ch12/LongRunBehavior.md)
+	* [12.4 Examples](ch12/Examples.md)

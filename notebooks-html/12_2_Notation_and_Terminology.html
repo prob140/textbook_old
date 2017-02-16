@@ -1,0 +1,170 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 12/12_2_Notation_and_Terminology.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Notation-and-Terminology">Notation and Terminology<a class="anchor-link" href="#Notation-and-Terminology">¶</a></h3><p>This section sets out some of the notation we will be using when we work with Markov Chains. It also describes some basic properties and terminology that will useful for organizing our analyses.</p>
+<h4 id="The-Markov-Chain">The Markov Chain<a class="anchor-link" href="#The-Markov-Chain">¶</a></h4><p>$X_0, X_1, X_2, \ldots $</p>
+<h4 id="The-State-Space">The State Space<a class="anchor-link" href="#The-State-Space">¶</a></h4><p>A finite or countably infinite set $S$, consisting of all the possible values or <em>states</em> of $X_n$ for all $n$.</p>
+<h4 id="Unconditional-Distribution-at-Time-$n$">Unconditional Distribution at Time $n$<a class="anchor-link" href="#Unconditional-Distribution-at-Time-$n$">¶</a></h4><p>$P_n$, defined by
+$$
+P_n(i) = P(X_n = i), ~~~ i \in S
+$$</p>
+<h4 id="One-Step-Transition-Probabilities">One-Step Transition Probabilities<a class="anchor-link" href="#One-Step-Transition-Probabilities">¶</a></h4><p>These are conditional probabilities $P(i, j)$ defined by
+$$
+P(i, j) = P(X_1 = j \mid X_0 = i)
+$$
+for $i$ and $j$ in $S$.</p>
+<p>In the chains that we will study, all one-step transition probabilities will be <em>time homogenous</em> – they won't depend on $n$. So</p>
+$$
+P(i, j) = P(X_{n+1} = j \mid X_n = i) ~~~ \text{for all } n
+$$<p>These one-step transition probabilities are the elements of the <em>transition matrix</em> of the chain. That's the matrix $\mathbb{P}$ whose $(i, j)$th element is $P(i, j)$.</p>
+<h4 id="$n$-Step-Transition-Probabilities">$n$-Step Transition Probabilities<a class="anchor-link" href="#$n$-Step-Transition-Probabilities">¶</a></h4><p>For $n \ge 0$, these are conditional probabilities $P_n(i, j)$ defined by
+$$
+P_n(i, j) = P(X_n = j \mid X_0 = i)
+$$
+for $i$ and $j$ in $S$.</p>
+<p>Notice that $P_1(i, j)$ is the same as $P(i, j)$. We lazily drop the subscript 1 because we use the one-step transitions in many calculations.</p>
+<p>The Markov property implies the $n$-step transitional probability is the same for any $n$ consecutive steps:
+$$
+P_n(i, j) = P(X_{m+n} = j \mid X_m = i) ~~~ \text{for all } m
+$$</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Communication">Communication<a class="anchor-link" href="#Communication">¶</a></h3><p>If it is possible for the chain to get from state $i$ to state $j$, we say that <em>$i$ leads to $j$</em> and we write $i \rightarrow j$. Usually you can decide whether $i$ leads to $j$ just by examining the transition behavior of the chain. As a formal definition, $i \rightarrow j$ if:</p>
+<ul>
+<li>There is a path of positive probability that starts at $i$ and ends at $j$.</li>
+<li>Equivalently, there is some $n &gt; 0$ such that $P_n(i, j) &gt; 0$.</li>
+</ul>
+<p>We say that <em>$i$ communicates with $j$</em> if $i \rightarrow j$ and $j \rightarrow i$.</p>
+<p>If all the states of a chain communicate with each other, the chain is called <em>irreducible</em>.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Period">Period<a class="anchor-link" href="#Period">¶</a></h3><p>Working in discrete time has disadvantages. One of them is that states can be <em>periodic</em>. Let's start with the example of a random walk where the steps are based on tosses of a fair coin. Suppose the walk starts at state 0. Then it can return to 0 only at even times: the number of heads up to that point has to exactly equal the number of tails, and thus the number of tosses has to be even. We say that the state 0 <em>has period 2.</em></p>
+<p>A state $i$ has <em>period</em> $d$ if, starting at $i$, the chain can come back to $i$ only at times that are multiples of $d$. That is, $d$ is the greatest common divisor of the set all $n$ such that $P_n(i, i) &gt; 0$.</p>
+<p>In the random walk described above, all states have period 2.</p>
+<p>Period causes trouble with statements about long-run behavior. For example, if state $i$ has period 3, then the sequence $P_n(i, i)$ might look like "0, 0, positive, 0, 0, positive, $\ldots$", so limit statements might become complicated.</p>
+<p>In this course we will study the long run behavior of chains in which all states are <em>aperiodic</em>, that is, they have period 1. In other words there is no cyclical pattern to when the chain can return to any state.</p>
+<p>How do you check if all states are aperiodic? If the chain is irreducible, it turns out that all the states must have the same period. The proof of this fact isn't terribly hard but we won't go through it. What it implies is that if a chain is irreducible, which is easy to check, all you have to do is figure out the period of one of its states. Then all the others must have the same period.</p>
+<p>Some states are easy to identify as aperiodic. If the one-step transition probability $P(i, i)$ is positive, then the state $i$ has to be aperiodic – since the chain can stay at $i$ for arbitrary lengths of time, its "returns" are not cyclical.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Example:-Deconstructing-a-Chain">Example: Deconstructing a Chain<a class="anchor-link" href="#Example:-Deconstructing-a-Chain">¶</a></h3><p>Consider the chain with transition matrix given by</p>
+<table>
+<thead><tr>
+<th></th>
+<th><strong>a</strong></th>
+<th><strong>b</strong></th>
+<th><strong>c</strong></th>
+<th><strong>d</strong></th>
+<th><strong>e</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>a</strong></td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>b</strong></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>c</strong></td>
+<td>0</td>
+<td>1/3</td>
+<td>1/3</td>
+<td>1/3</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>d</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1/3</td>
+<td>2/3</td>
+</tr>
+<tr>
+<td><strong>e</strong></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>4/5</td>
+<td>1/5</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>States $a$ and $b$ communicate with each other and with no other state. The little matrix</li>
+</ul>
+<table>
+<thead><tr>
+<th></th>
+<th><strong>a</strong></th>
+<th><strong>b</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>a</strong></td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>b</strong></td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>is a transition matrix it own right, albeit of a rather boring chain that goes deterministically back and forth between $a$ and $b$. Both $a$ and $b$ have period 2.</p>
+<ul>
+<li>States $d$ and $e$ form their own <em>communicating class</em> and are aperiodic.</li>
+</ul>
+<table>
+<thead><tr>
+<th></th>
+<th><strong>d</strong></th>
+<th><strong>e</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>d</strong></td>
+<td>1/3</td>
+<td>2/3</td>
+</tr>
+<tr>
+<td><strong>e</strong></td>
+<td>4/5</td>
+<td>1/5</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>State $c$ communicates with itself, but once it gets to either $b$ or $d$, it can't return.</li>
+</ul></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

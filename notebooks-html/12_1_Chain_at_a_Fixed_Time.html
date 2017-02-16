@@ -1,0 +1,778 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 12/12_1_Chain_at_a_Fixed_Time.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Chain-at-a-Fixed-Time">The Chain at a Fixed Time<a class="anchor-link" href="#The-Chain-at-a-Fixed-Time">¶</a></h3><p>Let $X_0, X_1, X_2, \ldots $ be a Markov Chain with state space $S$. We will start by setting up notation that will help us express our calculations compactly.</p>
+<p>For $n \ge 0$, let $P_n$ be the distribution of $X_n$. That is,</p>
+$$
+P_n(i) = P(X_n = i), ~~~~ i \in S
+$$<p>Then the distribution of $X_0$ is $P_0$. This is called the <em>initial distribution</em> of the chain.</p>
+<p>For $n \ge 0$ and $j \in S$,</p>
+\begin{align*}
+P_{n+1}(j) &amp;= P(X_{n+1} = j) \\
+&amp;= \sum_{i \in S} P(X_n = i, X_{n+1} = j) \\
+&amp;= \sum_{i \in S} P(X_n = i)P(X_{n+1} = j \mid X_n = i) \\
+&amp;= \sum_{i \in S} P_n(i)P(X_{n+1} = j \mid X_n = i)
+\end{align*}<p>The conditional probability $P(X_{n+1} = j \mid X_n = i)$ is called a <em>one-step transition probability at time $n$</em>.</p>
+<p>For many chains such as the random walk, these one-step transition probabilities depend only on the states $i$ and $j$, not on the time $n$. For example, for the random walk,</p>
+\begin{equation}
+P(X_{n+1} = j \mid X_n = i) = 
+ \begin{cases} 
+      \frac{1}{2} &amp; \text{if } j = i-1 \text{ or } j = i+1 \\
+      0 &amp; \text{ otherwise}
+   \end{cases}
+\end{equation}<p>for every $n$. When one-step transition probabilites don't depend on $n$, they are called <em>stationary</em> or <em>time-homogenous</em>. All the Markov Chains that we will study in this course have time-homogenous transition probabilities.</p>
+<p>For such a chain, define the <em>one-step transition probability</em></p>
+$$
+P(i, j) = P(X_{n+1} = j \mid X_n = i)
+$$</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Probability-of-a-Path">The Probability of a Path<a class="anchor-link" href="#The-Probability-of-a-Path">¶</a></h3><p>Given that the chain starts at $i$, what is the chance that the next three values are of the chain are $j, k$, and $l$, in that order?</p>
+<p>We are looking for 
+$$
+P(X_1 = j, X_2 = k, X_3 = l \mid X_0 = i)
+$$</p>
+<p>By repeated use of the multiplication rule and the Markov property, this is</p>
+$$
+P(X_1 = j, X_2 = k, X_3 = l \mid X_0 = i) = P(i, j)P(j, k)P(k, l)
+$$<p>In the same way, given that you know the starting point, you can find the probability of any path of finite length by multiplying one-step transition probabilities.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Distribution-of-$X_{n+1}$">The Distribution of $X_{n+1}$<a class="anchor-link" href="#The-Distribution-of-$X_{n+1}$">¶</a></h3><p>By our calculation at the start of this section,</p>
+\begin{align*}
+P_{n+1}(j) &amp;= P(X_{n+1} = j) \\
+&amp;= \sum_{i \in S} P_n(i)P(X_{n+1} = j \mid X_n = i) \\
+&amp;= \sum_{i \in S} P_n(i)P(i, j)
+\end{align*}<p>The calculation is based on the straightforward observation that for the chain to be at state $j$ at time $n+1$, it had to be at some state $i$ at time $n$ and then get from $i$ to $j$ in one step.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's use all this in examples. You will quickly see that the distribution $P_n$ has interesting properties.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Lazy-Random-Walk-on-a-Circle">Lazy Random Walk on a Circle<a class="anchor-link" href="#Lazy-Random-Walk-on-a-Circle">¶</a></h3><p>Let the state space be five points arranged on a circle. Suppose the process starts at Point 1, and at each step either stays in place with probability 0.5 (and thus is lazy), or moves to one of the two neighboring points with chance 0.25 each, regardless of the other moves.</p>
+<p>This transition behavior can be summed up in a <em>transition diagram</em>:</p>
+<p><img alt="Lazy Circle Walk" src="trans_circle.png"/></p>
+<p>At every step, the next move is determined by a random choice from among three options and by the chain's current location, not on how it got to that location. So the process is a Markov chain. Let's call it $X_0, X_1, X_2, \ldots $.</p>
+<p>By our assumption, the initial distribution $P_0$ puts all the probability on Point 1. It is defined in the cell below. We will be using <code>prob140</code> Markov Chain methods based on <a href="https://github.com/riccardoscalco/Pykov">Pykov</a> written by <a href="http://riccardoscalco.github.io">Riccardo Scalco</a>. Note the use of <code>states</code> instead of <code>values</code>. Please enter the states in ascending order, for technical reasons that we hope to overcome later in the term.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">initial</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">probability</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="n">initial</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>State</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1    </td> <td>1          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0          </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The transition probabilities are:</p>
+<ul>
+<li>For $2 \le i \le 4$, $P(i, i) = 0.5$ and $P(i, i-1) = 0.25 = P(i, i+1)$. </li>
+<li>$P(1, 1) = 0.5$ and $P(1, 5) = 0.25 = P(1, 2)$.</li>
+<li>$P(5, 5) = 0.5$ and $P(5, 4) = 0.25 = P(5, 1)$.</li>
+</ul>
+<p>These probabilities are returned by the function <code>circle_walk_probs</code> that takes states $i$ and $j$ as its arguments.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">circle_walk_probs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span><span class="o">-</span><span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.5</span>
+        <span class="k">elif</span> <span class="nb">abs</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.25</span>
+        <span class="k">elif</span> <span class="nb">abs</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.25</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>   
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>All the transition probabilities can be captured in a table, in a process analogous to creating a joint distribution table.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trans_tbl</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">transition_function</span><span class="p">(</span><span class="n">circle_walk_probs</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trans_tbl</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Source</th> <th>Target</th> <th>P(Target | Source)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1     </td> <td>1     </td> <td>0.5               </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1     </td> <td>2     </td> <td>0.25              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1     </td> <td>3     </td> <td>0                 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1     </td> <td>4     </td> <td>0                 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1     </td> <td>5     </td> <td>0.25              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2     </td> <td>1     </td> <td>0.25              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2     </td> <td>2     </td> <td>0.5               </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2     </td> <td>3     </td> <td>0.25              </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2     </td> <td>4     </td> <td>0                 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2     </td> <td>5     </td> <td>0                 </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (15 rows omitted)</p></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Just as when we were constructing joint distribution tables, we can better visualize this as a $5 \times 5$ table:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">circle_walk</span> <span class="o">=</span> <span class="n">trans_tbl</span><span class="o">.</span><span class="n">toMarkovChain</span><span class="p">()</span>
+<span class="n">circle_walk</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.50</td>
+      <td>0.25</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.25</td>
+      <td>0.50</td>
+      <td>0.25</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.00</td>
+      <td>0.25</td>
+      <td>0.50</td>
+      <td>0.25</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.25</td>
+      <td>0.50</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.25</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.25</td>
+      <td>0.50</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is called the <em>transition matrix</em> of the chain.</p>
+<ul>
+<li>For each $i$ and $j$, the $(i, j)$ element of the transition matrix is the one-step transition probability $P(i, j)$.</li>
+<li>For each $i$, the $i$th row of the transition matrix consists of the conditional distribution of $X_{n+1}$ given $X_n = i$.</li>
+</ul></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Probability-of-a-Path">Probability of a Path<a class="anchor-link" href="#Probability-of-a-Path">¶</a></h4><p>What's the probability of the path 1, 1, 2, 1, 2? That's the path $X_0 = 1, X_1 = 1, X_2 = 2, X_3 = 1, X_4 = 2$. We know that the chain is starting at 1, so the chance of the path is</p>
+$$
+1 \cdot P(1, 1)P(1, 2)P(2, 1)P(1, 2) = 0.5 \times 0.25 \times 0.25 \times 0.25 = 0.0078125
+$$<p>The method <code>prob_of_path</code> takes the initial distribution and path as its arguments, and returns the probability of the path:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">circle_walk</span><span class="o">.</span><span class="n">prob_of_path</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.0078125000000000035</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Distribution-of-$X_n$">Distribution of $X_n$<a class="anchor-link" href="#Distribution-of-$X_n$">¶</a></h4><p>Remember that the chain starts at 1. So $P_0$, the distribution of $X_0$ is:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">initial</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>State</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1    </td> <td>1          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0          </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We know that $P_1$ must place probability 0.5 at Point 1 and 0.25 each the points 2 and 5. This is confirmed by the <code>distribution</code> method that applies to a MarkovChain object. Its first argument is the initial distribution, and its second is the number of steps $n$. It returns a distribution object that is the distribution of $X_n$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">P_1</span> <span class="o">=</span> <span class="n">circle_walk</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">P_1</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>State</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1    </td> <td>0.5        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0.25       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0.25       </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What's the probability that the chain is has value 3 at time 2? That's $P_2(3)$ which we can calculate by conditioning on $X_1$:</p>
+$$
+P_2(3) = \sum_{i=1}^5 P_1(i)P(i, 3)
+$$<p>The distribution of $X_1$ is $P_1$, given above. Here are those probabilities in an array:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">P_1</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Probability'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 0.5 ,  0.25,  0.  ,  0.  ,  0.25])</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <code>3</code> column of the transition matrix gives us, for each $i$, the chance of getting from $i$ to 3 in one step.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">circle_walk</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'3'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 0.  ,  0.25,  0.5 ,  0.25,  0.  ])</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So the probability that the chain has the value 3 at time 2 is $P_2(3)$ which is equal to:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sum</span><span class="p">(</span><span class="n">P_1</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Probability'</span><span class="p">)</span><span class="o">*</span><span class="n">circle_walk</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'3'</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.0625</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Similarly, $P_2(2)$ is equal to:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sum</span><span class="p">(</span><span class="n">P_1</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Probability'</span><span class="p">)</span><span class="o">*</span><span class="n">circle_walk</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'2'</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.25</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And so on. The <code>distribution</code> method finds all these probabilities for us.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">P_2</span> <span class="o">=</span> <span class="n">circle_walk</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">P_2</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>State</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1    </td> <td>0.375      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0.25       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0.0625     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0.0625     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0.25       </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>At time 3, the chain continues to be much more likely to be at 1, 2, or 5 compared to the other two states. That's because it started at Point 1 and is lazy.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">P_3</span> <span class="o">=</span> <span class="n">circle_walk</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">P_3</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>State</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1    </td> <td>0.3125     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0.234375   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0.109375   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0.109375   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0.234375   </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>But by time 10, something interesting starts to emerge.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">P_10</span> <span class="o">=</span> <span class="n">circle_walk</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">P_10</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>State</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1    </td> <td>0.20577    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0.201783   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0.195332   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0.195332   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0.201783   </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The chain is almost equally likely to be at any of the five states. By time 50, it seems to have completely forgotten where it started, and is distributed uniformly on the state space.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">P_50</span> <span class="o">=</span> <span class="n">circle_walk</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">P_50</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>State</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1    </td> <td>0.2        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0.2        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0.2        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0.2        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0.2        </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As time passes, this chain gets "all mixed up", regardless of where it started. That is perhaps not surprising as the transition probabilities are symmetric over the five states. Let's see what happens when we cut the circle between Points 1 and 5 and lay it out in a line.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Reflecting-Random-Walk">Reflecting Random Walk<a class="anchor-link" href="#Reflecting-Random-Walk">¶</a></h3><p>The state space and transition probabilities remain the same, except when the chain is at the two "edge" states.</p>
+<ul>
+<li>If the chain is at Point 1, then at the next step it either stays there or moves to Point 2 with equal probability: $P(1, 1) = 0.5 = P(1, 2)$.</li>
+<li>If the chain is at Point 5, then at the next step it either stays there or moves to Point 4 with equal probability: $P(5, 5) = 0.5 = P(5, 4)$.</li>
+</ul>
+<p>We say that there is <em>reflection</em> at the boundaries 1 and 5.</p>
+<p><img alt="Reflecting Lazy Walk" src="trans_refl.png"/></p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">ref_walk_probs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">-</span><span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.5</span>
+    <span class="k">elif</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.25</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.5</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.5</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+</pre></div></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">trans_tbl</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">transition_function</span><span class="p">(</span><span class="n">ref_walk_probs</span><span class="p">)</span>
+<span class="n">refl_walk</span> <span class="o">=</span> <span class="n">trans_tbl</span><span class="o">.</span><span class="n">toMarkovChain</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Transition Matrix'</span><span class="p">)</span>
+<span class="n">refl_walk</span>
+</pre></div></div></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Transition Matrix
+</pre></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.50</td>
+      <td>0.50</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.25</td>
+      <td>0.50</td>
+      <td>0.25</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.00</td>
+      <td>0.25</td>
+      <td>0.50</td>
+      <td>0.25</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.25</td>
+      <td>0.50</td>
+      <td>0.25</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.50</td>
+      <td>0.50</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let the chain start at Point 1 as it did in the last example. That initial distribution was defined as <code>initial</code>. At time 1, therefore, the chain is either at 1 or 2, and at times 2 and 3 it is likely to still be around 1.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">refl_walk</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>State</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1    </td> <td>0.5        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0.5        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0          </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">refl_walk</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>State</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1    </td> <td>0.3125     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0.46875    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0.1875     </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0.03125    </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0          </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>But by time 20, the distribution is settling down:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">refl_walk</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>State</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1    </td> <td>0.135533   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0.264896   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0.25       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0.235104   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0.114467   </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And by time 100 it has settled into what is called its <em>steady state</em>.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">refl_walk</span><span class="o">.</span><span class="n">distribution</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>State</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1    </td> <td>0.125      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0.25       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0.25       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0.25       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0.125      </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This steady state distribution isn't uniform. But it is steady. If you increase the amount of time for which the chain has run, you get the same distribution for the value of the chain at that time.</p>
+<p>That's quite remarkable. In the rest of this chapter, we will look more closely at what's going on.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>
