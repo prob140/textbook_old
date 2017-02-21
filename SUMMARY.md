@@ -68,3 +68,11 @@
 	* [12.2 Notation and Terminology](ch12/NotationandTerminology.md)
 	* [12.3 Long Run Behavior](ch12/LongRunBehavior.md)
 	* [12.4 Examples](ch12/Examples.md)
+* [Chapter 13: Hitting and Occupation Times](ch13/Hitting_and_Occupation_Times.md)
+	* [13.1 Waiting Till a Pattern Appears](ch13/Waiting_Till_a_Pattern_Appears.md)
+	* [13.2 Returns and First Passage Times](ch13/Returns_and_First_Passage_Times.md)
+	* [13.3 Occupation Times Within a Block](ch13/Occupation_Times.md)
+	* [13.4 Periodic Chains](ch13/Periodic_Chains.md)
+* [Chapter 14: Reversing Markov Chains](ch14/Reversing_Markov_Chains.md)
+	* [14.1 Detailed Balance](ch14/Detailed_Balance.md)
+

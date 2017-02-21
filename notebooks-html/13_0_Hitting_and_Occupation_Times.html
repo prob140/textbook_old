@@ -1,0 +1,26 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 13/13_0_Hitting_and_Occupation_Times.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Hitting-and-Occupation-Times">Hitting and Occupation Times<a class="anchor-link" href="#Hitting-and-Occupation-Times">¶</a></h1><p>In this chapter we will study some random times and random amounts of time associated with Markov Chains. We will start with hitting times. A <em>hitting time</em> is the first time a chain reaches a state after time 0. For any state $j$ that the chain is certain to reach, define the <em>first hitting time of $j$</em> as</p>
+$$
+W_j = \inf \{n \ge 1: X_n = j \}
+$$<p>That's $W$ for "waiting time"; we are avoiding $H$ for "hitting" and $T$ for "time" because those tend to get confused with heads and tails.</p>
+<p>We encountered such times in an earlier chapter where we were finding the expected number of tosses of a coin till a particular patter of heads and tails appeared. In the next section we will frame that calculation in terms of Markov Chains. This will allow us to set up a general method for finding waiting times for patters in i.i.d. sequences.</p>
+<p>Then we will study hitting times for Markov Chains that have stationary distributions. We will follow that by an examination of <em>occupation times</em>, that is, the amounts of time spent in various states. For irreducible, aperiodic, finite state Markov Chains, we already know that the expected long run proportion of time spent at state $j$ is $\pi(j)$. In this chapter we will connect the stationary distribution $\pi$ to other occupation times as well.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

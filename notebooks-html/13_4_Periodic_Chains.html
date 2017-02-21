@@ -1,0 +1,221 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 13/13_4_Periodic_Chains.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Periodic-Chains">Periodic Chains<a class="anchor-link" href="#Periodic-Chains">¶</a></h3><p>Among irreducible Markov Chains with finite state space, aperiodic chains have all the beautiful properties that we have studied in the past several sections. But many interesting chains are periodic. In this section we will note which of our familiar results hold and which don't, and how we can use the familiar results in the periodic case.</p>
+<p>Let $X_0, X_1, X_2, \ldots $ be an irreducible Markov Chain with a finite state space, and suppose the chain has period $d &gt; 1$. Remember that because the chain is irreducible, all the states have the same period, so you can find $d$ by just looking at the return times of a single state.</p>
+<p>Then the following facts still hold, just as in the aperiodic case. We won't prove them but you can check some of them by simulation.</p>
+<ul>
+<li><p>There is a unique strictly positive probability distribution $\pi$ that solves the balance equations.</p>
+</li>
+<li><p>If the chain starts with initial distribution $\pi$, then each $X_n$ has distribution $\pi$; that is, $P_n = \pi$ for all $n$. So $\pi$ is a steady state distribution.</p>
+</li>
+<li><p>For any state $i$, the expected return time to $i$ is $E(W_i \mid X_0 = i) = \frac{1}{\pi(i)}$.</p>
+</li>
+<li><p>For any two states $i$ and $j$, the expected number of visits to $j$ in an $i$-block is $\mu(i, j) = \frac{\pi(j)}{\pi(i)}$.</p>
+</li>
+</ul></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What doesn't hold is the simple statement about convergence to stationarity that we were able to make in the aperiodic case. In the periodic case we have to be careful about taking limits along appropriate subsequences, which we will avoid.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is an example to show that you can find expected hitting times and occupation times for periodic chains just as you did for aperiodic chains.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Random-Walk-with-Reflection">Random Walk with Reflection<a class="anchor-link" href="#Random-Walk-with-Reflection">¶</a></h3><p>Consider a gambler who gambles on tosses of a fair coin: every time the coin lands heads she gains a dollar, and every time it lands tails she loses a dollar. When her fortune reaches $\$0$, a benefactor hands her $\$1$ so she can keep playing. When her fortune reaches $\$N$ for some fixed positive integer $N$, she has to give $\$1$ to charity but she can keep playing with the remaining $\$(N-1)$.</p>
+<p>Let $X_n$ represent her fortune at time $n$. Then $X_0, X_1, X_2, \ldots $ is a Markov Chain whose transition probabilities are given by:</p>
+<ul>
+<li><p>$P(0, 1) = 1 = P(N, N-1)$</p>
+</li>
+<li><p>For $1 \le i \le N-1$, $P(i, i-1) = 1/2 = P(i, i+1)$</p>
+</li>
+</ul>
+<p>We say that 0 and $N$ are <em>reflecting barriers</em>.</p>
+<p>This chain is clearly irreducible, and it has period 2. To check the period, let's look at returns to the state 1. By the way the transitions have been defined, if the chain starts at 1 then it can return to 1 only at even times.</p>
+<p>Here is the transition matrix in the case $N=5$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">trans</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">i</span><span class="o">==</span> <span class="n">N</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="nb">abs</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.5</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+<span class="n">refl</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">states</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">transition_function</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span><span class="o">.</span><span class="n">toMarkovChain</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">refl</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>0.0</td>
+      <td>0.5</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The steady state distribution has a simple form:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">refl</span><span class="o">.</span><span class="n">steady_state</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>State</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0    </td> <td>0.1        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1    </td> <td>0.2        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2    </td> <td>0.2        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>3    </td> <td>0.2        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>4    </td> <td>0.2        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>5    </td> <td>0.1        </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The steady state distribution of this reflecting random walk is straightforward to derive for any $N$. The balance equations are:</p>
+\begin{align*}
+\pi(0) &amp;= 0.5\pi(1) \\
+\pi(1) &amp;= \pi(0) + 0.5\pi(2) \\
+\pi(2) &amp;= 0.5\pi(1) + 0.5\pi(3) 
+\end{align*}<p>and so on, ending with</p>
+\begin{align*}
+\pi(N-1) &amp;= 0.5\pi(N-2) + \pi(N) \\
+\pi(N) &amp;= 0.5\pi(N-1) 
+\end{align*}<p>By symmetry,</p>
+<ul>
+<li>$\pi(0) = \pi(N)$</li>
+<li>$\pi(1) = \pi(N-1)$</li>
+<li>$\pi(2) = \pi(3) = \cdots = \pi(N-2)$</li>
+</ul>
+<p>Put this together with the first two balance equations to see that the equations are satisfied by</p>
+$$
+\big{(} \pi(0), 2\pi(0), 2\pi(0), \ldots, 2\pi(0), \pi(0) \big{)}
+$$<p>That's a total of $[2+2(N+1-2)]\pi(0) = 2N\pi(0)$.</p>
+<p>So the probability distribution that solves the balance equations has $N+1$ terms corresponding to the states 0 through $N$ and is given by</p>
+$$
+\pi = \big{(} \frac{1}{2N}, \frac{1}{N}, \frac{1}{N}, \ldots, \frac{1}{N}, \frac{1}{2N} \big{)}
+$$<p>Thus for example:</p>
+<ul>
+<li>The long run expected proportion of time the chain spends at each of the reflecting barriers is $1/2N$, which is half the long run expected proportion of time spent at any of the other states.</li>
+<li>Given that the chain starts at 0, the expected time till it returns to 0 is $2N$. </li>
+<li>Given that the chain starts at 0, the expected number of times it vistis 1 before returning to 0 is $(1/N)/(1/2N) = 2$. This is the same as the expected number of times the chain visits any of the states 1 through $N-1$ before returning to 0.</li>
+<li>Given that the chain starts at 0, the expected number of times it visits $N$ before returning to 0 is 1.</li>
+<li>Given that the chain starts at 1, the expected time till it returns to 1 is $N$.</li>
+<li>Given that the chain starts at 1, the expected number of times it visits 2 before returning to 1 is 1, as is the expected number of visits to any of the states 2 through $N-1$ before returning to 1.</li>
+<li>Given that the chain starts at 1, the expected number of times it visits 0 before returning to 1 is 1/2, as is the expected number of visits to state $N$ before returning to 1.</li>
+</ul></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

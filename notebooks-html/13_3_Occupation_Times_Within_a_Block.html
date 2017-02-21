@@ -1,0 +1,71 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 13/13_3_Occupation_Times_Within_a_Block.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Occupation-Times-Within-a-Block">Occupation Times Within a Block<a class="anchor-link" href="#Occupation-Times-Within-a-Block">¶</a></h3><p>Suppose the chain starts at $i$. Then it is intuitively plausible that once it returns to $i$, it "starts all over again" as though it were starting at $i$ at time 0. This hand-wavy statement can be turned into mathematics, but in this course we'll just accept it without doing the math.</p>
+<p>Start the chain at $i$, that is, with the initial distribution $P(X_0 = i) = 1$. Define an <em>$i$-block</em> to be the chain till the step before it returns to $i$:</p>
+<ul>
+<li>Under the initial condition that $X_0 = i$, an $i$-block is $X_0, X_1, X_2, \ldots, X_{W_i - 1}$.</li>
+</ul>
+<p>Here $W_i$ is the hitting time of $i$ as defined in the previous section:</p>
+$$
+W_i = \inf \{n \ge 1: X_n = i \}
+$$<p>Notice that in an $i$-block, the chain is only at $i$ once, at time 0.</p>
+<p>Notice also that the length of the $i$-block is $W_i$. You can see this by counting indices in the definition of the $i$-block. But the $i$-block doesn't end at time $W_i$; it ends one step earlier. Its length is $W_i$ because it includes time 0, whereas $W_i$ starts counting time at 1. Informally, the $i$-block includes the $i$ at the start of the block but not the $i$ directly following the block, whereas $W_i$ doesn't include time 0 but does include the moment when $i$ appears at the end of the block.</p>
+<p>This will become clear when you look at the graph below, in which $i = 3$. The blue dots are the $i$-block. There are 8 dots in it, corresponding to times 0 through 7. The red dot immediately after the $i$-block shows the return to $i$. It's at time 8.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/13_3_Occupation_Times_Within_a_Block_2_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We have been careful not to include $X_{W_i}$ in the $i$-block. At time $W_i$ the chain returns to $i$, and we will think of that as the start of the next $i$-block. Because the chain "starts over" at $i$, we can imagine the entire chain as identically distributed $i$-blocks strung together one after another. Therefore there are close relations between long run properties of the chain and short run properties on an $i$-block. Let's look at one of these relations.</p>
+<p>Let $X_0 = i$ and let $N(j)$ be the number of times the chain is at $j$ in the $i$-block. We will call $N(j)$ the <em>number of visits to $j$ in an $i$-block</em>.</p>
+<p>As we have already observed, $N(i) = 1$ with probability 1. By partitioning the $i$-block according to visits to the different states, the length of the $i$-block can be written as a sum:</p>
+$$
+\text{length of } i\text{-block} = W_i = 1 + \sum_{j \ne i} N(j)
+$$<p>You can check this in the graph above where $i=3$. The graph shows a path for which $N(3) = 1$, $N(4) = 3 = N(5)$, $N(6) = 1$, and $N(j) = 0$ for all other states $j$. The sum of all these occupation times is 8, which is also the value of $W_i$.</p>
+<p>So
+$$
+\frac{1}{\pi(i)} = E(W_i \mid X_0 = i) = 1 + \sum_{j \ne i} E(N(j) \mid X_0 = i)
+$$</p>
+<h3 id="Expected-Occupation-Times-in-an-$i$-Block">Expected Occupation Times in an $i$-Block<a class="anchor-link" href="#Expected-Occupation-Times-in-an-$i$-Block">¶</a></h3><p>Fix a state $j$. The expected number of visits to $j$ in an $i$-block is</p>
+$$
+E(N(j) \mid X_0 = i) = \frac{\pi(j)}{\pi(i)}
+$$<p>A formal proof requires a little care; we won't go through it. Rather, we will show why the formula is consistent with our previous calculations and with intuition.</p>
+<ul>
+<li>The formula is correct for $j = i$, because $N(i) = 1$ with probability 1.</li>
+<li>The terms add up to $\frac{1}{\pi(i)}$ as we have shown they must.</li>
+</ul>
+$$
+1 + \sum_{j \ne i} \frac{\pi(j)}{\pi(i)} 
+~ = ~ \frac{\pi(i)}{\pi(i)} + \sum_{j \ne i} \frac{\pi(j)}{\pi(i)} 
+~ = ~ \frac{1}{\pi(i)} \big{(} \sum_{\text{all }j} \pi(j) \big{)} 
+~ = ~ \frac{1}{\pi(i)}
+$$<p>because $\pi$ is a probability distribution and hence sums to 1.</p>
+<ul>
+<li>Think of the chain as a string of $i$-blocks. You know that overall, the expected proportion of times that the chain spends at $j$ is $\pi(j)$. Since the $i$-blocks are identically distributed copies of each other, it makes sense that the chain is expected to spend the same proportion $\pi(j)$ of time in $j$ in each $i$-block. Since the length of an $i$-block is expected to be $1/\pi(i)$, the expected number of times the chain is at $j$ in an $i$-block is $\pi(j)/\pi(i)$.</li>
+</ul></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Example:-Ehrenfest-Model">Example: Ehrenfest Model<a class="anchor-link" href="#Example:-Ehrenfest-Model">¶</a></h3><p>In the example of the Ehrenfest model we worked with in the previous section, the stationary distribution is binomial $(N, 1/2)$. Suppose the chain starts at $X_n = 0$, that is, with Container 1 empty. Then for every $k$, the expected number of times Container 1 has $k$ particles before it is once again empty is</p>
+$$
+\frac{\binom{N}{k}(1/2)^N}{\binom{N}{0}(1/2)^N} = \binom{N}{k}
+$$</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Example:-Uniform-Stationary-Distribution">Example: Uniform Stationary Distribution<a class="anchor-link" href="#Example:-Uniform-Stationary-Distribution">¶</a></h3><p>Consider any chain that has a stationary distribution that is uniform. You have seen in exercises that chains with doubly stochastic transition matrices fall into this category. Suppose such a chain starts at state $i$. Then for any other state $j$, the expected number of times the chain visits $j$ before returning to $i$ is 1.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>
