@@ -1,0 +1,78 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 14/14_4_Markov_Chain_Monte_Carlo.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Markov-Chain-Monte-Carlo">Markov Chain Monte Carlo<a class="anchor-link" href="#Markov-Chain-Monte-Carlo">¶</a></h3><p>The goal of Markov Chain Monte Carlo (MCMC) is to generate samples from a complicated high dimensional distributions about which we have incomplete information. For example, it might be that we don't know the normalizing constant, as we saw in the code breaking example of the previous section.</p>
+<p>Suppose the distribution from which we want to generate a sample is called $\pi$. We are going to assume that $\pi$ is a probability distribution on a finite set, and you should imagine the set to be large. MCMC relies on a few observations.</p>
+<ul>
+<li><p>Let $X_0, X_1, \ldots $ be an irreducible aperiodic Markov Chain on a finite state space. Then the distribution of $X_n$ converges to a stationary distribution as $n$ gets large. If we can create a Markov Chain $\{X_n\}$ that has the desired distribution $\pi$ as its stationary distribution, then we can simulate draws from $\pi$ (or close enough to it) by running the chain for a long time and using the values $X_n$ for large $n$.</p>
+</li>
+<li><p>Reversibility is a simple criterion that connects the stationary distribution and the transition matrix of a chain. We can use this to create a transition matrix that results in $\pi$ as the stationary distribution.</p>
+</li>
+<li><p>The chain is reversible if there is detailed balance, which we can write as</p>
+</li>
+</ul>
+$$
+\frac{\pi(i)}{\pi(j)} = \frac{P(j, i)}{P(i, j)}
+$$<p>The right hand side is based on the transition probabilities of the chain that we want to create. Notice that the left hand side <em>only involves ratios of the terms in $\pi$</em>, and therefore can be checked <em>even if we don't know the constant that normalizes $\pi$</em>.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Metropolis-Algorithm">Metropolis Algorithm<a class="anchor-link" href="#Metropolis-Algorithm">¶</a></h3><p>Exactly who proposed the first algorithm to create such a Markov Chain is the subject of some debate. A general version was proposed by Hastings. Here we will describe an earlier version algorithm attributed to Metropolis and co-authors in 1953.</p>
+<p>The goal is to create a transition matrix $P$ so that $\pi$ and $P$ together solve the detailed balance equations.</p>
+<p>The algorithm is based on any symmetric transition matrix $Q$ that creates an irreducible aperiodic chain on the state space. You could start with something as simple as, "Wherever the chain is, it picks the next value uniformly at random from among all the states." For a pair of states $i$ and $j$, the transition probability $Q(i, j)$ is called the <em>proposal probability</em>.</p>
+<p>Here are the steps that determine the transitions of the new chain.</p>
+<ul>
+<li><p>Suppose the chain is at $i$ at time $n$, that is, suppose $X_n = i$. Pick a state $j$ according to the proposal probability $Q(i, j)$. This $j$ is the candidate state to which your chain might move.</p>
+</li>
+<li><p>Define
+$$
+r(i, j) = \frac{\pi(j)}{\pi(i)}
+$$</p>
+</li>
+<li><p>If $r(i, j) \ge 1$, set $X_{n+1} = j$.</p>
+</li>
+<li><p>If $r(i, j) &lt; 1$, toss a coin that lands heads with chance $r(i, j)$.</p>
+<ul>
+<li>If the coin lands heads, set $X_{n+1} = j$. </li>
+<li>If the coin lands tails, set $X_{n+1} = i$.</li>
+</ul>
+</li>
+<li>Repeat all the steps, starting at $X_{n+1}$.</li>
+</ul>
+<p>Thus the chain either moves to the state picked according to $Q$, or it stays where it is. We say that it <em>accepts a move to a new state</em> based on $Q$ and $r$, and otherwise it doesn't move.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Algorithm-Works">The Algorithm Works<a class="anchor-link" href="#The-Algorithm-Works">¶</a></h3><p>We will now show that the detailed balance equations are solved by the desired limit distribution $\pi$ and the transition matrix $\mathbb{P}$ of the chain created by the algorithm.</p>
+<p>Take any two states $i$ and $j$.</p>
+<h4 id="Case-1:-$\pi(i)-=-\pi(j)$">Case 1: $\pi(i) = \pi(j)$<a class="anchor-link" href="#Case-1:-$\pi(i)-=-\pi(j)$">¶</a></h4><p>Then $r(i, j) = 1$. By the algorithm, $P(i, j) = Q(i, j)$ and also $P(j, i) = Q(j, i) = Q(i, j)$ by the symmetry of $Q$.</p>
+<p>Therefore $P(i, j) = P(j, i)$ and the detailed balance equation $\pi(i)P(i, j) = \pi(j)P(j, i)$ is satisfied.</p>
+<h4>Case 2: $\pi(i) &lt; \pi(j)$</h4>
+<p>Then $r(i, j) &lt; 1$, so</p>
+$$
+P(i, j) ~=~ Q(i, j)r(i, j) 
+~=~ Q(j, i)\frac{\pi(j)}{\pi(i)} ~~~ \text{(symmetry of } Q \text{ and definition of }r) 
+$$<p>Now $r(j, i) &gt; 1$, so the algorithm says $P(j, i) = Q(j, i)$.</p>
+<p>Therefore
+$$
+P(i, j) ~ = ~ P(j, i)\frac{\pi(j)}{\pi(i)}
+$$
+which is the same as
+$$
+\pi(i)P(i, j) ~ = ~ \pi(j)P(j, i)
+$$</p>
+<h4 id="Case-2:-$\pi(i)-&gt;-\pi(j)$">Case 2: $\pi(i) &gt; \pi(j)$<a class="anchor-link" href="#Case-2:-$\pi(i)-&gt;-\pi(j)$">¶</a></h4><p>Reverse the roles of $i$ and $j$ in Case 2.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That's it! A simple and brilliant idea that provides a solution to a difficult problem. In lab, you will see it in action when you implement the algorithm to decode text.</p></div></div></div>

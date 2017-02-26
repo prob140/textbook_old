@@ -1,0 +1,222 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 14/14_3_Code_Breaking.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Code-Breaking">Code Breaking<a class="anchor-link" href="#Code-Breaking">¶</a></h3><p>While it is interesting that many Markov Chains are reversible, the examples that we have seen so far haven't explained what we get by reversing a chain. After all, if it looks the same running forwards as it does backwards, why not just run it forwards? Why bother with reversibility?</p>
+<p>It turns out that reversing Markov Chains can help solve a class of problems that are intractable by other methods. In this section we present an example of how such problems arise. In the next section we discuss a solution.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Assumptions">Assumptions<a class="anchor-link" href="#Assumptions">¶</a></h3><p>People have long been fascinated by encryption and decryption, well before cybersecurity became part of our lives. Decoding encrypted information can be complex and computation intensive. Reversed Markov Chains can help us in this task.</p>
+<p>To get a sense of one approach to solving such problems, and of the extent of the task, let's try to decode a short piece of text that has been encoded using a simple code called a <em>substituion code</em>. Text is written in an <em>alphabet</em>, which you can think of as a set of letters and punctuation. In a substitution code, each letter of the alphabet is simply replaced by another in such a way that the code is just a permutation of the alphabet.</p>
+<p>To decode a message encrypted by a substitution code, you have to <em>invert</em> the permutation that was used. In other words, you have to apply a permutation to the <em>coded</em> message in order to recover the original text. We will call this permutation the <em>decoder</em>.</p>
+<p>To decode a textual message, we have to make some assumptions. For example, it helps to know the language in which the message was written, and what combinations of letters are common in that language. For example, suppose we try to decode a message that was written in English and then encrypted. If our decoding process ends up with "words" like zzxtf and tbgdgaa, we might want to try a different way.</p>
+<p>So we need data about which sequences of letters are common. Such data are now increasingly easy to gather; see for example this <a href="http://norvig.com/ngrams/">web page</a> by <a href="http://norvig.com">Peter Norvig</a>, a Director of Research at Google.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Decoding-a-Message">Decoding a Message<a class="anchor-link" href="#Decoding-a-Message">¶</a></h3><p>Let's see how we can use such an approach to decode a message. For simplicity, suppose our alphabet consists of only three letters: a, d, and t. Now suppose we get the coded message atdt. We believe it's an English word. How can we go about decoding it in a manner that can be replicated by a computer for other words too?</p>
+<p>As a first step, we will write down all 3! = 6 possible permutations of the letters in the alphabet and use each one to decode the message. The table <code>decoding</code> contains all the results. Each entry in the <code>Decoder</code> column is a permutation that we will apply to our coded text atdt. The permutation determines which letters we will use as substitutes in our decoding process.</p>
+<p>To see how to do this, start by keeping the alphabet in "alphabetical" order in your head: 'a', 'd', 't'. Now look at the rows of the table.</p>
+<ul>
+<li><p>The decoder in the first row is ['a', 'd', 't']. This decoder simply leaves the letters unchanged; atdt gets decoded as atdt. 
+$$
+\text{Decoder ['a', 'd', 't']: } ~~~ a \to a, ~~~ d \to d, ~~~ t \to t
+$$</p>
+</li>
+<li><p>The decoder in the second row is ['a', 't', 'd']. This keeps the first letter of the alphabet 'a' unchanged, but replaces the second letter 'd' by 't' and the third letter 't' by 'd'.
+$$
+\text{Decoder ['a', 't', 'd']: } ~~~ a \to a, ~~~ d \to t, ~~~ t \to d
+$$
+So atdt gets decoded as adtd.</p>
+</li>
+</ul>
+<p>You can read the rest of the table in the same way.</p>
+<p>Notice that in each decoded message, a letter appears twice, at indices 1 and 3. That's the letter being used to decode t in atdt. A feature of substitution codes is that each letter <em>original</em> is coded by a letter <em>code</em>, with the same letter <em>code</em> being used every time the letter <em>original</em> appears in the text. So the decoder must have the same feature.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">decoding</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Decoder</th> <th>atdt Decoded</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>['a' 'd' 't']</td> <td>['a' 't' 'd' 't']</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>['a' 't' 'd']</td> <td>['a' 'd' 't' 'd']</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>['d' 'a' 't']</td> <td>['d' 't' 'a' 't']</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>['d' 't' 'a']</td> <td>['d' 'a' 't' 'a']</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>['t' 'a' 'd']</td> <td>['t' 'd' 'a' 't']</td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>['t' 'd' 'a']</td> <td>['t' 'a' 'd' 'a']</td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Which one of these decoders should we use? To make this decision, we have put together some data on the frequency of the different <em>bigrams</em>, or two-letter combinations, in English. Here is a transition matrix called <code>bigrams</code> that is a gross simplification of available information about bigrams in English; we used Peter Norvig's bigrams table and restricted it to our three-letter alphabet. The row corresponding to the letter 'a' assumes that about 2% of the bigrams that start with 'a' are 'aa', about 22% are 'ad', and the remaining 76% are 'at'.</p>
+<p>It makes sense that the 'aa' transitions are rare; we don't use words like aardvark very often. Even 2% seems large until you remember that it is the proportion of 'aa' transitions only among transitions 'aa', 'ad', and 'at', because we have restricted the alphabet. If you look at its proportion among all $26\times26$ bigrams, that will be much lower.</p>
+<p>Each row is a probability distribution; you can read all the other entries in the same way.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bigrams</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>d</th>
+      <th>t</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>a</th>
+      <td>0.018099</td>
+      <td>0.219458</td>
+      <td>0.762443</td>
+    </tr>
+    <tr>
+      <th>d</th>
+      <td>0.570995</td>
+      <td>0.159772</td>
+      <td>0.269233</td>
+    </tr>
+    <tr>
+      <th>t</th>
+      <td>0.653477</td>
+      <td>0.049867</td>
+      <td>0.296656</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now think of the true text as a path of a Markov Chain that has this transition matrix. As a historical note, we should point out that this is what Markov did when he first came up with the process that now bears his name – he analyzed the transitions between vowels and consonants in <em>Eugene Onegin</em>, Alexander Pushkin's novel written in verse.</p>
+<p>If the true text is tada, then its probability can be calculated at $P(t, a)P(a, d)P(d, a)$ and is about 8%. According to our <code>decoding</code> table above, tada is the result we get by applying the decoder ['t', 'd', 'a'] to our data atdt. For now, we will say that <em>the score of this decoder, given the data</em>, is 8%. Later we will introduce more formal calculations and terminology.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Probability of tada = score of decoder ['t', 'd', 'a']</span>
+<span class="mf">0.653477</span> <span class="o">*</span> <span class="mf">0.219458</span> <span class="o">*</span> <span class="mf">0.570995</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.08188682431730866</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To automate such calcuations we can use the <code>prob_of_path</code> method. Its first argument is the initial state, and the second argument is a list or array consisting of the remaining states in sequence.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bigrams</span><span class="o">.</span><span class="n">prob_of_path</span><span class="p">(</span><span class="s1">'t'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">,</span> <span class="s1">'a'</span><span class="p">])</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.08188681629194246</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Should we decide that our message atdt should be decoded as tada? Perhaps, if we think 8% is a high likelihood. But what if some other possible decoder has a higher likelihood? In that case it would be natural to prefer that one.</p>
+<p>So we are going to need the probabilities of each of the six "decoded" paths.</p>
+<p>Let's define a function <code>score</code> that will take a list or array of characters and return the probability of the corresponding path using the <code>bigrams</code> transition matrix. In our example, this is the same as returning the score of the corresponding decoder.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">bigrams</span><span class="o">.</span><span class="n">prob_of_path</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here are the results in decreasing order of score. There is a clear winner: the decoder ['d', 't', 'a'] corresponding to the message 'data' has more than twice the score of any other decoder.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">decoding</span> <span class="o">=</span> <span class="n">decoding</span><span class="o">.</span><span class="n">with_column</span><span class="p">(</span><span class="s1">'Score of Decoder'</span><span class="p">,</span> <span class="n">decoding</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">decoding</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">'Score of Decoder'</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>Decoder</th> <th>atdt Decoded</th> <th>Score of Decoder</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>['d' 't' 'a']</td> <td>['d' 'a' 't' 'a']</td> <td>0.284492        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>['d' 'a' 't']</td> <td>['d' 't' 'a' 't']</td> <td>0.134142        </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>['t' 'd' 'a']</td> <td>['t' 'a' 'd' 'a']</td> <td>0.0818868       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>['t' 'a' 'd']</td> <td>['t' 'd' 'a' 't']</td> <td>0.0217095       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>['a' 'd' 't']</td> <td>['a' 't' 'd' 't']</td> <td>0.0102363       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>['a' 't' 'd']</td> <td>['a' 'd' 't' 'd']</td> <td>0.00294638      </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Size-of-the-Problem">The Size of the Problem<a class="anchor-link" href="#The-Size-of-the-Problem">¶</a></h3><p>What we have been able to do with an alphabet of three characters becomes daunting when the alphabet is larger. The 52 lower case and upper case letters, along with a space character and all the punctuations, form an alphabet of around 70 characters. That gives us 70! different decoders to consider. In theory, we have to find the likelihood of each of these 70! candidates and sort them.</p>
+<p>Here is the number 70!. That's a lot of decoders. Our computing system can't handle that many, and other systems will have the same problem.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="mi">70</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>11978571669969891796072783721689098736458938142546425857555362864628009582789845319680000000000000000</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>One potential solution is to sample at random from these 70! possible decoders and just pick from among the sampled permutations. This is called the <em>Monte Carlo</em> technique, named for the Monte Carlo casino in Monaco. But how should we draw from 70! items? It's not a good idea to choose uniform random permutations of the alphabet, as those are unlikely to get us quickly to the desired solution.</p>
+<p>What we would really like our sampling procedure to do is to choose good decoders with high probability. A good decoder is one that generates text that has higher probability than text produced by almost all other decoders. In other words, a good decoder has high likelihood given the data.</p>
+<p>You can write down this likelihood using Bayes' Rule. Let $S$ represent the space of all possible permutations; if the alphabet has $N$ characters, then $S$ has $N!$ elements. For any randomly picked permutation $r$, the likelihood of that decoder given the data is:</p>
+$$
+\text{Likelihood of } r \text{ given the coded text} ~ = ~ 
+\frac{\frac{1}{N!} P(\text{decoded text} \mid \text{decoder = }r)}
+{ {\sum_{s \in S} } \frac{1}{N!} P(\text{decoded text} \mid \text{decoder = }s)}
+~ = ~ \frac{P(\text{decoded text} \mid \text{decoder = }r)}
+{ {\sum_{s \in S} } P(\text{decoded text} \mid \text{decoder = }s)}
+$$<p>The denominator is the normalizing constant that makes all the likelihoods sum to 1. It appears in the likelihood of every decoder. In our example with the three-letter alphabet, we ignored it because we could figure out the numerators for all six decoders and just compare them. The numerator was what we called the <em>score</em> of the decoder.</p>
+<p>Even when the alphabet is large, for any particular decoder $r$ we can find the numerator by multiplying transition probabilities sequentially, as we did in our example. But with a large alphabet we can't do this for all possible decoders, so we can't list all possible scores and we can't add them all up. Therefore we don't know the denominator of the likelihoods, not even upto a decent approximation.</p>
+<p>What we need now is a method that helps us draw from a probability distribution even when we don't know the normalizing constant. That is what Markov Chain Monte Carlo helps us to do.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

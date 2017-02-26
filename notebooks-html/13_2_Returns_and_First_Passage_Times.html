@@ -1,6 +1,6 @@
 <div id="ipython-notebook">
             <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 13/13_2_Returns_and_First_Passage_Times.ipynb">Interact</a>
-
+            
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
@@ -27,7 +27,7 @@
 <li>Fix any states $i$ and $j$ (which could be the same). Given that the chain starts at $i$, the expected time till it reaches $j$ is finite. In particular, given that the chain starts at $i$, the expected return time to $i$ is finite. We say that all states are <em>positive recurrent</em>, and hence that the <em>chain is positive recurrent</em>. </li>
 </ul>
 <p>To see why this is true, note from above that for any state $i$, there is some time $n^*$ for which $P_n^*(i, i)$ is positive. Start the chain at $i$ and watch the chain only at times that are multiples of $n^*$. At these times, the number of moves till the chain returns to $i$ is a geometric random variable with a positive "success" probability $P_{n^*}(i, i)$, and hence it has finite expectation. If you watch the chain at all times, not just at multiples of $n^*$, it will return to $i$ even faster.</p>
-<h4 id="Expected-Long-Run-Occupation-Proportions">Expected Long Run Occupation Proportions<a class="anchor-link" href="#Expected-Long-Run-Occupation-Proportions">¶</a></h4><p>We know that the chain has a stationary distribution $\pi$ that is unique and strictly positive.
+<h4 id="Expected-Long-Run-Occupation-Proportions">Expected Long Run Occupation Proportions<a class="anchor-link" href="#Expected-Long-Run-Occupation-Proportions">¶</a></h4><p>We know that the chain has a stationary distribution $\pi$ that is unique and strictly positive. 
 We also know that for every state $j$, the expected long run proportion of time the chain spends at $j$ is $1/\pi(j)$. We call this the expected long run proportion of <em>times at which the chain occupies the state $j$</em>.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -51,8 +51,8 @@ $$<p>Since $\pi(i) &gt; 0$ for all states $i$, the expected return time to each 
 <h3 id="Example:-Ehrenfest-Chain">Example: Ehrenfest Chain<a class="anchor-link" href="#Example:-Ehrenfest-Chain">¶</a></h3><p>Recall that in the Ehrenfest model described in an earlier chapter, there are two containers containing a total of $N$ particles. At each instant, a container is selected at random and a particle is selected at random independently of the container. Then the selected particle is placed in the selected container; if it was already in that container, it stays there.</p>
 <p>Let $X_n$ be the number of particles in Container 1 at time $n$. Then $X_0, X_1, \ldots$ is a Markov chain with transition probabilities given by:</p>
 \begin{equation}
-P_n(i, j) =
- \begin{cases}
+P_n(i, j) = 
+ \begin{cases} 
       \frac{N-i}{2N} &amp; \text{if } j = i+1 \\
       \frac{1}{2} &amp; \text{if } j = i \\
       \frac{i}{2N} &amp; \text{if } j = i-1 \\
@@ -69,8 +69,9 @@ $$<p>If $N$ is even, then $\binom{N}{k}$ is increasing in $k$ for $0 \le k \le N
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Expected-First-Passage-Times">Expected First Passage Times<a class="anchor-link" href="#Expected-First-Passage-Times">¶</a></h3><p>To get all the expected first passage times $E(W_j \mid X_0 = i)$, you can set up equations by first step analysis just as we did in the previous section.</p>
+<p>For states $i \ne j$,</p>
 $$
-E(W_j \mid X_0 = i) = 1 + \sum_{k \in S} P(i, k)E(W_j \mid X_0 = k)
+E(W_j \mid X_0 = i) = 1 + \sum_{k \ne j} P(i, k)E(W_j \mid X_0 = k)
 $$<p>As you have seen, such systems of equations can be tedious to solve. If the transition matrix is numerical, you can use the <code>mean_first_passage_times</code> method to get all of the mean first passage times at once.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -202,5 +203,5 @@ $$<p>As you have seen, such systems of equations can be tedious to solve. If the
 <p>Notice the symmetry in the row corresponding to state 3, which is half-way between the empty and full states of Container 1. Starting at this half-way point, you expect the same amount of time (157.2 moves) for Container 1 to become empty as for it to become full.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div></div></div></div>

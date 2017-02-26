@@ -82,8 +82,8 @@ $$</p>
 \mu(HT) &amp;= p + q(1 + \mu(\mathcal{S}))
 \end{align*}<p>That's three equations in three unknowns. Let's simplify each of them. Notice that each of the simplified equations says that the chain has to go 1 more step, and then there is some additional amount of time to account for. The accounting is done by weighting those additional expected times according to which state the chain entered at the first step.</p>
 \begin{align*} 
-p\mu(\mathcal{S}) &amp;= 1 + p\mu(H)\\
-q\mu(H) &amp;= 1 + q\mu(HT) \\
+\mu(\mathcal{S}) &amp;= 1 + q\mu(S) + p\mu(H)\\
+\mu(H) &amp;= 1 + p\mu(H) + q\mu(HT) \\
 \mu(HT) &amp;= 1 + q\mu(\mathcal{S})
 \end{align*}<p>To solve such systems of equations it is usually simplest to write each of the unknowns in terms of $\mu(\mathcal{S})$ which is the one we want to find. One standard way is to start with the first equation and write $\mu(H)$ in terms of $\mu(\mathcal{S})$, then plug that into the next equation, and so on:</p>
 $$
