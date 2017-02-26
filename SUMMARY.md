@@ -75,4 +75,7 @@
 	* [13.4 Periodic Chains](ch13/Periodic_Chains.md)
 * [Chapter 14: Reversing Markov Chains](ch14/Reversing_Markov_Chains.md)
 	* [14.1 Detailed Balance](ch14/Detailed_Balance.md)
+	* [14.2 Reversibility](ch14/Reversibility.md)
+	* [14.3 Code Breaking](ch14/Code_Breaking.md)
+	* [14.4 Markov Chain Monte Carlo](ch14/Markov_Chain_Monte_Carlo.md)
 
