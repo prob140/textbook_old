@@ -28,7 +28,7 @@
 </ul>
 <p>To see why this is true, note from above that for any state $i$, there is some time $n^*$ for which $P_n^*(i, i)$ is positive. Start the chain at $i$ and watch the chain only at times that are multiples of $n^*$. At these times, the number of moves till the chain returns to $i$ is a geometric random variable with a positive "success" probability $P_{n^*}(i, i)$, and hence it has finite expectation. If you watch the chain at all times, not just at multiples of $n^*$, it will return to $i$ even faster.</p>
 <h4 id="Expected-Long-Run-Occupation-Proportions">Expected Long Run Occupation Proportions<a class="anchor-link" href="#Expected-Long-Run-Occupation-Proportions">¶</a></h4><p>We know that the chain has a stationary distribution $\pi$ that is unique and strictly positive. 
-We also know that for every state $j$, the expected long run proportion of time the chain spends at $j$ is $1/\pi(j)$. We call this the expected long run proportion of <em>times at which the chain occupies the state $j$</em>.</p></div></div>
+We also know that for every state $j$, the expected long run proportion of time the chain spends at $j$ is $\pi(j)$. We call this the expected long run proportion of <em>times at which the chain occupies the state $j$</em>.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="First-Passage-Times">First Passage Times<a class="anchor-link" href="#First-Passage-Times">¶</a></h3><p>We will start with <em>hitting times</em> defined as follows. For any state $j$, the <em>first hitting time</em> or the <em>first passage time</em> of $j$ is</p>
@@ -51,7 +51,7 @@ $$<p>Since $\pi(i) &gt; 0$ for all states $i$, the expected return time to each 
 <h3 id="Example:-Ehrenfest-Chain">Example: Ehrenfest Chain<a class="anchor-link" href="#Example:-Ehrenfest-Chain">¶</a></h3><p>Recall that in the Ehrenfest model described in an earlier chapter, there are two containers containing a total of $N$ particles. At each instant, a container is selected at random and a particle is selected at random independently of the container. Then the selected particle is placed in the selected container; if it was already in that container, it stays there.</p>
 <p>Let $X_n$ be the number of particles in Container 1 at time $n$. Then $X_0, X_1, \ldots$ is a Markov chain with transition probabilities given by:</p>
 \begin{equation}
-P_n(i, j) = 
+P(i, j) = 
  \begin{cases} 
       \frac{N-i}{2N} &amp; \text{if } j = i+1 \\
       \frac{1}{2} &amp; \text{if } j = i \\
