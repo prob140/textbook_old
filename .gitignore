@@ -12,3 +12,4 @@ node_modules/
 
 # IPython checkpoints
 .ipynb_checkpoints
+*.swp
