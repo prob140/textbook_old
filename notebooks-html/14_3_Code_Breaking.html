@@ -211,9 +211,9 @@ So atdt gets decoded as adtd.</p>
 \begin{align*}
 \text{Likelihood of } j \text{ given the encoded text}
 &amp;= \frac{\frac{1}{N!} P(\text{decoded text} \mid \text{decoder = }j)}
-{ {\sum_{i \in S} } \frac{1}{N!} P(\text{decoded text} \mid \text{decoder = }i)} \\ \\
+{{\sum_{i \in S} } \frac{1}{N!} P(\text{decoded text} \mid \text{decoder = }i)} \\ \\
 &amp;=\frac{P(\text{decoded text} \mid \text{decoder = }j)}
-{ {\sum_{i \in S} } P(\text{decoded text} \mid \text{decoder = }i)}
+{{\sum_{i \in S} } P(\text{decoded text} \mid \text{decoder = }i)}
 \end{align*}<p>For the given encoded text, the denominator is the normalizing constant that makes all the likelihoods sum to 1. It appears in the likelihood of every decoder. In our example with the three-letter alphabet, we ignored it because we could figure out the numerators for all six decoders and just compare them. The numerator was what we called the <em>score</em> of the decoder.</p>
 <p>Even when the alphabet is large, for any particular decoder $j$ we can find the numerator by multiplying transition probabilities sequentially, as we did in our example. But with a large alphabet we can't do this for all possible decoders, so we can't list all possible scores and we can't add them all up. Therefore we don't know the denominator of the likelihoods, not even upto a decent approximation.</p>
 <p>What we need now is a method that helps us draw from a probability distribution even when we don't know the normalizing constant. That is what Markov Chain Monte Carlo helps us to do.</p></div></div>
