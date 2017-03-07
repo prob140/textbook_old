@@ -78,4 +78,9 @@
 	* [14.2 Reversibility](ch14/Reversibility.md)
 	* [14.3 Code Breaking](ch14/Code_Breaking.md)
 	* [14.4 Markov Chain Monte Carlo](ch14/Markov_Chain_Monte_Carlo.md)
+* [Chapter 15: Variance Via Covariance](ch15/Variance_Via_Covariance.md)
+	* [15.1 Properties of Covariance](ch15/Properties_of_Covariance.md)
+	* [15.2 Sums of IID Samples](ch15/Sums_of_IID_Samples.md)
+	* [15.3 Sums of Simple Random Samples](ch15/Sums_of_Simple_Random_Samples.md)
+	* [15.4 Finite Population Correction](ch15/Finite_Population_Correction.md)
 
