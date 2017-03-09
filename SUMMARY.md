@@ -1,6 +1,7 @@
 # Summary
 
 * [To the Student](ch1/to_the_student.md)
+
 * [Chapter 1: Fundamentals](ch1/Fundamentals.md)
 	* [1.1 Outcome Spaces and Events](ch1/Outcome_Space_and_Events.md)
 	* [1.2 Equally Likely Outcomes](ch1/Equally_Likely_Outcomes.md)
@@ -68,19 +69,29 @@
 	* [12.2 Notation and Terminology](ch12/NotationandTerminology.md)
 	* [12.3 Long Run Behavior](ch12/LongRunBehavior.md)
 	* [12.4 Examples](ch12/Examples.md)
+
 * [Chapter 13: Hitting and Occupation Times](ch13/Hitting_and_Occupation_Times.md)
 	* [13.1 Waiting Till a Pattern Appears](ch13/Waiting_Till_a_Pattern_Appears.md)
 	* [13.2 Returns and First Passage Times](ch13/Returns_and_First_Passage_Times.md)
 	* [13.3 Occupation Times Within a Block](ch13/Occupation_Times.md)
 	* [13.4 Periodic Chains](ch13/Periodic_Chains.md)
+
 * [Chapter 14: Reversing Markov Chains](ch14/Reversing_Markov_Chains.md)
 	* [14.1 Detailed Balance](ch14/Detailed_Balance.md)
 	* [14.2 Reversibility](ch14/Reversibility.md)
 	* [14.3 Code Breaking](ch14/Code_Breaking.md)
 	* [14.4 Markov Chain Monte Carlo](ch14/Markov_Chain_Monte_Carlo.md)
+
 * [Chapter 15: Variance Via Covariance](ch15/Variance_Via_Covariance.md)
 	* [15.1 Properties of Covariance](ch15/Properties_of_Covariance.md)
 	* [15.2 Sums of IID Samples](ch15/Sums_of_IID_Samples.md)
 	* [15.3 Sums of Simple Random Samples](ch15/Sums_of_Simple_Random_Samples.md)
 	* [15.4 Finite Population Correction](ch15/Finite_Population_Correction.md)
+
+* [Chapter 16: The Central Limit Theorem](ch16/The_Central_Limit_Theorem.md)
+	* [16.1 Exact Distribution](ch16/Exact_Distribution.md)
+	* [16.2 PGFs in NumPy](ch16/PGFs_in_NumPy.md)
+	* [16.3 Central Limit Theorem](ch16/Central_Limit_Theorem.md)
+	* [16.4 The Sample Mean](ch16/The_Sample_Mean.md)
+	* [16.5 Confidence Intervals](ch16/Confidence_Intervals.md)
 
