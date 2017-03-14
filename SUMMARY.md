@@ -95,3 +95,8 @@
 	* [16.4 The Sample Mean](ch16/The_Sample_Mean.md)
 	* [16.5 Confidence Intervals](ch16/Confidence_Intervals.md)
 
+* [Chapter 17: Continuous Distributions](ch17/Continuous_Distributions.md)
+	* [17.1 Density and CDF](ch17/Density_and_CDF.md)
+	* [17.2 The Meaning of Density](ch17/The_Meaning_of_Density.md)
+	* [17.3 Expectation](ch17/Expectation.md)
+

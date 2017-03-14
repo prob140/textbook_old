@@ -43,7 +43,7 @@ $$
 $$</p>
 <p><code>NumPy</code> expresses this polynomial in the standard mathematical way, leading with the term of the highest degree:</p>
 $$
-0.4s^2 + 0.5s + 1
+0.4s^2 + 0.5s + 0.1
 $$<p>The method <code>np.flipud</code> reverses the array of probabilities to be consistent with this order of coefficients. The <code>ud</code> in the name is for "up down". <code>NumPy</code> is thinking of the array as a column.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
@@ -80,7 +80,7 @@ $$<p>The method <code>np.flipud</code> reverses the array of probabilities to be
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The coefficients are the probabilities in the distribution of $S_3$. The possible values of $S_3$ are 0 through 6 because $S_3$ is the sum of three copies of a variable that takes values 0 through 2.</p>
-<p>You can extract an array of the coefficents by using a polynomial method called <code>c</code> for "coefficients".</p></div></div>
+<p>You can extract an array of the coefficients by using a polynomial attribute called <code>c</code> for "coefficients".</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">coeffs_S3</span> <span class="o">=</span> <span class="n">pgf_S3</span><span class="o">.</span><span class="n">c</span>
