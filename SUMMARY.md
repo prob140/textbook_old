@@ -100,3 +100,8 @@
 	* [17.2 The Meaning of Density](ch17/The_Meaning_of_Density.md)
 	* [17.3 Expectation](ch17/Expectation.md)
 
+* [Chapter 18: Transformations](ch18/Transformations.md)
+	* [18.1 Exponential Distribution](ch18/Exponential_Distribution.md)
+	* [18.2 Linear Transformations](ch18/Linear_Transformations.md)
+	* [18.3 Monotone Functions](ch18/Monotone_Functions.md)
+

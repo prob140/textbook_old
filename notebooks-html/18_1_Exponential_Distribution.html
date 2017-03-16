@@ -1,0 +1,74 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 18/18_1_Exponential_Distribution.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Exponential-Distribution">Exponential Distribution<a class="anchor-link" href="#Exponential-Distribution">¶</a></h3><p>A random variable $T$ has the <em>exponential distribution with parameter $\lambda$</em> if the density of $T$ is given by</p>
+$$
+f_T(t) ~ = \lambda e^{-\lambda t}, ~~~ t \ge 0
+$$<p>As you found by using <code>SymPy</code>, the cdf of $T$ is</p>
+$$
+F_T(t) ~ = ~ 1 - e^{-\lambda t}, ~~~ t \ge 0
+$$<p>and
+$$
+E(T) ~ = ~ \frac{1}{\lambda} ~ = ~ SD(T)
+$$</p>
+<p>The graph below shows the density $f_T$ with the labeled points on the horizontal axis corresponding to standard units of -1, 0, 1, 2, and 3. The random variable $T$ can't be negative, and the density doesn't go further than 1 SD below the mean. The spread comes from the long right hand tail.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/18_1_Exponential_Distribution_2_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="CDF-and-Survival-Function">CDF and Survival Function<a class="anchor-link" href="#CDF-and-Survival-Function">¶</a></h3><p>The exponential distribution is often used as a model for random lifetimes, in settings that we will study in greater detail below. For now, just think of $T$ as a lifetime of an object like a lightbulb, and note that the cdf at time $t$ can be thought of as the chance that the object dies before time $t$:</p>
+$$
+P(T \le t) ~ = ~ F_T(t) ~ = ~ 1 - e^{-\lambda t}
+$$<p>The complementary event is that the object survives past time $t$, and therefore its probability defines the <em>survival function</em> $S_T$:</p>
+$$
+S_T(t) ~ = ~ P(T &gt; t) ~ = ~ 1 - F_T(t) ~ = ~ e^{-\lambda t}
+$$<p>Here is the graph of the cdf (red) and the survival function (green). The values of both the functions are probabilities, so the vertical axis is the probability scale.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/18_1_Exponential_Distribution_4_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Median">Median<a class="anchor-link" href="#Median">¶</a></h3><p>Notice that the two curves intersect at the vertical level 0.5. If $t_{0.5}$ is the value of $t$ at which the curves intersect, then</p>
+$$
+S_T(t_{0.5}) = 1 - F_T(t_{0.5}) ~~~~ \text{and} ~~~~ S_T(t_{0.5}) = F_T(t_{0.5})
+$$<p>and therefore
+$$
+P(T &gt; t_{0.5}) = S_T(t_{0.5}) = 0.5 = F_T(t_{0.5}) = P(T \le t_{0.5})
+$$</p>
+<p>The point $t_{0.5}$ is called the <em>median</em> of the distribution. We can find $t_{0.5}$ in terms of $\lambda$ by using the formula for the survival function.</p>
+$$
+e^{-\lambda t_{0.5}} = 0.5 ~ \iff ~ -\lambda t_{0.5} = \log(0.5) ~ \iff ~ \lambda t_{0.5} =  \log(2) ~ \iff ~ t_{0.5} = \frac{\log(2)}{\lambda} = \log(2)E(T)
+$$<p>Because $\log(2) &lt; 1$, the median lifetime $t_{0.5}$ is less than the mean lifetime $E(T) = 1/\lambda$ as you can see on the graph. This is consistent with an observation you made in Data 8: if a distribution has a right hand tail, the mean is greater than the median.</p>
+<p>The exponential distribution is often used to model lifetimes of objects like radioactive atoms which undergo <em>exponential decay</em>. The <em>half life</em> of a radioactive isotope is defined as the time by which half of the atoms of the isotope will have decayed. That is, the half life is the median of the exponential lifetime of the atom. The parameter $\lambda$ is called the <em>decay rate</em> of the atom. By the property of the median $t_{0.5}$ derived above, the relation between $\lambda$ and the half life is</p>
+$$
+\text{half life} = \frac{\log(2)}{\lambda}
+$$</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Memoryless-Property">Memoryless Property<a class="anchor-link" href="#Memoryless-Property">¶</a></h3><p>Let $s$ and $t$ be positive, and let's find the conditional probability that the object survives a further $s$ units of time given that it has already survived $t$.</p>
+$$
+P(T &gt; t+s \mid T &gt; t) = \frac{P(T &gt; t+s, T &gt; t)}{P(T &gt; t)} 
+= \frac{P(T &gt; t+s)}{P(T &gt; t)} = \frac{e^{-\lambda(t+s)}}{e^{-\lambda t}}
+= e^{-\lambda s} = P(T &gt; s)
+$$<p>Notice that $t$ does not appear in the answer. So for example the chance that the object survives an additional year given that it has been alive for 50 years is the same as the chance that is survives a year when it starts out brand new. It <em>forgets</em> that it has already lived 50 years.</p>
+<p>This is called the <em>memoryless property</em> of the exponential distribution. It can be shown that the exponential and the geometric are the only two distributions that have the memoryless property.</p>
+<p>The memoryless property is an excellent reason <em>not</em> to use the exponential distribution to model the lifetimes of people or of anything that ages. For lifetimes of things like lightbulbs or radioactive atoms, the exponential distribution often does fine.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we will see later, the exponential distribution arises in many other settings. For now we will investigate whether there is one fundamental exponential distribution from which all the others can be derived, just as the uniform distribution on any interval can be dervied from the uniform distribution on $(0, 1)$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>
