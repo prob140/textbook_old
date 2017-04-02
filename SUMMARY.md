@@ -110,4 +110,5 @@
 	* [19.1 Probabilities and Expectations](ch19/Probabilities_and_Expectations.md)
 	* [19.2 Independence](ch19/Independence.md)
 	* [19.3 Marginal and Conditional Densities](ch19/Marginal_and_Conditional_Densities.md)
+	* [19.4 Beta Densities with Integer Parameters](ch19/Beta_Densities_with_Integer_Parameters.md)
 
