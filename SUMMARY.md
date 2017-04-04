@@ -112,3 +112,8 @@
 	* [19.3 Marginal and Conditional Densities](ch19/Marginal_and_Conditional_Densities.md)
 	* [19.4 Beta Densities with Integer Parameters](ch19/Beta_Densities_with_Integer_Parameters.md)
 
+* [Chapter 20: Applications of the Normal Distribution](ch20/Applications_of_the_Normal_Distribution.md)
+	* [20.1 Properties of the Standard Normal](ch20/Properties_of_the_Standard_Normal.md)
+	* [20.2 Sums of Independent Normal Variables](ch20/Sums_of_Independent_Normal_Variables.md)
+	* [20.3 Maximum Likelihood Estimation](ch20/Maximum_Likelihood_Estimation.md)
+
