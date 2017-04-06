@@ -116,4 +116,6 @@
 	* [20.1 Properties of the Standard Normal](ch20/Properties_of_the_Standard_Normal.md)
 	* [20.2 Sums of Independent Normal Variables](ch20/Sums_of_Independent_Normal_Variables.md)
 	* [20.3 Maximum Likelihood Estimation](ch20/Maximum_Likelihood_Estimation.md)
+	* [20.4 Chi Squared Distributions](ch20/Chi_Squared_Distributions.md)
+	* [20.5 Sums of Squares of Standard Normals](ch20/Sums_of_Squares_of_Standard_Normals.md)
 
