@@ -34,7 +34,7 @@ Lik(\mu) ~ = ~ \big{(} \frac{1}{\sqrt{2\pi}\sigma} \big{)}^n
 ~ = ~ C \exp \big{(} -\frac{1}{2\sigma^2}\sum_{i=1}^n (X_i - \mu)^2 \big{)}
 $$<p>where $C$ doesn't depend on $\mu$ and thus won't affect the maximization.</p>
 <p>Even in this simplified form, the likelihood function looks difficult to maximize. But as it is a product, we can simplify our calculations still further by taking its log.</p>
-<h4 id="The-Log-Likelihood-Function">The Log Likelihood Function<a class="anchor-link" href="#The-Log-Likelihood-Function">¶</a></h4><p>Not only does the log function turn products into sums, it is an increasing function. Hence <em>the $\mu$ the maximizes the likelihood function is the same as the $\mu$ that maximizes the log of the likelihood function.</em></p>
+<h4 id="The-Log-Likelihood-Function">The Log Likelihood Function<a class="anchor-link" href="#The-Log-Likelihood-Function">¶</a></h4><p>Not only does the log function turn products into sums, it is an increasing function. Hence <em>the $\mu$ that maximizes the likelihood function is the same as the $\mu$ that maximizes the log of the likelihood function.</em></p>
 <p>Let $L$ be the log of the likelihood function, also known as the <em>log likelihood function</em>. You can see the letter l appearing repeatedly in the terminology. Since we'll be doing most of our work with the log likelihood function, we are calling it $L$ and using $Lik$ for the likelihood function.</p>
 $$
 L(\mu) ~ = ~ \log(C) - \frac{1}{2\sigma^2}\sum_{i=1}^n (X_i - \mu)^2
