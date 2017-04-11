@@ -119,3 +119,8 @@
 	* [20.4 Chi Squared Distributions](ch20/Chi_Squared_Distributions.md)
 	* [20.5 Sums of Squares of Standard Normals](ch20/Sums_of_Squares_of_Standard_Normals.md)
 
+* [Chapter 21: Distributions of Sums](ch21/Distributions_of_Sums.md)
+	* [21.1 Convolution Formula](ch21/Convolution_Formula.md)
+	* [21.2 Moment Generating Functions](ch21/Moment_Generating_Functions.md)
+	* [21.3 MGFs Normal and the CLT](ch21/MGFs_Normal_and_the_CLT.md)
+
