@@ -123,4 +123,11 @@
 	* [21.1 Convolution Formula](ch21/Convolution_Formula.md)
 	* [21.2 Moment Generating Functions](ch21/Moment_Generating_Functions.md)
 	* [21.3 MGFs Normal and the CLT](ch21/MGFs_Normal_and_the_CLT.md)
+	* [21.4 Chernoff Bound](ch21/Chernoff_Bound.md)
+
+* [Chapter 22: Prior and Posterior Distributions](ch22/Prior_and_Posterior_Distributions.md)
+	* [22.1 Conditioning on a Continuous Variable](ch22/Conditioning_on_a_Continuous_Variable.md)
+	* [22.2 Beta Binomial](ch22/Beta_Binomial.md)
+	* [22.3 Distribution of the Number of Successes](ch22/Distribution_of_the_Number_of_Successes.md)
+
 

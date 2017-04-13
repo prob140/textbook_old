@@ -1,0 +1,28 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 22/22_0_Prior_and_Posterior_Distributions.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Prior-and-Posterior-Distributions">Prior and Posterior Distributions<a class="anchor-link" href="#Prior-and-Posterior-Distributions">¶</a></h1><p>In Data 8 we defined a parameter as a number associated with a population or with a distribution in a model. In all of the inference we have done so far, we have assumed that parameters are fixed numbers, possibly unknown. We have developed methods of estimation that attempt to capture the parameter in confidence intervals.</p>
+<p>But there is another way of thinking about unknown numbers. Instead of imagining them as fixed, we can think of them as random, with the randomness coming in through our own degree of uncertainty about them. For example, if we think that the chance that a kind of email message is a phishing attempt is somewhere around 70%, then we can imagine the chance itself to be random, picked from a distribution that puts much of its mass around 70%.</p>
+<p>If the distribution represents our belief at the outset of our analysis, we can call it a <em>prior</em> distribution. Once we have gathered data about various kinds of email messages and whether or not they are phishing attempts, we can update our belief based on the data. We can represent this updated opinion as a <em>posterior</em> distribution, calculated after the data have been collected. The calculation is almost invariably by Bayes' Rule.</p>
+<p>In this way of thinking, we express our opinions as distributions on the space of parameters. For example, if we are running Bernoulli trials but are uncertain about the probability of success, we might want to think of the unit interval as the space of parameters. That is the main focus of this chapter.</p>
+<p>Before we get started, it is worthwhile to remind ourselves of what we already know about conditioning on continuous random variables. We know that if $X$ and $Y$ have joint density $f$, then the conditional density of $Y$ given $X = x$ can be defined as</p>
+$$
+f_{Y \mid X = x} (y) ~ = ~ \frac{f(x, y)}{f_X(x)}
+$$<p>where $f_X$ is the marginal density of $X$. We had discussed what it means to "condition on $X = x$" when that event has probability zero. This chapter starts with a review of that discussion in a slightly different context, and then goes on to examine an area of probability that has acquired fundamental importance in machine learning.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>
