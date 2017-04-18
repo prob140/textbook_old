@@ -129,5 +129,10 @@
 	* [22.1 Conditioning on a Continuous Variable](ch22/Conditioning_on_a_Continuous_Variable.md)
 	* [22.2 Beta Binomial](ch22/Beta_Binomial.md)
 	* [22.3 Distribution of the Number of Successes](ch22/Distribution_of_the_Number_of_Successes.md)
+	* [22.4 Long Run Proportion of Successes](ch22/Long_Run_Proportion_of_Successes.md)
+
+* [Chapter 23: Prediction](ch23/Prediction.md)
+	* [23.1 Conditional Variance](ch23/Conditional_Variance.md)
+	* [23.2 Examples](ch23/Examples.md)
 
 
