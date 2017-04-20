@@ -138,6 +138,6 @@
 
 * [Chapter 24: The Bivariate Normal Distribution](ch24/The_Bivariate_Normal_Distribution.md)
 	* [24.1 Standard Bivariate Normal Distribution](ch24/Standard_Bivariate_Normal_Distribution.md)
-	* [24.2 Historical Example](ch24/Historical_Examples.md)
+	* [24.2 Historical Example](ch24/Historical_Example.md)
 
 
