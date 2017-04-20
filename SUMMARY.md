@@ -134,5 +134,10 @@
 * [Chapter 23: Prediction](ch23/Prediction.md)
 	* [23.1 Conditional Variance](ch23/Conditional_Variance.md)
 	* [23.2 Examples](ch23/Examples.md)
+	* [23.3 Least Squares](ch23/Least_Squares.md)
+
+* [Chapter 24: The Bivariate Normal Distribution](ch24/The_Bivariate_Normal_Distribution.md)
+	* [24.1 Standard Bivariate Normal Distribution](ch24/Standard_Bivariate_Normal_Distribution.md)
+	* [24.2 Historical Example](ch24/Historical_Examples.md)
 
 
