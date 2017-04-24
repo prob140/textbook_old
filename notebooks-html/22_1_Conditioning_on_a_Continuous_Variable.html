@@ -14,7 +14,7 @@
 </script>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Conditioning-on-a-Continuous-Variable">Conditioning on a Continuous Variable<a class="anchor-link" href="#Conditioning-on-a-Continuous-Variable">¶</a></h3><p>Suppose $X$ is a random variable and $A$ is an event that depends of $X$.</p>
+<h3 id="Conditioning-on-a-Continuous-Variable">Conditioning on a Continuous Variable<a class="anchor-link" href="#Conditioning-on-a-Continuous-Variable">¶</a></h3><p>Suppose $X$ is a random variable and $A$ is an event that depends on $X$.</p>
 <p>If $X$ is a discrete random variable, then for any possible value $x$ of $X$ the quantity $P(A \mid X = x)$ has a clear definition by the division rule:</p>
 $$
 P(A \mid X = x) ~ = ~ \frac{P(A, X = x)}{P(X = x)}
@@ -74,7 +74,7 @@ $$</p>
 P(X \in dp \mid \text{first toss is a head}) ~ &amp;= ~ \frac{P(X \in dp \text{ and first toss is a head})}{P(\text{first toss is a head})} \\
 &amp;= ~ \frac{1dp \cdot p}{\frac{1}{2}} \\
 &amp;= ~ 2p \cdot dp
-\end{align*}<p>Thus the conditional density of $X$ given that the first toss is a head is not uniform. It is $f(p) = 2p$ for $p \in (0, 1)$, which is triangular. It puts more of its mass on values near 1 than near 0. This makes sense: given that the first toss is a head, we are more inclined to believe that the coin is biased towards heads than towards tails.</p></div></div>
+\end{align*}<p>Thus the conditional density of $X$ given that the first toss is a head is not uniform. It is $f(p) = 2p$ for $p \in (0, 1)$, which rises linearly. It puts more of its mass on values near 1 than near 0. This makes sense: given that the first toss is a head, we are more inclined to believe that the coin is biased towards heads than towards tails.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
