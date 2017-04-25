@@ -139,6 +139,7 @@
 * [Chapter 24: The Bivariate Normal Distribution](ch24/The_Bivariate_Normal_Distribution.md)
 	* [24.1 Standard Bivariate Normal Distribution](ch24/Standard_Bivariate_Normal_Distribution.md)
 	* [24.2 Historical Example](ch24/Historical_Example.md)
-	* [24.3 Linear Combinations](ch24/Linear_Combinations.md)
+	* [24.3 Independence and Angles](ch24/Independence_and_Angles.md)
+	* [24.4 Linear Combinations](ch24/Linear_Combinations.md)
 
 

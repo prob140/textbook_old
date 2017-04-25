@@ -1,0 +1,167 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 24/24_3_Independence_and_Angles.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Independence-and-Angles">Independence and Angles<a class="anchor-link" href="#Independence-and-Angles">¶</a></h3><p>In this section we take a closer look at how correlation can be interpreted geometrically in terms of angles.</p>
+<p>We have defined $X$ and $Y$ to have the standard bivariate normal density with correlation $\rho$ if</p>
+$$
+Y ~ = ~ \rho X + \sqrt{1 - \rho^2} Z
+$$<p>where $X$ and $Z$ are i.i.d. standard normal. We showed that $Y$ is also standard normal, and that the conditional density of $Y$ given $X = x$ is normal $(\rho x, 1 - \rho^2)$.</p>
+<p>Note that we are assuming that $\rho$ is neither $1$ nor $-1$, so that the conditional density is not degenerate.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Bivariate-Normal-Joint-Density">Bivariate Normal Joint Density<a class="anchor-link" href="#Bivariate-Normal-Joint-Density">¶</a></h3><p>The joint density of $Y$ is the product of the marginal density of $X$ and the conditional density of $Y$ given $X$. That is,</p>
+\begin{align*}
+f(x, y) ~ &amp;= ~ f_X(x)f_{Y \mid X=x} (y) \\ \\
+&amp;= ~ \frac{1}{\sqrt{2\pi}} \exp \Big{(}-\frac{1}{2} x^2\Big{)} \frac{1}{\sqrt{2\pi}\sqrt{1-\rho^2}} \exp \Big{(} -\frac{1}{2(1-\rho^2)} (y - \rho x)^2 \Big{)} \\ \\
+&amp;= ~ \frac{1}{2\pi \sqrt{1 - \rho^2}} \exp \Big{(} -\frac{1}{2(1-\rho^2)} (x^2 - 2\rho xy + y^2) \Big{)}
+\end{align*}<p>by algebraic simplification. There is no need to learn this formula for applications; just remember the marginal and conditional densities used to derive it.</p>
+<p>Here we will use the joint density to observe some important properties of bivariate normal variables.</p>
+<p>The graph below shows the joint density surface when $\rho = 0.8$. You can see that it has elliptical contours, consistent with the elliptical scatter plots we got in the previous sections by generating points $(X, Y)$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rho</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">Plot_standard_bivariate_normal_density</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/24_3_Independence_and_Angles_5_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Run the cell a few times with different values of $\rho$ in $(-1, 1)$ and notice how the surface changes. As the magnitude of $\rho$ gets smaller, the surface looks more like a bell with circular contours.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Uncorrelated-Bivariate-Normal-Variables-are-Independent">Uncorrelated Bivariate Normal Variables are Independent<a class="anchor-link" href="#Uncorrelated-Bivariate-Normal-Variables-are-Independent">¶</a></h3><p>You know that in general, uncorrelated random variables need not be independent. But uncorrelated bivariate normal variables <em>are</em> independent, as you can see in several ways.</p>
+<p>Suppose $\rho = 0$. Then $X$ and $Y$ are independent, for any of the reasons listed below.</p>
+<ul>
+<li>By the definition of $Y$, we get $Y = Z$ which is independent of $X$.</li>
+<li>For every $x$, the conditional distribution of $Y$ given $X = x$ is normal $(0, 1)$, which doesn't involve $x$.</li>
+<li>The joint density of $X$ and $Y$ is
+$$
+f(x, y) ~ = ~ \frac{1}{2\pi} \exp \big{(} -\frac{1}{2} (x^2 + y^2) \big{)}
+~ = ~ \frac{1}{\sqrt{2\pi}} \exp \big{(} -\frac{1}{2} x^2 \big{)} \cdot \frac{1}{\sqrt{2\pi}} \exp \big{(} -\frac{1}{2} y^2 \big{)}
+~ = ~ f_X(x)f_Y(y)
+$$</li>
+</ul>
+<p>Establishing the independence of two random variables is not necessarily a simple task, but in the case of two <em>bivariate normal</em> random variables it is very simple indeed: just find the covariance between the two variables. If the covariance is zero, then the random variables are independent. If the covariance is not zero, then the random variables are dependent.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Correlation-as-a-Cosine">Correlation as a Cosine<a class="anchor-link" href="#Correlation-as-a-Cosine">¶</a></h3><p>Everything we have said above follows from the definition</p>
+$$
+Y ~ = ~ \rho X + \sqrt{1 - \rho^2} Z
+$$<p>where $X$ and $Z$ are i.i.d. standard normal.</p>
+<p>Let's see where this comes from. A good place to start is the joint density of $X$ and $Z$, which has circular symmetry.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/24_3_Independence_and_Angles_9_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The $X$ and $Z$ axes are orthogonal. Let's see what happens if we twist them.</p>
+<p>Take any positive angle $\theta$ and draw a new axis at angle $\theta$ to the original $X$ axis. Every point $(X, Z)$ has a <em>projection</em> onto this axis. The figure below shows the projection of the point $(X, Z) = (1, 2)$ onto the gold axis which is at an angle of $\theta$ degress to the $X$ axis. The blue segment is the value of $X$. You get that by dropping the perpendicular from $(1, 2)$ to the horizontal axis. That's called <em>projecting</em> $(1, 2)$ onto the horizontal axis. The red segment is the projection of $(1, 2)$ onto the gold axes, obtained by dropping the perpendicular from $(1, 2)$ to the gold axis.</p>
+<p>Vary the values of $\theta$ in the cell below to see how the projection changes as the gold axis rotates.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">theta</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">projection_1_2</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/24_3_Independence_and_Angles_11_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let $Y$ be the length of the red segment, and remember that $X$ is the length of the blue segment. When $\theta$ is very small, $Y$ is almost equal to $X$. When $\theta$ approaches 90 degrees, $Y$ is almost equal to $Z$.</p>
+<p>A little trigonometry shows that $Y ~ = ~ X \cos(\theta) + Z\sin(\theta)$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">projection_trig</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/24_3_Independence_and_Angles_13_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Thus
+$$
+Y ~ = ~ X\cos(\theta) + Z\sin(\theta) ~ = ~ \rho X + \sqrt{1 - \rho^2}Z
+$$
+where $\rho = \cos(\theta)$.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The graphs below illustrate the transformation for $\theta = 30$ degrees.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">theta</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">projection_1_2</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/24_3_Independence_and_Angles_16_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The bivariate normal distribution is the joint distribution of the blue and red lengths $X$ and $Y$ when the original point $(X, Z)$ has i.i.d. standard normal coordinates. This transforms the circular contours of the joint density surface of $(X, Z)$ into the elliptical contours of the joint density surface of $(X, Y)$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="o">**</span><span class="mf">0.5</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>(0.86602540378443871, 0.8660254037844386)</pre></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rho</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+<span class="n">Plot_standard_bivariate_normal_density</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/24_3_Independence_and_Angles_19_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Small-$\theta$">Small $\theta$<a class="anchor-link" href="#Small-$\theta$">¶</a></h3><p>When $\theta$ is very small, there is hardly any change in the position of the axis, and so $X$ and $Y$ are almost equal.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">theta</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">projection_1_2</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/24_3_Independence_and_Angles_21_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The bivariate normal density of $X$ and $Y$, therefore, is essentially confined to the $X = Y$ line. The correlation $\cos(\theta)$ is large because $\theta$ is small; it is more than 0.999.</p>
+<p>You can see the plotting function having trouble rendering this joint density surface.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">rho</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+<span class="n">rho</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.99939082701909576</pre></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot_standard_bivariate_normal_density</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/24_3_Independence_and_Angles_24_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Orthogonality-and-Independence">Orthogonality and Independence<a class="anchor-link" href="#Orthogonality-and-Independence">¶</a></h3><p>When $\theta$ is 90 degrees, the gold axis is orthogonal to the $X$ axis and $Y$ is equal to $Z$ which is independent of $X$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">theta</span> <span class="o">=</span> <span class="mi">90</span>
+<span class="n">projection_1_2</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/24_3_Independence_and_Angles_26_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>When $\theta = 90$ degrees, $\cos(\theta) = 0$. The joint density surface of $(X, Y)$ is the same as that of $(X, Z)$ and has circular symmetry.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot_standard_bivariate_normal_density</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/24_3_Independence_and_Angles_28_0.png"/></div></div>
