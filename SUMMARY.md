@@ -141,5 +141,7 @@
 	* [24.2 Historical Example](ch24/Historical_Example.md)
 	* [24.3 Independence and Angles](ch24/Independence_and_Angles.md)
 	* [24.4 Linear Combinations](ch24/Linear_Combinations.md)
+	* [24.5 Multivariate Normal Distribution](ch24/Multivariate_Normal_Distribution.md)
+	* [24.6 Best Predictor](ch24/Best_Predictor.md)
 
 
