@@ -34,7 +34,7 @@ P(X \ge c) ~ &amp;= P(e^{tX} \ge e^{tc}) \\
 \end{align*}<p>This is the first step in developing a <a href="https://en.wikipedia.org/wiki/Chernoff_bound">Chernoff bound</a> on the right hand tail.</p>
 <p>For the next step, notice that you can choose $t$ to be any positive number. Some choices of $t$ will give sharper bounds than others. Because these are upper bounds, the sharpest among all of the bounds will correspond to the value of $t$ that minimizes the right hand side. So the Chernoff bound has an <em>optimized</em> form:</p>
 $$
-P(X \ge c) ~ = ~ \min_{t &gt; 0} \frac{M_X(t)}{e^{tc}}
+P(X \ge c) ~ \le ~ \min_{t &gt; 0} \frac{M_X(t)}{e^{tc}}
 $$</div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">

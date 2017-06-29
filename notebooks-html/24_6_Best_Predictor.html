@@ -103,13 +103,12 @@ $$</div></div>
 <h3 id="Conditional-Expectation">Conditional Expectation<a class="anchor-link" href="#Conditional-Expectation">¶</a></h3><p>We will start by recalling how to predict $Y$ based on one predictor variable $X$. As in previous sections, let $a^*$ be the slope of the regression line. Our first step is to write $a^*$ in terms of elements of elements of the covariance matrix of $X$ and $Y$.</p>
 $$
 a^* ~ = ~ \rho \frac{\sigma_Y}{\sigma_X} ~ = ~ \frac{\sigma_{X,Y}}{\sigma_X \sigma_Y} \cdot \frac{\sigma_Y}{\sigma_X} ~ = ~ \sigma_{Y,X}({\sigma_X^2})^{-1}
-$$<p>The equation of the regression line is
-\begin{align<em>}
-E(Y \mid X = x) ~ &amp;= ~ a^</em>x + (\mu_Y - a^<em>\mu_X) \
-&amp;= ~ a^</em>(x - \mu_X) + \mu<em>Y \
-&amp;= ~ \sigma</em>{Y,X}({\sigma_X^2})^{-1}(x - \mu_X) + \mu_Y
-\end{align*}</p>
-<p>To extend this result to the case where $\mat{X}$ has $p$ components, replace each of the quantities in the formula by its matrix counterpart.</p>
+$$<p>The equation of the regression line is</p>
+\begin{align*}
+E(Y \mid X = x) ~ &amp;= ~ a^*x + (\mu_Y - a^*\mu_X) \\
+&amp;= ~ a^*(x - \mu_X) + \mu_Y \\
+&amp;= ~ \sigma_{Y,X}({\sigma_X^2})^{-1}(x - \mu_X) + \mu_Y
+\end{align*}<p>To extend this result to the case where $\mat{X}$ has $p$ components, replace each of the quantities in the formula by its matrix counterpart.</p>
 <h4 id="Regression-of-$Y$-on-$\mat{X}$">Regression of $Y$ on $\mat{X}$<a class="anchor-link" href="#Regression-of-$Y$-on-$\mat{X}$">¶</a></h4>$$
 E(Y \mid \mat{X} = \mat{x}) ~ = ~ \bsymb{\Sigma_{Y,X}}\bsymb{\Sigma_{X,X}}^{-1}
 \big{(} \mat{x} - \mat{\mu_X} \big{)} + \mu_Y
