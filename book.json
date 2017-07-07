@@ -1,5 +1,5 @@
 {
-    "plugins": ["mathjax","addcssjs"],
+    "plugins": ["mathjax@git+https://github.com/data-8/plugin-mathjax", "addcssjs"],
     "links": {
         "sidebar": {
             "Main Prob140 Site": "http://prob140.org/"
