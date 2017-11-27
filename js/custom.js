@@ -1,6 +1,6 @@
 $(".chapter a").click(function(){
 	window.setTimeout(function(){
-    MathJax.Hub.Rerender();
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     console.log("UPDATING");
 }, 300);
 });
@@ -8,7 +8,7 @@ $(".chapter a").click(function(){
 
 $(".navigation").click(function(){
 	window.setTimeout(function(){
-    MathJax.Hub.Rerender();
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     console.log("UPDATING");
 }, 300);
 });
