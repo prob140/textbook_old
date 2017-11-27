@@ -5,8 +5,17 @@
             "Main Prob140 Site": "http://prob140.org/"
         }
     },
-    "pluginsConfig": { "addcssjs": { "js": ["js/custom.js"], "css": [] }, "theme-default": {
-      "showLevel": false
-    } }
+    "pluginsConfig": { 
+        "addcssjs": { 
+            "js": ["js/custom.js"],
+            "css": []
+         },
+        "theme-default": {
+            "showLevel": false
+        },
+         "fontsettings": {
+            "size": 1
+        }   
+     }
      
 }
