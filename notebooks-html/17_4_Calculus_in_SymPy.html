@@ -1,0 +1,296 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 17/17_4_Calculus_in_SymPy.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Calculus-in-SymPy">Calculus in SymPy<a class="anchor-link" href="#Calculus-in-SymPy">¶</a></h3><p>Working with densities involves calculus which can sometimes be time-consuming. In this course we will give you two ways of reducing the amount of calculus involved.</p>
+<ul>
+<li>Probabilistic methods can help reduce algebra and calculus. You've seen this with algebra in the discrete case. You'll see it with calculus as we learn more about densities.</li>
+<li>Python has a symbolic math module called <code>SymPy</code> that does algebra, calculus, and much other symbolic math. In this section we will show you how to do calculus using <code>SymPy</code>.</li>
+</ul></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We will demonstrate the methods in the context of an example. Suppose $X$ has density given by</p>
+$$
+f(x) = 
+\begin{cases}
+105x^2(1-x)^4 ~~~ \text{if } 0 \le x \le 1 \\
+0 ~~~~~~~~~ \text{otherwise}
+\end{cases}
+$$<p>As you can see from its graph below, $f$ could be used to model the distribution of a random proportion that you think is likely to be somewhere between 0.2 and 0.4.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/17_4_Calculus_in_SymPy_3_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The density $f$ is a polynomial on the unit interval, and in principle the algebra and calculus involved in integrating it are straightforward. But they are tedious. So let's get <code>SymPy</code> to do the work.</p>
+<p>First, we will import all the functions in <code>SymPy</code> and set up some printing methods that make the output look nicer than the retro typewritten pgf output you saw in a previous section. In future sections of this text, you can assume that this importing and initialization will have been done at the start.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="o">*</span>
+<span class="n">init_printing</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, we have to tell Python which variables are symbolic and what their possible values are. The function <code>declare</code> lets us do this. It takes as its arguments the string representing the variable, and an option <code>interval</code> specifying the interval of possible values of the variable. In our example, the variable <code>x</code> takes values in the unit interval. In later examples we will show you how to declare infinite intervals of possible values.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">declare</span><span class="p">(</span><span class="s1">'x'</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we will assign the name <code>density</code> to the expression that defines $f$. The expression looks just like a numerical calculation, but the output is algebraic!</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">density</span> <span class="o">=</span> <span class="mi">105</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span>
+<span class="n">density</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$105 x^{2} \left(- x + 1\right)^{4}$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That's the density $f$ defined by the equation at the start of the section. Notice that what we naturally think of as $1 - x$ is expressed as $-x + 1$. That's because <code>SymPy</code> is writing the polynomial leading with the term of highest degree.</p>
+<p>Let's not simply accept that this function is a density. Let's check that it is a density by integrating it from 0 to 1. To do this, we use the method <code>Integral</code> that takes the name of a function and a <em>tuple</em> (a sequence in parentheses) consisting of the variable of integration and the lower and upper limits of integration. We have assigned this integral to the name <code>total_area</code></p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">total_area</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="n">density</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">total_area</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$\int_{0}^{1} 105 x^{2} \left(- x + 1\right)^{4}\, dx$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The output of displays the integral, which is nice, but what we really want is its numerical value. In <code>SymPy</code>, this is achieved by rather rudely instructing the method to <code>doit()</code>.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">total_area</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$1$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This confirms that the function $f$ is a density.</p>
+<p>We can use <code>Integral</code> again to find the chance of any interval. Here is $P(0.2 &lt; X &lt; 0.4)$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p_02_04</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="n">density</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">))</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+<span class="n">p_02_04</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$0.432064000000001$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For $x$ in the unit interval, the cdf of $X$ is
+$$
+F(x) ~ = ~ P(X \le x) ~ = ~ \int_0^x f(s)ds ~ = ~ I(s)~ \Big{\rvert}_0^x ~ = ~ I(x) - I(0)
+$$</p>
+<p>where $I$ is the indefinite integral of $f$.</p>
+<p>To get the indefinite integral, simply ask <code>SymPy</code> to integrate the density; there are no limits of integration.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">indefinite</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="n">density</span><span class="p">)</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+<span class="n">indefinite</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$15 x^{7} - 70 x^{6} + 126 x^{5} - 105 x^{4} + 35 x^{3}$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now $F(x) = I(x) - I(0)$. You can see at a glance that $I(0) = 0$ but here is how <code>SymPy</code> would figure that out.</p>
+<p>To evaluate $I(0)$, <code>SymPy</code> must substitute $x$ with 0 in the expression for $I$. This is achieved by the method <code>subs</code> that takes the variable as its first argument and the specified value as the second.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">I_0</span> <span class="o">=</span> <span class="n">indefinite</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">I_0</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$0$$</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cdf</span> <span class="o">=</span> <span class="n">indefinite</span> <span class="o">-</span> <span class="n">I_0</span>
+<span class="n">cdf</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$15 x^{7} - 70 x^{6} + 126 x^{5} - 105 x^{4} + 35 x^{3}$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To find the value of the cdf at a specified point, say 0.4, we have to substitute $x$ with 0.4 in the formula for the cdf.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cdf_04</span> <span class="o">=</span> <span class="n">cdf</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+<span class="n">cdf_04</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$0.580096000000001$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Thus $P(X \le 0.4)$ is roughly 58%. Earlier we calulated $P(0.2 &lt; X &lt; 0.4) = 43.2\%$, which we can confirm by using the cdf:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cdf_02</span> <span class="o">=</span> <span class="n">cdf</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="n">cdf_04</span> <span class="o">-</span> <span class="n">cdf_02</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$0.432064000000001$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The expectation $E(X)$ is a definite integral from 0 to 1:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">expectation</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">density</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+<span class="n">expectation</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$\frac{3}{8}$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Notice how simple the answer is. Later in the course, you will see why.</p>
+<p>Here is $E(X^2)$, which turns out to be another simple fraction. Clearly, the density $f$ has interesting properties. We will study them later. For now, let's just get the numerical answers.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">expected_square</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">((</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">density</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+<span class="n">expected_square</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$\frac{1}{6}$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now you can find $SD(X)$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sd</span> <span class="o">=</span> <span class="p">(</span><span class="n">expected_square</span> <span class="o">-</span> <span class="n">expectation</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span>
+<span class="n">sd</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$0.161374306091976$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="SymPy-and-the-Exponential-Density">SymPy and the Exponential Density<a class="anchor-link" href="#SymPy-and-the-Exponential-Density">¶</a></h3><p>One of the primary distributions in probability theory, the exponential distribution has a positive parameter $\lambda$ and density given by</p>
+$$
+f(t) ~ = \lambda e^{-\lambda t}, ~~~ t \ge 0
+$$<p>The density is 0 on the negative numbers. Here is its graph when $\lambda = 3$.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/17_4_Calculus_in_SymPy_32_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To check that $f$ is a density, we have to confirm that its integral is 1. So we will declare two positive symbolic variables <code>t</code> and <code>lamda</code>. Notice the incorrectly spelled <code>lamda</code>. That is because <code>lambda</code> has another meaning in Python, as some of you might know.</p>
+<p>In fact <code>lamda</code> is a constant, not a variable. But <code>SymPy</code> needs to know that it's an algebraic object, so we have to declare it as such.</p>
+<p>Note the use of <code>positive=True</code> to declare positive variables.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">declare</span><span class="p">(</span><span class="s1">'lamda'</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">declare</span><span class="p">(</span><span class="s1">'t'</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we will define the density function. Notice the use of <code>exp</code> for the exponential function. Notice also that the form of the answer looks different from the way we have written it above, though it's algebraically the same.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">expon_density</span> <span class="o">=</span> <span class="n">lamda</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lamda</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">expon_density</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$\frac{\lambda}{e^{\lambda t}}$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This is an unavoidable aspect of computer aided algebra, and it is the reason we will use <code>SymPy</code> purely for computation, not for display.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To see that the function is a density, we can check that its integral from 0 to $\infty$ is 1. The symbol that <code>SymPy</code> uses for $\infty$ is a double lower case o: <code>oo</code>. That looks very much like $\infty$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Integral</span><span class="p">(</span><span class="n">expon_density</span><span class="p">,</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">oo</span><span class="p">))</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$1$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Suppose $T$ has the exponential $(\lambda)$ density. Then for $t \ge 0$ the cdf of $T$ is</p>
+$$
+F_T(t) ~ = ~ P(T \le t) ~ = ~ \int_0^t \lambda e^{-\lambda s}ds
+$$<p>This is a straightforward integral that you can probably do in your head. However, let's get some more practice using <code>SymPy</code> to find cdf's.
+We will use the same method that we used to find the cdf in the previous example.</p>
+$$
+\int_0^t \lambda e^{-\lambda s}ds ~ = ~ I(t) - I(0)
+$$<p>where $I$ is the indefinite integral of the density. To get this indefinite integral we will use <code>Integral</code> as before, except that this time we must specify <code>t</code> as the variable of integration. That is because <code>SymPy</code> sees two algebraic quantities <code>t</code> and <code>lamda</code> in the density, and doesn't know which one is the variable unless we tell it.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">indefinite</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="n">expon_density</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+<span class="n">indefinite</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$- \frac{1}{e^{\lambda t}}$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now use $F_T(t) = I(t) - I(0)$:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">I_0</span> <span class="o">=</span> <span class="n">indefinite</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">I_0</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$-1$$</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cdf</span> <span class="o">=</span> <span class="n">indefinite</span> <span class="o">-</span> <span class="n">I_0</span>
+<span class="n">cdf</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$1 - e^{- \lambda t}$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Thus the cdf of the exponential $(\lambda)$ density is
+$$
+F_T(t) ~ = ~ 1 - e^{-\lambda t}
+$$
+Also,
+$$
+E(T) ~ = ~ \int_0^\infty t \lambda e^{-\lambda t} dt ~ = ~ \frac{1}{\lambda}
+$$</p>
+<p>which you can check by integration by parts. But <code>SymPy</code> is faster:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">expectation</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="n">t</span><span class="o">*</span><span class="n">expon_density</span><span class="p">,</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">oo</span><span class="p">))</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+<span class="n">expectation</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$\frac{1}{\lambda}$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>And 
+$$
+E(T^2) = \frac{2}{\lambda^2}
+$$</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">expected_square</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">expon_density</span><span class="p">,</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">oo</span><span class="p">))</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+<span class="n">expected_square</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$\frac{2}{\lambda^{2}}$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So 
+$$
+Var(T) ~ = ~ \frac{2}{\lambda^2} - \frac{1}{\lambda^2} ~ = ~ \frac{1}{\lambda^2}
+$$
+and hence
+$$
+SD(T) ~ = ~ \frac{1}{\lambda}
+$$</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The purpose of this section has been to give you a workout in <code>SymPy</code>. We will take a closer look at the exponential distribution in the next section.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

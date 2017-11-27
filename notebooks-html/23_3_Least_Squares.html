@@ -1,0 +1,100 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 23/23_3_Least_Squares.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Least-Squares">Least Squares<a class="anchor-link" href="#Least-Squares">¶</a></h3><p>We now turn to the conditional expectation $E(Y \mid X)$ viewed as an estimate or predictor of $Y$ given the value of $X$. As you saw in Data 8, the <em>mean squared error</em> of prediction can be used to compare predictors: those with small mean squared errors are better.</p>
+<p>In this section we will identify <em>least squares predictors</em>, that is, predictors that minimize mean squared error among all predictors in a specified class.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Minimizing-the-MSE">Minimizing the MSE<a class="anchor-link" href="#Minimizing-the-MSE">¶</a></h3><p>Suppose you are trying to estimate or predict the value of $Y$ based on the value of $X$. The predictor $E(Y \mid X) = b(X)$ seems to be a good one to use, based on the scatter plots we examined in the previous section.</p>
+<p>It turns out that $b(X)$ is the <em>best</em> predictor of $Y$ based on $X$, according the least squares criterion.</p>
+<p>Let $h(X)$ be any function of $X$, and consider using $h(X)$ to predict $Y$. Define the <em>mean squared error of the predictor $h(X)$</em> to be</p>
+$$
+MSE(h) ~ = ~ E\Big{(}\big{(}Y - h(X)\big{)}^2\Big{)}
+$$<p>We will now show that $b(X)$ is the best predictor of $Y$ based on $X$, in the sense that it minimizes this mean squared error over all functions $h(X)$.</p>
+<p>To do so, we will use a fact we proved in the previous section:</p>
+<ul>
+<li>If $g(X)$ is any function of $X$ then $E\big{(}(Y - b(X))g(X)\big{)} = 0$.</li>
+</ul></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+\begin{align*}
+MSE(h) ~ &amp;= ~ E\Big{(}\big{(}Y - h(X)\big{)}^2\Big{)} \\
+&amp;= ~ E\Big{(}\big{(}Y - b(X)\big{)}^2\Big{)} + E\Big{(}\big{(}b(X) - h(X)\big{)}^2\Big{)} + 2E\Big{(}\big{(}Y - b(X)\big{)}\big{(}b(X) - h(X)\big{)}\Big{)} \\
+&amp;= ~ E\Big{(}\big{(}Y - b(X)\big{)}^2\Big{)} + E\Big{(}\big{(}b(X) - h(X)\big{)}^2\Big{)} \\
+&amp;\ge ~ E\Big{(}\big{(}Y - b(X)\big{)}^2\Big{)} \\
+&amp;= ~ MSE(b)
+\end{align*}</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Least-Squares-Predictor">Least Squares Predictor<a class="anchor-link" href="#Least-Squares-Predictor">¶</a></h3><p>The calculations in this section include much of the theory behind <em>least squares prediction</em> familiar to you from Data 8. The result above shows that the least squares predictor of $Y$ based on $X$ is the conditional expectation $b(X) = E(Y \mid X)$.</p>
+<p>In terms of the scatter diagram of observed values of $X$ and $Y$, the result is saying that the best predictor of $Y$ given $X$, by the criterion of smallest mean squared error, is the average of the vertical strip at the given value of $X$.</p>
+<p>Given $X$, the root mean squared error of this estimate is the <em>SD of the strip</em>, that is, the conditional SD of $Y$ given $X$:</p>
+$$
+SD(Y \mid X) ~ = ~ \sqrt{Var(Y \mid X)}
+$$<p>This is a random variable; its value is determined by the variation within the strip at the given value of $X$.</p>
+<p>Overall across the entire scatter diagram, the root mean squared error of the estimate $E(Y \mid X)$ is</p>
+$$
+RMSE(b) ~ = ~ \sqrt{E\Big{(}\big{(}Y - b(X)\big{)}^2\Big{)}} ~ = ~ \sqrt{E\big{(} Var(Y \mid X) \big{)}}
+$$</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Notice that the result makes no assumption about the joint distribution of $X$ and $Y$. The scatter diagram of the generated $(X, Y)$ points can have any arbitrary shape. So the result can be impractical, as there isn't always a recognizable functional form for $E(Y \mid X)$.</p>
+<p>Sometimes we want to restrict our attention to a class of predictor functions of a specified type, and find the best one among those. The most important example of such a class is the set of all linear functions $aX + b$.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Least-Squares-Linear-Predictor">Least Squares Linear Predictor<a class="anchor-link" href="#Least-Squares-Linear-Predictor">¶</a></h3><p>Let $h(X) = aX + b$ for constants $a$ and $b$, and let $MSE(a, b)$ denote $MSE(h)$.</p>
+$$
+MSE(a, b) ~ = ~ E\big{(} (Y - (aX + b))^2 \big{)} 
+~ = ~ E(Y^2) + a^2E(X^2) + b^2 -2aE(XY) - 2bE(Y) + 2abE(X)
+$$<p>To find the <em>least squares linear predictor</em>, we have to minimize this MSE over all $a$ and $b$. We will do this using calculus, in two steps:</p>
+<ul>
+<li>Fix $a$ and find the value $b_a^*$ that minimizes $MSE(a, b)$ for that fixed value of $a$.</li>
+<li>Then plug in the minimizing value $b_a^*$ in place of $b$ and minimize $MSE(a, b_a^*)$ with respect to $a$.</li>
+</ul>
+<h4 id="Step-1.">Step 1.<a class="anchor-link" href="#Step-1.">¶</a></h4><p>Fix $a$ and minimize $MSE(a, b)$ with respect to $b$.</p>
+$$
+\frac{d}{db} MSE(a, b) ~ = ~ 2b - 2E(Y) + 2aE(X)
+$$<p>Set this equal to 0 and solve to see that the minimizing value of $b$ for the fixed value of $a$ is</p>
+$$
+b_a^* ~ = ~ E(Y) - aE(X)
+$$<h4 id="Step-2.">Step 2.<a class="anchor-link" href="#Step-2.">¶</a></h4><p>Now we have to minimize the following function with respect to $a$:</p>
+\begin{align*}
+E\big{(} (Y - (aX + b_a^*))^2 \big{)} ~ &amp;= ~
+E\big{(} (Y - (aX + E(Y) - aE(X)))^2 \big{)} \\
+&amp;= ~ E\Big{(} \big{(} (Y - E(Y)) - a(X - E(X))\big{)}^2 \Big{)} \\
+&amp;= ~ E\big{(} (Y - E(Y))^2 \big{)} - 2aE\big{(} (Y - E(Y))(X - E(X)) \big{)} + a^2E\big{(} (X - E(X))^2 \big{)} \\
+&amp;= ~ Var(Y) - 2aCov(X, Y) + a^2Var(X)
+\end{align*}<p>The derivative with respect to $a$ is $2Cov(X, Y) + 2aVar(X)$. Thus the minimizing value of $a$ is</p>
+$$
+a^* ~ = ~ \frac{Cov(X, Y)}{Var(X)} 
+$$</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Slope-and-Intercept-of-the-Regression-Line">Slope and Intercept of the Regression Line<a class="anchor-link" href="#Slope-and-Intercept-of-the-Regression-Line">¶</a></h3><p>The least squares straight line is called the <em>regression line</em>.You now have a proof of its equation, familiar to you from Data 8. The slope and intercept are given by</p>
+\begin{align*} 
+\text{slope of regression line} ~ &amp;= ~ \frac{Cov(X,Y)}{Var(X)} ~ = ~ r(X, Y) \frac{SD(Y)}{SD(X)} \\ \\
+\text{intercept of regression line} ~ &amp;= ~ E(Y) - \text{slope} \cdot E(X)
+\end{align*}<p>To derive the second expression for the slope, recall that in exercises you defined the <em>correlation</em> between $X$ and $Y$ to be</p>
+$$
+r(X, Y) ~ = ~ \frac{Cov(X, Y)}{SD(X)SD(Y)}
+$$</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Regression-in-Standard-Units">Regression in Standard Units<a class="anchor-link" href="#Regression-in-Standard-Units">¶</a></h4><p>If both $X$ and $Y$ are measured in standard units, then the slope of the regression line is the correlation $r(X, Y)$ and the intercept is 0.</p>
+<p>In other words, given that $X = x$ standard units, the predicted value of $Y$ is $r(X, Y)x$ standard units. When $r(X, Y)$ is positive but not 1, this result is called the <em>regression effect</em>: the predicted value of $Y$ is closer to 0 than the given value of $X$.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It is important to note that the equation of the regression line holds regardless of the shape of the joint distribution of $X$ and $Y$. Also note that there is always a best straight line predictor among all straight lines, regardless of the relation between $X$ and $Y$. If the relation isn't roughly linear you won't want to use the best straight line for predictions, because the best straight line is best among a bad class of predictors. But it exists.</p></div></div></div>

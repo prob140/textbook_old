@@ -1,0 +1,172 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 24/24_4_Linear_Combinations.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Linear-Combinations">Linear Combinations<a class="anchor-link" href="#Linear-Combinations">¶</a></h3><p>If $X$ and $Y$ are independent normal variables, then any linear combination $aX + bY + c$ has a normal distribution. We proved this in an earlier section using moment generating functions. We will now show that the same is true if $X$ and $Y$ have any bivariate normal distribution.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We have defined standard bivariate normal random variables as follows:</p>
+<p>If $X$ and $Z$ are i.i.d standard normal, and
+$$
+Y = \rho X + \sqrt{1 - \rho^2} Z
+$$</p>
+<p>then $X$ and $Y$ have the standard bivariate normal distribution with correlation $\rho$.</p>
+<p>Thus if $X$ and $Y$ are standard bivariate normal, then $Y$ is a linear combination of the independent normal variables $X$ and $Z$. Hence any linear combination $aX + bY + c$ can be written as a different linear combination of the independent normal variables $X$ and $Z$. Thus the distribution of $aX + bY + c$ is normal.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If $X$ and $Y$ have a bivariate normal distribution but are not standardized, then $X = X^* \cdot\sigma_X + \mu_X$ and $Y = Y^*\cdot\sigma_Y + \mu_Y$ where $X^*$ and $Y^*$ are standard bivariate normal.</p>
+<p>So any linear combination of $X$ and $Y$ is a different linear combination of $X^*$ and $Y^*$, and hence is normal.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sum-and-Difference">Sum and Difference<a class="anchor-link" href="#Sum-and-Difference">¶</a></h3><p>Let $X$ and $Y$ have the bivariate normal distribution with parameters $(\mu_X, \mu_Y, \sigma_X^2, \sigma_Y^2, \rho)$. Then the sum $X + Y$ has the normal distribution with mean $\mu_X + \mu_Y$ and variance</p>
+$$
+\sigma_{X+Y}^2 ~ = ~ Var(X + Y) ~ = ~ \sigma_X^2 + \sigma_Y^2 + 2\rho\sigma_X\sigma_Y
+$$<p>The difference $X - Y$ has the normal distribution with mean $\mu_X - \mu_Y$ and variance</p>
+$$
+\sigma_{X-Y}^2 ~ = ~ Var(X - Y) ~ = ~ \sigma_X^2 + \sigma_Y^2 - 2\rho\sigma_X\sigma_Y
+$$<p>No matter what the linear combination of $X$ and $Y$, its distribution is normal and you can work out the mean and variance using properties of means and variances.</p>
+<p>Notice that no matter what the joint distribution of $X$ and $Y$,</p>
+$$
+Cov(X+Y, X-Y) ~ = ~ Cov(X, X) - Cov(X, Y) + Cov(Y, X) - Cov(Y, Y)
+~ = ~ \sigma_X^2 - \sigma_Y^2
+$$<p>and the correlation between the sum and difference is
+$$
+r(X+Y, X-Y) ~ = ~ \frac{\sigma_X^2 - \sigma_Y^2}{\sigma_{X+Y}\sigma_{X-Y}}
+$$</p>
+<p>Each of the two linear combinations $X+Y$ and $X-Y$ is normal, and we have identified the two means, the two variances, and the correlation. It turns out (though we will not prove this) that the <em>joint</em> distribution of $X+Y$ and $X-Y$ is bivariate normal with the five parameters that we have identified.</p>
+<p>If $X$ and $Y$ are bivariate normal variables with equal variances, then $X+Y$ and $X-Y$ have a bivariate normal distribution with</p>
+$$
+Cov(X+Y, X-Y) ~ = ~ \sigma_X^2 - \sigma_Y^2 ~ = ~ 0
+$$<p></p>
+<p>Remember that uncorrelated bivariate normal random variables are independent.  Thus if $X$ and $Y$ are bivariate normal variables with equal variances, then their sum $X+Y$ and difference $X-Y$ are <em>independent</em> normal variables. The condition "bivariate normal with equal variances" is satisfied by i.i.d. normal variables, for example.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Joint-Distributions-of-Linear-Combinations">Joint Distributions of Linear Combinations<a class="anchor-link" href="#Joint-Distributions-of-Linear-Combinations">¶</a></h3><p>Let $X$ and $Y$ have a bivariate normal distribution. Then the linear combinations $aX + bY + c$ and $dX + eY + f$ have the bivariate normal distribution with parameters determined by rules of expectation and variance applied to the parameters of $X$ and $Y$.</p>
+<p>We will not prove this result but it is fundamentally important for calculation. In practical terms it says that you can operate fearlessly with bivariate normal random variables just as you would with independent normal random variables. Just keep in mind that there will be some covariance terms involved in variance calculations.</p>
+<h4 id="Normal-Marginals-and-Conditionals">Normal Marginals and Conditionals<a class="anchor-link" href="#Normal-Marginals-and-Conditionals">¶</a></h4><p>What you get from identifying a bivariate normal distribution for random variables $X$ and $Y$ is that numerous interesting distributions are normal. You just have to find the means and variances, and then you can use normal curve methods to find probabilities.</p>
+<p>All of the following distributions are normal:</p>
+<ul>
+<li>The marginal distributions of $X$ and $Y$</li>
+<li>For each $x$, the conditional distribution of $Y$ given $X=x$</li>
+<li>For each $y$, the conditional distribution of $X$ given $Y=y$</li>
+</ul>
+<p>For example, let $M$ be the midterm score and $F$ the final exam score of a student picked at random from a large class, and suppose $M$ and $F$ have the bivariate normal distribution with parameters $(66, 73, 10^2, 8^2, 0.6)$. Clearly this model can only be a very rough approximation to data, especially if the scores are discrete, but we will work with it here as an idealization.</p>
+<p>Suppose the overall score $S$ will be computed as $S = 0.3M + 0.7F$. What is the joint distribution of $F$ and $S$?</p>
+<p>It's bivariate normal. All you have to do is find the five parameters. This boils down to being able to work with means and variances.</p>
+<p>You already know two of the parameters: $\mu_F = 73$ and $\sigma_F^2 = 8^2 = 64$.</p>
+<p>Also, $\mu_S = 0.3*66 + 0.7*73 = 70.9$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="mf">0.3</span><span class="o">*</span><span class="mi">66</span> <span class="o">+</span> <span class="mf">0.7</span><span class="o">*</span><span class="mi">73</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>70.89999999999999</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To find $\sigma_S^2$ and $r(F, S)$, it's a good idea to find some covariances first.</p>
+<ul>
+<li>$Cov(M, F) = 0.6 \cdot 10 \cdot 8 = 48$</li>
+<li>$Cov(F, S) = 0.3Cov(F, M) + 0.7Var(F) = 0.3 \cdot 48 + 0.7 \cdot 64 = 59.2$</li>
+</ul></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="mf">0.3</span><span class="o">*</span><span class="mi">48</span> <span class="o">+</span> <span class="mf">0.7</span><span class="o">*</span><span class="mi">64</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>59.199999999999996</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The variance of $S$ is
+$$
+\sigma_S^2 ~ = ~ 0.3^2 \cdot 100 ~ + ~ 0.7^2 \cdot 64 ~ + ~ 2 \cdot 0.3 \cdot 0.7 \cdot 48 ~ = ~ 60.52
+$$</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mf">0.3</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.7</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="mi">64</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="mf">0.3</span><span class="o">*</span><span class="mf">0.7</span><span class="o">*</span><span class="mi">48</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>60.519999999999996</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The final parameter of the bivariate normal is the correlation between $F$ and $S$.</p>
+$$
+r(F, S) ~ = ~ \frac{59.2}{8 \cdot \sqrt{60.52}} ~ = ~ 0.95
+$$</div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="mf">59.2</span><span class="o">/</span><span class="p">(</span><span class="mi">8</span><span class="o">*</span><span class="p">(</span><span class="mf">60.52</span><span class="o">**</span><span class="mf">0.5</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.9512228189487625</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Notice how large the correlation is. That's because $F$ is a big component of $S$.</p>
+<p>Also note that the correlation is a function of all of the covariances: $Cov(F, F)$, $Cov(F, S)$, and $Cov(S, S)$.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="A-Different-Parametrization">A Different Parametrization<a class="anchor-link" href="#A-Different-Parametrization">¶</a></h3><p>A common parametrization of bivariate normal variables has two components.</p>
+<ul>
+<li>The <em>mean vector</em> which in this case is $(\mu_F, \mu_S)$:</li>
+</ul></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">means</span> <span class="o">=</span> <span class="p">[</span><span class="mi">73</span><span class="p">,</span> <span class="mf">70.9</span><span class="p">]</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>The <em>covariance matrix</em>, also called the <em>variance-covariance matrix</em>, which is an organized array of the variances:</li>
+</ul>
+$$
+\begin{pmatrix}
+Cov(F, F) &amp; Cov(F, S)\\
+Cov(S, F) &amp; Cov(S, S)
+\end{pmatrix}
+$$<p>For use with <code>SciPy</code> we can simply enter this matrix as an array of rows. Notice the use of $Cov(F, S) = Cov(S, F)$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">covariances</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">64</span><span class="p">,</span> <span class="mf">59.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">59.2</span><span class="p">,</span> <span class="mf">60.52</span><span class="p">]]</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <code>SciPy</code> method <code>stats.multivariate_normal.rvs</code> generates i.i.d. points from a multivariate (or bivariate, in our present case) normal distribution. The arguments are <code>size</code> which is the number of points to generate, <code>mean</code> which is the mean vector, and <code>cov</code> which is the covariance matrix.</p>
+<p>Here is one generated value of $(F, S)$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">stats</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mean</span> <span class="o">=</span> <span class="n">means</span><span class="p">,</span> <span class="n">cov</span> <span class="o">=</span> <span class="n">covariances</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 51.82245434,  47.12608967])</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The code in the cell below generates 500 such points and draws the scatter plot. The tight clustering corresponds to the high value of the correlation between $F$ and $S$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">500</span> <span class="c1"># set sample size</span>
+
+<span class="c1"># Generate bivariate normal points</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="n">means</span><span class="p">,</span> <span class="n">cov</span><span class="o">=</span><span class="n">covariances</span><span class="p">)</span>
+<span class="n">final</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>   <span class="c1"># array of x-values</span>
+<span class="n">overall</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1"># array of y-values</span>
+
+<span class="c1"># Plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">final</span><span class="p">,</span> <span class="n">overall</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'$F$'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'$S$'</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">+</span><span class="s1">' Simulated Values of $(F, S)$'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/24_4_Linear_Combinations_21_0.png"/></div></div>

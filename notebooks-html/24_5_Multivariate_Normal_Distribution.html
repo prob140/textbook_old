@@ -1,0 +1,130 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 24/24_5_Multivariate_Normal_Distribution.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$
+\newcommand{\mat}[1]{\mathop{#1}_{\sim}}
+\newcommand{\bsymb}[1]{\boldsymbol{#1}}
+$$</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Multivariate-Normal-Distribution">Multivariate Normal Distribution<a class="anchor-link" href="#Multivariate-Normal-Distribution">¶</a></h3><p>The parametrization of the bivariate normal distribution by the mean vector and covariance matrix provides a straightforward way to extend the definition to more than two <em>multivariate</em> normal random variables.</p>
+<p>A <em>vector valued random variable</em>, or more simply, a <em>random vector</em>, is an array of random variables. We will think of it as a column.
+$$
+\mat{X} ~ = ~ 
+\begin{bmatrix}
+X_1 \\
+X_2 \\
+\vdots \\
+X_n
+\end{bmatrix}
+$$</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <em>mean vector</em> of $\mat{X}$ is the vector of means
+$$
+\mat{\mu} ~ = ~
+\begin{bmatrix}
+\mu_{X_1} \\
+\mu_{X_2} \\
+\vdots \\
+\mu_{X_n}
+\end{bmatrix}
+$$</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <em>covariance matrix</em> of $\mat{X}$ is the matrix whose $(i, j)$th element is $Cov(X_i, X_j)$. For brevity, let $\sigma_{X,Y}$ denote the covariance of any two random variables $X$ and $Y$. With this notation, the covariance matrix of $\mat{X}$ is</p>
+$$
+\bsymb{\Sigma} ~ = ~ 
+\begin{bmatrix}
+\sigma_{X_1}^2 &amp; \sigma_{X_1, X_2} &amp; \sigma_{X_1, X_3} &amp; \ldots &amp; \sigma_{X_1, X_n} \\
+\sigma_{X_2, X_1} &amp; \sigma_{X_2}^2 &amp; \sigma_{X_2, X_3} &amp; \ldots &amp; \sigma_{X_2, X_n} \\
+\sigma_{X_3, X_1} &amp; \sigma_{X_3, X_2} &amp; \sigma_{X_3}^2 &amp; \ldots &amp; \sigma_{X_3, X_n} \\
+\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\sigma_{X_n, X_1} &amp; \sigma_{X_n, X_2} &amp; \sigma_{X_n, X_3} &amp; \ldots &amp; \sigma_{X_n}^2 
+\end{bmatrix}
+$$<p>The $i$th diagonal element of $\bsymb{\Sigma}$ is the variance of $X_i$. The matrix is symmetric because of the symmetry of covariance.</p>
+<p>To understand more about covariance matrices, it helps to know some linear algebra. We haven't assumed that in this course, but if you have studied linear algebra then you should check that by the rules of variance and covariance, $\bsymb{\Sigma}$ must be be positive definite if the distribution of $\mat{X}$ is $n$-dimensional and not degenerate. As symmetric positive definite matrices are invertible, $\bsymb{\Sigma}$ has an inverse.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Multivariate-Normal-Density">Multivariate Normal Density<a class="anchor-link" href="#Multivariate-Normal-Density">¶</a></h3><p>Let $\mat{x}$ be a vector of $n$ real values:
+$$
+\mat{x} ~ = ~ 
+\begin{bmatrix}
+x_1 \\
+x_2 \\
+\vdots \\
+x_n
+\end{bmatrix}
+$$</p>
+<p>The <em>multivariate normal density</em> with mean vector $\mat{\mu}$ and covariance matrix $\bsymb{\Sigma}$ is the function $f$ whose value at $\mat{x}$ is</p>
+$$
+f\big{(} \mat{x} \big{)} ~ = ~ 
+\frac{1}{(\sqrt{2\pi})^n \sqrt{\lvert \bsymb{\Sigma} \rvert} }
+\exp \Big{(} -\frac{1}{2} \big{(}\mat{x} - \mat{\mu} \big{)}^T \bsymb{\Sigma}^{-1} \big{(}\mat{x} - \mat{\mu} \big{)} \Big{)}
+$$<p>Here $(\mat{x} - \mat{\mu})^T$ is the transpose of $\mat{x} - \mat{\mu}$, and $\lvert \bsymb{\Sigma} \rvert$ is the determinant of $\bsymb{\Sigma}$.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Even if you have not studied linear algebra you can check that the formula is correct in the case $n = 1$. In this case $\bsymb{\Sigma} = [\sigma^2]$ is just a scalar. It is a number, not a larger matrix; its determinant is itself; its inverse is simply $1/\sigma^2$. Also, $\mat{x} = x$ and $\mat{\mu} = \mu$ are just numbers. It is easy to see that the formula above reduces to the familiar normal density with mean $\mu$ and variance $\sigma^2$.</p>
+<p>In the case $n = 2$, the formula is the same as the bivariate normal density of $X$ and $Y$. To see this, just check that it is true in the standard bivariate normal case.</p>
+<p>In that case</p>
+$$
+\mathop{\mu}_{\sim} ~ = ~
+\begin{bmatrix}
+0 \\
+0
+\end{bmatrix}
+$$<p>and
+$$
+\bsymb{\Sigma} ~ = ~ 
+\begin{bmatrix}
+1 &amp; \rho \\
+\rho &amp; 1
+\end{bmatrix}
+$$
+So
+$$
+\lvert \bsymb{\Sigma} \rvert ~ = ~ 1 - \rho^2
+$$
+and
+$$
+\bsymb{\Sigma}^{-1} ~ = ~ \frac{1}{1 - \rho^2}
+\begin{bmatrix}
+1 &amp; -\rho \\
+-\rho &amp; 1
+\end{bmatrix}
+$$</p>
+<p>Set
+$$
+x ~ = ~
+\begin{bmatrix}
+x \\ 
+y
+\end{bmatrix}
+$$
+and do the algebra. The multivariate normal density above is the same as the standard bivariate normal density with correlation $\rho$, derived earlier in this chapter.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Key-Properties-of-the-Multivariate-Normal">Key Properties of the Multivariate Normal<a class="anchor-link" href="#Key-Properties-of-the-Multivariate-Normal">¶</a></h3><p>Properties of the multivariate normal distribution are the same as or extensions of properties of bivariate normal distributions. Think of the multivariate normal distribution as the joint distribution of random variables $X_1, X_2, \ldots, X_n$. We won't prove the properties below but you will recognize them from the bivariate case and should use them as needed.</p>
+<ul>
+<li>The distribution of a linear combination of multivariate normal variables is normal. In particular, all the marginals are normal.</li>
+<li>The joint distribution of two or more linear combinations of multivariate normal variables is multivariate normal.</li>
+<li>If a random vector is multivariate normal, then the conditional joint distribution of any of its subsets given any other subset is multivariate normal.</li>
+<li>If multivariate normal random variables are <em>pairwise uncorrelated</em>, then they are mutually independent. </li>
+</ul></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

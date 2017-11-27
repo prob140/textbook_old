@@ -1,0 +1,105 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 20/20_3_Maximum_Likelihood_Estimation.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Maximum-Likelihood-Estimation">Maximum Likelihood Estimation<a class="anchor-link" href="#Maximum-Likelihood-Estimation">¶</a></h3><p>Suppose you have an i.i.d. sample $X_1, X_2, \ldots, X_n$ where the density of each $X_i$ depends on a parameter $\theta$. The method of <em>maximum likelihood</em> estimates $\theta$ by answering the following question:</p>
+<p>Among all the possible values of the parameter $\theta$, which one maximizes the likeihood of getting our sample?</p>
+<p>That maximizing value of the parameter is called the <em>maximum likelihood estimate</em> or MLE for short. In this section we will develop a method for finding MLEs.</p>
+<p>First let's do a quick numerical example to illustrate the main idea. Suppose you know that your sample is drawn from the normal $(\mu, 1)$ distribution for an unknown $\mu$, and suppose the sampled values are 52.8, 51.1, 54.2, and 52.5. That's a small sample but it carries information. If you had to choose between 32 and 52 as values for $\mu$, which would you choose? Without any calculation it's clear that 32 is not a good choice: the normal $(32, 1)$ distribution is unlikely to produce values as large as the observed sample. If 32 and 52 are your only two choices for $\mu$, you should choose 52. But of course $\mu$ could be any number. To find the best one, you have to do a calculation.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="MLE-of-$\mu$-Based-on-a-Normal-$(\mu,-\sigma^2)$-Sample">MLE of $\mu$ Based on a Normal $(\mu, \sigma^2)$ Sample<a class="anchor-link" href="#MLE-of-$\mu$-Based-on-a-Normal-$(\mu,-\sigma^2)$-Sample">¶</a></h3><p>Let $X_1, X_2, \ldots, X_n$ be an i.i.d. normal $(\mu, \sigma^2)$ sample and suppose you are trying to estimate $\mu$. The sample mean is a pretty good estimate, as you know. In this example we will show that it is the maximum likelihood estimate of $\mu$.</p>
+<h4 id="The-Likelihood-Function">The Likelihood Function<a class="anchor-link" href="#The-Likelihood-Function">¶</a></h4><p>The <em>likelihood function</em> is the joint density of the sample evaluated at the observed values, considered as a function of the parameter. That's a bit of a mouthful but it becomes clear once you see the calculation. The joint density in this example is the product of $n$ normal $(\mu, \sigma^2)$ density functions, and hence the likelihood function is</p>
+$$
+Lik(\mu) ~ = ~ \prod_{i=1}^n \frac{1}{\sqrt{2\pi}\sigma} \exp \big{(} -\frac{1}{2} \big{(} \frac{X_i - \mu}{\sigma} \big{)}^2 \big{)}
+$$<p>The quantity $Lik(\mu)$ is called the likelihood of the data when the mean of the underlying normal distribution is $\mu$. For every fixed $\mu$, $Lik(\mu)$ is a function of the sample and hence is a random variable.</p>
+<p>You'll soon see the reason for using the strange notation $Lik$. Please just accept it for now.</p>
+<p>The goal is to find the value of $\mu$ that maximizes this likelihood function over all the possible values that $\mu$ could be. We don't yet know if such a maximizing value exists, but let's try to find it anyway.</p>
+<p>To do this we will simplify the likelihood function as much as possible.</p>
+$$
+Lik(\mu) ~ = ~ \big{(} \frac{1}{\sqrt{2\pi}\sigma} \big{)}^n
+\exp \big{(} -\frac{1}{2\sigma^2}\sum_{i=1}^n (X_i - \mu)^2 \big{)}
+~ = ~ C \exp \big{(} -\frac{1}{2\sigma^2}\sum_{i=1}^n (X_i - \mu)^2 \big{)}
+$$<p>where $C$ doesn't depend on $\mu$ and thus won't affect the maximization.</p>
+<p>Even in this simplified form, the likelihood function looks difficult to maximize. But as it is a product, we can simplify our calculations still further by taking its log.</p>
+<h4 id="The-Log-Likelihood-Function">The Log Likelihood Function<a class="anchor-link" href="#The-Log-Likelihood-Function">¶</a></h4><p>Not only does the log function turn products into sums, it is an increasing function. Hence <em>the $\mu$ that maximizes the likelihood function is the same as the $\mu$ that maximizes the log of the likelihood function.</em></p>
+<p>Let $L$ be the log of the likelihood function, also known as the <em>log likelihood function</em>. You can see the letter l appearing repeatedly in the terminology. Since we'll be doing most of our work with the log likelihood function, we are calling it $L$ and using $Lik$ for the likelihood function.</p>
+$$
+L(\mu) ~ = ~ \log(C) - \frac{1}{2\sigma^2}\sum_{i=1}^n (X_i - \mu)^2
+$$<p>The function $L$ looks much more friendly than $Lik$. To maximize it, we will find its derivative and set that equal to 0.</p>
+<h4 id="Derivative-of-the-Log-Likelihood-Function">Derivative of the Log Likelihood Function<a class="anchor-link" href="#Derivative-of-the-Log-Likelihood-Function">¶</a></h4><p>Use the Chain Rule and be careful about negative signs.</p>
+$$
+\frac{d}{d\mu} L(\mu) ~ = ~ \frac{2}{2\sigma^2} \sum_{i=1}^n (X_i - \mu)
+$$<h4 id="Set-Equal-to-0-and-Solve-for-the-MLE">Set Equal to 0 and Solve for the MLE<a class="anchor-link" href="#Set-Equal-to-0-and-Solve-for-the-MLE">¶</a></h4><p>Statisticians have long used the "hat" symbol to denote estimates. So let $\hat{\mu}$ be the MLE of $\mu$. Then $\hat{\mu}$ satisfies an equation:</p>
+$$
+\sum_{i=1}^n (X_i - \hat{\mu}) ~ = ~ 0 ~~~~~~ \text{so} ~~~~~~ \sum_{i=1}^n X_i ~ = ~ n\hat{\mu} ~~~~~~ \text{so} ~~~~~~ \hat{\mu} ~ = ~ \frac{1}{n} \sum_{i=1}^n X_i
+$$<p>We should check that this yields a maximum and not a minimum, but given the answer you will surely accept that it's a max. You are welcome to take the second derivative of $L$ and check that we do have a maximum.</p>
+<p>The MLE of $\mu$ is the sample mean. You know that its distribution is normal with mean $\mu$ and variance $\sigma^2/n$. You also know that if the sample is large, you can estimate $\sigma$ by the SD of the sample and hence construct confidence intervals for $\mu$.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Steps-for-Finding-the-MLE">Steps for Finding the MLE<a class="anchor-link" href="#Steps-for-Finding-the-MLE">¶</a></h3><p>Let's capture our sequence of steps in an algorithm to find the MLE of a parameter given an i.i.d. sample.</p>
+<ul>
+<li>Write the likelihood of the sample. The goal is to find the value of the parameter that maximizes this likelihood.</li>
+<li>To make the maximization easier, take the log of the likelihood function. </li>
+<li>To maximize the log likelihood with respect to the parameter, take its derivative with respect to the parameter.</li>
+<li>Set the derivative equal to 0 and solve; the solution is the MLE.</li>
+</ul>
+<p>Let's implement this algorithm in another example.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="MLE-of-$p$-Based-on-a-Bernoulli-$(p)$-Sample">MLE of $p$ Based on a Bernoulli $(p)$ Sample<a class="anchor-link" href="#MLE-of-$p$-Based-on-a-Bernoulli-$(p)$-Sample">¶</a></h3><p>Let $X_1, X_2, \ldots, X_n$ be an i.i.d. Bernoulli $(p)$ sample. Our goal is to find the MLE of $p$.</p>
+<p>The random variables are discrete, so the likelihood function is defined as the joint probability mass function evaluated at the sample. To see what this means, let's start with the example.</p>
+<p>Suppose $n=5$ and the observed sequence of 1's and 0's is 01101. The likelihood function at $p$ is the chance of observing this sequence under that value of $p$:</p>
+$$
+Lik(p) ~ = ~ (1-p)\cdot p \cdot p \cdot (1-p) \cdot p ~ = ~ p^3(1-p)^2
+$$<p></p>
+<p>The likelihood depends on the number of 1's, just as in the binomial probability formula. The combinatorial term is missing because we are observing each element of the sequence.</p>
+<p>Now let's implement our algorithm for finding the MLE.</p>
+<p><strong>Step 1: Find the likelihood function.</strong></p>
+<p>Let $X = X_1 + X_2 + \ldots + X_n$ be the number of 1's in the sample. The likelihood function is</p>
+$$
+Lik(p) = p^X (1-p)^{n-X}
+$$<p><strong>Step 2. Find the log likelihood function.</strong></p>
+$$
+L(p) = X\log(p) + (n-X)\log(1-p)
+$$<p><strong>Step 3. Find the derivative of the log likelihood function.</strong></p>
+$$
+\frac{d}{dp} L(p) = \frac{X}{p} - \frac{n-X}{1-p}
+$$<p><strong>Step 4. Set equal to 0 and solve for the MLE.</strong></p>
+$$
+\frac{X}{\hat{p}} - \frac{n-X}{1-\hat{p}} = 0
+$$<p>Hence
+$$
+(1-\hat{p})X = (n-X)\hat{p} ~~~~~ \text{so} ~~~~~ X = n\hat{p}
+$$</p>
+<p>Therefore the MLE of $p$ is
+$$ 
+\hat{p} = \frac{X}{n} = \frac{1}{n}\sum_{i=1}^n X_i
+$$,</p>
+<p>That is, the MLE of $p$ is the sample proportion of 1's. To compute this estimate, all you need is the number of 1's in the sample. You don't need to see the entire sample as a sequence of 0's and 1's. Because the MLE $\hat{p}$ is the sample proportion, it is unbiased, has SD $\sqrt{p(1-p)/n}$, and is asymptotically normal. When $n$ is large you can estimate the SD based on the sample and therefore construct confidence intervals for $p$.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Properties-of-the-MLE">Properties of the MLE<a class="anchor-link" href="#Properties-of-the-MLE">¶</a></h3><p>In the two examples above, the MLE is unbiased and either exactly normal or asymptotically normal. In general, the MLE need not be unbiased. However under some regularity conditions on the underlying probability distribution or mass function, when the sample is large the MLE is:</p>
+<ul>
+<li><em>consistent</em>, that is, likely to be close to the parameter </li>
+<li>roughly normal and almost unbiased </li>
+</ul>
+<p>Establishing this is outside the scope of this class, but in exercises you will observe these properties through simulation.</p>
+<p>MLEs can't always be calclated as easily as in our examples. It's important to note that maximizing log likelihood functions can often be intractable without a numerical optimization method.</p>
+<p>Though there is beautiful theory about the asymptotic variance of the MLE, in practice it can be hard to estimate the variance analytically. This makes it hard to find formulas for confidence intervals. However, you can use the bootstrap to estimate the variance: each bootstrapped sample yields a value of the MLE, and you can construct confidence intervals based on the empirical distribution of the bootstrapped MLEs.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

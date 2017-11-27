@@ -1,0 +1,142 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 24/24_6_Best_Predictor.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$
+\newcommand{\mat}[1]{\mathop{#1}_{\sim}}
+\newcommand{\bsymb}[1]{\boldsymbol{#1}}
+$$</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Best-Predictor">Best Predictor<a class="anchor-link" href="#Best-Predictor">¶</a></h3><p>We end with a solution to a problem of prediction based on more than one predictor.</p>
+<p>Let $p$ (for <em>predictors</em>) be a positive integer. Suppose the random vector</p>
+$$
+\begin{bmatrix}
+Y \\
+X_1 \\
+X_2 \\
+\vdots \\
+X_p
+\end{bmatrix}
+$$<p>is multivariate normal, and suppose we are trying to predict $Y$ based on the $p$ predictor variables</p>
+$$
+\mat{X} ~ = ~ 
+\begin{bmatrix}
+X_1 \\
+X_2 \\
+\vdots \\
+X_p
+\end{bmatrix}
+$$<p>You will recognize the following as extensions of results you know well from predicting $Y$ based on a single $X$.</p>
+<ul>
+<li>The conditional distribution of $Y$ given $\mat{X} = \mat{x}$ is normal.</li>
+<li>The conditional expectation of $Y$ given $\mat{X}$ is the least squares predictor of $Y$ given $\mat{X}$.</li>
+<li>The conditional expectation of $Y$ given $\mat{X}$ is linear, and hence the best overall predictor (by the criterion of least squares) is the same as the best linear predictor. </li>
+</ul>
+<p>To complete the specification of the normal conditional distribution of $Y$ given $\mat{X}$, we have to identify the conditional mean and the conditional variance. We will not derive these quantities, but we will demonstrate how their formulas are clear analogs of the familiar calculations when there is only one predictor variable.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To keep our variables organized and our notation compact, we will <em>partition</em> the random vector and its mean vector.</p>
+$$
+\begin{bmatrix}
+Y \\
+X_1 \\
+X_2 \\
+\vdots \\
+X_p
+\end{bmatrix}
+~ = ~ 
+\begin{bmatrix}
+Y \\
+\mat{X}
+\end{bmatrix}
+~~~~~~~~~~~~~~~
+\begin{bmatrix}
+\mu_Y \\
+\mu_{X_1} \\
+\mu_{X_2} \\
+\vdots \\
+\mu_{X_p}
+\end{bmatrix}
+~ = ~ 
+\begin{bmatrix}
+\mu_Y \\
+\mat{\mu_X}
+\end{bmatrix}
+$$<p>We can partition the covariance matrix as well, according to the demarcating lines shown below.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$
+\left[\begin{array}{c|cccc}
+\sigma_Y^2 &amp; \sigma_{Y, X_1} &amp; \sigma_{Y, X_2} &amp; \cdots &amp; \sigma_{Y, X_p}\\ \hline
+\sigma_{X_1, Y} &amp; \sigma_{X_1}^2 &amp; \sigma_{X_1, X_3} &amp; \cdots &amp; \sigma_{X_2, X_p} \\ 
+\vdots &amp; \vdots &amp; \ddots &amp;\vdots &amp; \vdots \\ 
+\sigma_{X_p, Y} &amp; \sigma_{X_p, X_1} &amp; \sigma_{X_p, X_2} &amp; \cdots &amp; \sigma_{X_p}^2 \\
+\end{array}\right]
+~ = ~ 
+\left[\begin{array}{c|c}
+\sigma_Y^2&amp; \bsymb{\Sigma_{Y,X}} \\ \hline
+\bsymb{\Sigma_{X,Y}} &amp; \bsymb{\Sigma_{X,X}}\\
+\end{array}\right]
+$$</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>The top left (1, 1) element is the variance of $Y$. </li>
+<li>The bottom right hand $p \times p$ matrix $\bsymb{\Sigma_{X,X}}$ is a covariance matrix in its own right. It is the covariance matrix of the $p$ predictor variables.</li>
+<li>The top right hand row vector $\bsymb{\Sigma_{Y,X}}$ and bottom left hand column vector $\bsymb{\Sigma_{X,Y}}$ are transposes of each other. Each contains the covariance of the response variable $Y$ with each of the predictor variables.</li>
+</ul></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Conditional-Expectation">Conditional Expectation<a class="anchor-link" href="#Conditional-Expectation">¶</a></h3><p>We will start by recalling how to predict $Y$ based on one predictor variable $X$. As in previous sections, let $a^*$ be the slope of the regression line. Our first step is to write $a^*$ in terms of elements of elements of the covariance matrix of $X$ and $Y$.</p>
+$$
+a^* ~ = ~ \rho \frac{\sigma_Y}{\sigma_X} ~ = ~ \frac{\sigma_{X,Y}}{\sigma_X \sigma_Y} \cdot \frac{\sigma_Y}{\sigma_X} ~ = ~ \sigma_{Y,X}({\sigma_X^2})^{-1}
+$$<p>The equation of the regression line is</p>
+\begin{align*}
+E(Y \mid X = x) ~ &amp;= ~ a^*x + (\mu_Y - a^*\mu_X) \\
+&amp;= ~ a^*(x - \mu_X) + \mu_Y \\
+&amp;= ~ \sigma_{Y,X}({\sigma_X^2})^{-1}(x - \mu_X) + \mu_Y
+\end{align*}<p>To extend this result to the case where $\mat{X}$ has $p$ components, replace each of the quantities in the formula by its matrix counterpart.</p>
+<h4 id="Regression-of-$Y$-on-$\mat{X}$">Regression of $Y$ on $\mat{X}$<a class="anchor-link" href="#Regression-of-$Y$-on-$\mat{X}$">¶</a></h4>$$
+E(Y \mid \mat{X} = \mat{x}) ~ = ~ \bsymb{\Sigma_{Y,X}}\bsymb{\Sigma_{X,X}}^{-1}
+\big{(} \mat{x} - \mat{\mu_X} \big{)} + \mu_Y
+$$<p>The result should be quite believable though we have proved it only in the case of one predictor variable. There are several ways to prove it in the general case. One way is to use the division rule to find the conditional density of $Y$ given $X$. A more insightful way is to write multivariate normal variables in terms of independent normal variables and then make use of the independence just as we did when we had one predictor.</p>
+<p>Whether or not you go through the proof in the future, keep in mind that order matters when you are multiplying matrices: you can only multiply matrices if their shapes allow it. In the formula for $E(Y \mid \mat{X} = \mat{x})$, the mean $\mu_Y$ is a scalar. So $\bsymb{\Sigma_{Y,X}}\bsymb{\Sigma_{X,X}}^{-1}
+\big{(} \mat{x} - \mat{\mu_X} \big{)}$ had better be a scalar as well. It is, because:</p>
+<ul>
+<li>$\bsymb{\Sigma_{Y,X}}$ is a $1 \times p$ row vector</li>
+<li>$\bsymb{\Sigma_{X,X}}^{-1}$ is a $p \times p$ matrix</li>
+<li>$\big{(} \mat{x} - \mat{\mu_X} \big{)}$ is a $p \times 1$ column vector</li>
+</ul></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Conditional-Variance">Conditional Variance<a class="anchor-link" href="#Conditional-Variance">¶</a></h3><p>Return to predicting $Y$ based on just one variable $X$, and this time write $\rho^2$ in terms of elements of the covariance matrix of $X$ and $Y$.</p>
+$$
+\rho^2 ~ = ~ \frac{\sigma_{X,Y}^2}{\sigma_X^2 \sigma_Y^2} ~ = ~ 
+\sigma_{Y,X}({\sigma_X^2})^{-1}\sigma_{X,Y}({\sigma_Y^2})^{-1}
+$$<p>Thus for every $x$,
+$$
+Var(Y \mid X = x) ~ = ~ (1 - \rho^2)\sigma_Y^2 ~ = ~ \sigma_Y^2 - \rho^2\sigma_Y^2 ~ = ~ 
+\sigma_Y^2 - \sigma_{Y,X}({\sigma_X^2})^{-1}\sigma_{X,Y}
+$$</p>
+<p>As before, replace each of the quantities above by its matrix counterpart to extend the result to the case of $p$ predictors.</p>
+<h4 id="Mean-Square-Error-of-Regression">Mean Square Error of Regression<a class="anchor-link" href="#Mean-Square-Error-of-Regression">¶</a></h4>$$
+Var(Y \mid \mat{X} = \mat{x}) ~ = ~ 
+\sigma_Y^2 ~ - ~ \bsymb{\Sigma_{Y,X}}(\bsymb{\Sigma_{X,X}})^{-1}\bsymb{\Sigma_{X,Y}}
+$$</div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

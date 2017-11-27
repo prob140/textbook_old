@@ -1,0 +1,85 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 20/20_4_Chi_Squared_Distributions.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Chi-Squared-Distributions">Chi-Squared Distributions<a class="anchor-link" href="#Chi-Squared-Distributions">¶</a></h3><p>When we were establishing the properties of the standard normal density, we discovered that if $X$ and $Y$ are independent standard normal then $X^2 + Y^2$ has the exponential $(1/2)$ distribution. We saw this by comparing two settings in which the Rayleigh distribution arises. But that isn't a particularly illuminating reason for why $X^2 + Y^2$ should be exponential.</p>
+<p>In this section we will study the distribution of $Z^2$ where $Z$ is standard normal. We will follow that in the next section by getting a better understanding of $X^2 + Y^2$ where $X$ and $Y$ are i.i.d. standard normal, and then study an extension to a method of inference.</p>
+<p>Let $Z$ be standard normal. To find the density of $V = Z^2$, we can start by finding the cdf of $V$. For $v &gt; 0$,</p>
+$$
+P(V \le v) ~ = ~ P(Z^2 \le v) ~ = ~ P(-\sqrt{v} \le Z \le \sqrt{v})
+~ = ~ \Phi(\sqrt{v}) - \Phi(-\sqrt{v})
+$$<p>Differentiate with respect to $v$ and use the symmetry of the standard normal density $\phi$ to see that the density of $V$ is given by</p>
+$$
+f_V(v) ~ = ~ \frac{\phi(\sqrt{v})}{\sqrt{v}}, ~~~~ v &gt; 0
+$$<p>Thus if $Z$ is standard normal and $V = Z^2$, the density of $V$ is</p>
+$$
+f_V(v) ~ = ~ \frac{1}{\sqrt{2\pi}} v^{-\frac{1}{2}} e^{-\frac{1}{2} v}, ~~~~ v &gt; 0
+$$</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Chi-Squared-with-One-Degree-of-Freedom">Chi-Squared with One Degree of Freedom<a class="anchor-link" href="#Chi-Squared-with-One-Degree-of-Freedom">¶</a></h3><p>In exercises you showed that the gamma $(r, \lambda)$ density is given by</p>
+$$
+f(t) ~ = ~ \frac{\lambda^r}{\Gamma(r)} t^{r-1}e^{-\lambda t}, ~~~~ t &gt; 0
+$$<p>where
+$$
+\Gamma(r) ~ = ~ \int_0^\infty t^{r-1}e^{-t}dt
+$$</p>
+<p>is the gamma the gamma function of mathematics and satisfies $\Gamma(r+1) = r\Gamma(r)$.</p>
+<p>Now notice the form of the density of $V$, the square of a standard normal variable. It's the gamma density with parameters $r = 1/2$ and $s = 1/2$.
+By equating constants, you can see that $\Gamma(1/2) = \sqrt{\pi}$.</p>
+<p>Squares of standard normal variables are important in statistical inference, as you will soon see. The random variable $V$ which is the square of one standard normal variable is said to have the <em>chi-squared distribution with 1 degree of freedom.</em> This rather bizarre terminology is equivalent to "the gamma (1/2, 1/2) distribution." The terminology will become more comprehensible in the next section.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>    <span class="c1"># The second argument is the degrees of freedom.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'darkblue'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'$v$'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'$f_V(v)$'</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Chi-squared (1) Density'</span><span class="p">);</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/20_4_Chi_Squared_Distributions_3_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Chi-Squared-with-$n$-Degrees-of-Freedom">Chi-Squared with $n$ Degrees of Freedom<a class="anchor-link" href="#Chi-Squared-with-$n$-Degrees-of-Freedom">¶</a></h3><p>For a positive integer $n$, the random variable $X$ has the <em>chi-squared distribution with $n$ degrees of freedom</em> if the distribution of $X$ is gamma $(n/2, 1/2)$. That is, $X$ has density</p>
+$$
+f_X(x) ~ = ~ \frac{\frac{1}{2}^{\frac{n}{2}}}{\Gamma(\frac{n}{2})} x^{\frac{n}{2} - 1} e^{-\frac{1}{2}x}, ~~~~ x &gt; 0
+$$<p>Here are the graphs of the chi-squared densities for degrees of freedom 2 through 5.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/20_4_Chi_Squared_Distributions_5_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Take a look at the graph of the chi-squared density wih 2 degrees of freedom. If you think it looks like the exponential $(1/2)$ density, you are right. We'll see why in the next section. For now, let's check that the mean and variance works out correctly.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Mean-and-Variance-of-the-Chi-Squared-Distribution">Mean and Variance of the Chi-Squared Distribution<a class="anchor-link" href="#Mean-and-Variance-of-the-Chi-Squared-Distribution">¶</a></h3><p>You showed in exercises that if $T$ has the gamma $(r, \lambda)$ density then</p>
+$$
+E(T) ~ = ~ \frac{r}{\lambda} ~~~~~~~~~~~~ SD(T) = \frac{\sqrt{r}}{\lambda}
+$$<p>If $X$ has the chi-squared $(n)$ distribution then $X$ is gamma $(n/2, 1/2)$. So</p>
+$$
+E(X) ~ = ~ \frac{n/2}{1/2} ~ = ~ n
+$$<p>Thus <strong>the expectation of a chi-squared random variable is its degrees of freedom</strong>.</p>
+<p>The SD is
+$$
+SD(X) ~ = ~ \frac{\sqrt{n/2}}{1/2} ~ = ~ \sqrt{2n}
+$$</p>
+<p>We have guessed that the chi-squared $(2)$ distribution is the same as exponential $(1/2)$. By the formulas above and those we already know for the exponential, the expectations and SDs of the two distributions agree, and all four values are equal to 2.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The next section explains how the all chi-squared distributions are related to each other and to the standard normal distribution.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

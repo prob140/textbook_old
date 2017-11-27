@@ -1,0 +1,258 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 24/galton.csv&path=textbook/Chapter 24/24_2_Historical_Example.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="A-Historical-Example">A Historical Example<a class="anchor-link" href="#A-Historical-Example">¶</a></h3><p>Let's take another look at <a href="https://www.inferentialthinking.com/chapters/07/1/applying-a-function-to-a-column.html">Galton's data on heights</a>, studied in detail in Data 8. The table <code>heights</code> contains the midparent height and adult child's height for each of 934 adults.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">heights</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>MidParent</th> <th>Child</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>75.43    </td> <td>73.2 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>75.43    </td> <td>69.2 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>75.43    </td> <td>69   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>75.43    </td> <td>69   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>73.66    </td> <td>73.5 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>73.66    </td> <td>72.5 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>73.66    </td> <td>65.5 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>73.66    </td> <td>65.5 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>72.06    </td> <td>71   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>72.06    </td> <td>68   </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (924 rows omitted)</p></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">heights</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="s1">'MidParent'</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/24_2_Historical_Example_4_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can see the classic bivariate normal histogram, though of course these heights are not in standard units.</p>
+<p>To work with these data, let's redefine a few functions you defined in Data 8.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">standard_units</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">correlation</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">standard_units</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">standard_units</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The correlation between the two variables is about 0.32.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">midparent</span> <span class="o">=</span> <span class="n">heights</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">child</span> <span class="o">=</span> <span class="n">heights</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">correlation</span><span class="p">(</span><span class="n">midparent</span><span class="p">,</span> <span class="n">child</span><span class="p">)</span>
+<span class="n">r</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.32094989606395924</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The scatter plot below has a point for all of the 934 rows of <code>heights</code>. The variables are measured in standard units. The green regression line with an equation of $y = 0.322 x$ is displayed.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">standard_units</span><span class="p">(</span><span class="n">midparent</span><span class="p">),</span> <span class="n">standard_units</span><span class="p">(</span><span class="n">child</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">),</span> <span class="n">r</span><span class="o">*</span><span class="mi">4</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">()</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Midparent Height (standard units)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Child Height (standard units)'</span><span class="p">);</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/24_2_Historical_Example_10_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It's a bit odd to make predictions a century after a data set was collected, but pretend that Galton met a new pair of parents whose midparent height is 71 inches. How could he have gone about predicting their child's height?</p>
+<p>One way is to work in standard units. The midparent height of 71 inches is about 0.995 in standard units:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">su_71</span> <span class="o">=</span> <span class="p">(</span><span class="mi">71</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">midparent</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">midparent</span><span class="p">)</span>
+<span class="n">su_71</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.995460145967897</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So the predicted child's height is $r \times 0.995 = 0.32$ standard units, approximately.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">prediction_su</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">su_71</span>
+<span class="n">prediction_su</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.31949283038421022</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The predicted child's height in 67.89 inches.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">prediction_su</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">child</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>67.888864234422755</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To quantify the error in this estimate, use the fact that when both variables are measured in standard units, the SD of the errors is $\sqrt{1 - r^2}$. Therefore the SD of the errors, in inches, is $\sqrt{1 - r^2} SD(Y)$, which is 3.38 inches.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>3.3880799163953421</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For comparison, the actual average midparent height of those whose midparents heights were near 71 inches is 67.2, compared to our regression estimate of 67.89. Not bad.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">close_to_71</span> <span class="o">=</span> <span class="n">heights</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="s1">'MidParent'</span><span class="p">,</span> <span class="n">are</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="mf">70.9</span><span class="p">,</span> <span class="mf">71.1</span><span class="p">))</span>
+<span class="n">close_to_71</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>MidParent</th> <th>Child</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>71.06    </td> <td>66   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>71.06    </td> <td>64.5 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>71.06    </td> <td>64   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>70.91    </td> <td>73   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>70.91    </td> <td>72   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>70.91    </td> <td>72   </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>70.91    </td> <td>66.5 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>70.91    </td> <td>69.2 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>70.91    </td> <td>67.2 </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>70.91    </td> <td>66.5 </td>
+        </tr>
+    </tbody>
+</table>
+<p>... (4 rows omitted)</p></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">close_to_71</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Child'</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>67.200000000000017</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The SD of the "Child"'s height of these people is 3.02, not far from the theoretical value of 3.38 that we arrived at by using the bivariate normal methods of the previous section.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">close_to_71</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="s1">'Child'</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>3.0213525826310681</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Scaling">Scaling<a class="anchor-link" href="#Scaling">¶</a></h3><p>In the calculations above, we used the bivariate normal distribution after standardizing the two heights involved. In general, random variables $X$ and $Y$ are said to have the <em>bivariate normal distribution with parameters $(\mu_X, \mu_Y, \sigma_X^2, \sigma_Y^2, \rho)$</em> provided the standardized variables</p>
+$$
+X^* = \frac{X - \mu_X}{\sigma_X} ~~~~~~ \text{and} ~~~~~~
+Y^* = \frac{Y - \mu_Y}{\sigma_Y}
+$$<p>have the standard bivariate normal distribution with correlation $\rho$.</p>
+<p>The standardization doesn't affect $\rho$ because correlation is defined in terms of the standardized variables in the first place.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Best-Predictor">Best Predictor<a class="anchor-link" href="#Best-Predictor">¶</a></h3><p>We can now write out the general versions of the numerical calculations we did using Galton's data.</p>
+<p>If $X$ and $Y$ have the bivariate normal distribution with the five parameters (two means, two variances, and correlation) as above, then it is easy to find the conditional distribution of $Y$ given $X = x$.</p>
+<p>The given condition is equivalent to $X^* = x^* = (x - \mu_X)/\sigma_X$. Under this condition, the conditional distribution of $Y^*$ is normal with mean $\rho x^*$ and variance $1 - \rho^2$.</p>
+<p>We can now reverse the standardization and use $Y = Y^*\sigma_Y + \mu_Y$ to get back to the units of $Y$. Given $X = x$, the conditional distribution of $Y$ is normal with mean</p>
+\begin{align*}
+E(Y \mid X) ~ &amp;= ~ (\rho x^*) \sigma_Y + \mu_Y \\
+&amp;= ~ \rho \frac{\sigma_Y}{\sigma_X} x + \big{(}\mu_Y - \rho \frac{\sigma_Y}{\sigma_X} \mu_X \big{)} \\
+&amp;= a^*x + b^*
+\end{align*}<p>where $a^*$ and $b^*$ are the slope and the intercept of the regression line derived in an earlier chapter.</p>
+<p>Thus if $X$ and $Y$ have a bivariate normal distribution, then the best predictor of $Y$ given $X$ is linear and is therefore the same as the best linear predictor or regression line.</p>
+<p>The conditional variance $Var(Y \mid X = x)$ is unaffected by the shift by $\mu_Y$. Therefore</p>
+$$
+Var(Y \mid X = x) ~ = ~ (1 - \rho^2)\sigma_Y^2 ~~~~~~ \text{and} ~~~~~~
+SD(Y \mid X = x) ~ = ~ \sqrt{1 - \rho^2}\sigma_Y
+$$</div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

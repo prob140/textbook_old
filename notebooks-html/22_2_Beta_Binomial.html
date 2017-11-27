@@ -1,0 +1,111 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 22/22_2_Beta_Binomial.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Beta-Binomial">Beta-Binomial<a class="anchor-link" href="#Beta-Binomial">¶</a></h3></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For positive integers $r$ and $s$, we derived the beta $(r, s)$ density</p>
+$$
+f(x) = \frac{(r+s-1)!}{(r-1)!(s-1)!} x^{r-1}(1-x)^{s-1}, ~~~ 0 &lt; x &lt; 1
+$$<p>by studying order statistics of i.i.d. uniform $(0, 1)$ random variables. The beta family can be extended to include parameters $r$ and $s$ that are positive but not integers. This is possible because of facts that you have shown in exercises:</p>
+<ul>
+<li>The Gamma function is a continuous extension of the factorial function.</li>
+<li>If $r$ is a positive integer then $\Gamma(r) = (r-1)!$.</li>
+</ul>
+<p>For fixed positive numbers $r$ and $s$, not necessarily integers, the beta $(r, s)$ density is defined by</p>
+$$
+f(p) = 
+\begin{cases}
+\frac{\Gamma(r+s)}{\Gamma(r)\Gamma(s)} x^{r-1}(1-x)^{s-1}, ~~~ 0 &lt; x &lt; 1 \\
+0 ~~~~~~~~~~~ \text{otherwise}
+\end{cases}
+$$<p>We will not prove that this function integrates to 1, but it is true and should be believable because we have seen it to be true for integer values of the parameters.</p>
+<p>Beta distributions are often used to model random proportions. In the previous section ou saw the beta $(1, 1)$ distribution, also known as the uniform, used in this way to model a randomly picked coin.</p>
+<p>You also saw that given that we know the value of $p$ for the coin we are tossing, the tosses are independent, but when we don't know $p$ then the first two tosses are no longer independent. Knowledge of how the first toss came out tells us something about $p$, which in turn affects the probabilities of how the second toss might come out.</p>
+<p>We will now extend this to more than two tosses and to a general beta prior.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Tossing-a-Random-Coin">Tossing a Random Coin<a class="anchor-link" href="#Tossing-a-Random-Coin">¶</a></h3><p>Let $X$ have the beta $(r, s)$ distribution. We can think of this distribution as quantifying our uncertainty about $X$ before we have gathered data. We will call it the <em>prior distribution</em> of $X$.</p>
+<p>Given $X = p$, let $I_1, I_2, \ldots $ be i.i.d. Bernoulli $(p)$. That is, given $X = p$, toss a $p$-coin repeatedly and record the results as $I_1, I_2, \ldots$.</p>
+<p>Let $S_n = I_1 + I_2 + \cdots + I_n$ be the number of heads in the first $n$ tosses. Then the conditional distribution of $S_n$ given $X = p$ is binomial $(n, p)$. It can be used to calculate the <em>likelihood</em> of the observed number of heads given a value of $p$.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Updating:-The-Posterior-Distribution-of-$X$-Given-$S_n$">Updating: The Posterior Distribution of $X$ Given $S_n$<a class="anchor-link" href="#Updating:-The-Posterior-Distribution-of-$X$-Given-$S_n$">¶</a></h3><p>Before running the experiment, our prior opinion is that $X$ has the beta $(r, s)$ distribution. How should we update that opinion after we have tossed $n$ times and seen the number of heads?</p>
+<p>To answer this, we will find $P(X \in dp \mid S_n = k)$ using Bayes' Rule. To reduce some writing, we will use $C(r, s)$ for the constant in the beta $(r, s)$ density.</p>
+<p>For $0 &lt; p &lt; 1$,</p>
+\begin{align*}
+P(X \in dp \mid S_n = k) ~ &amp;= ~ \frac{P(X \in dp, S_n = k)}{P(S_n = k)} \\ \\
+&amp;= ~ \frac{P(X \in dp)P(S_n = k \mid X = p)}{P(S_n = k)} ~~~~ \text{(Bayes' Rule)} \\ \\
+&amp;\sim ~ \frac{C(r, s) p^{r-1}(1-p)^{s-1}dp \binom{n}{k} p^k (1-p)^{n-k}}{P(S_n = k)} \\ \\
+&amp;= ~ C^*(r, s, n, k) p^{r+k-1}(1-p)^{s + (n-k) - 1} dp
+\end{align*}<p>where $C^*(r, s, n, k)$ does not involve $p$.</p>
+<p>You can see at once that this is the beta $(r+k, s+n-k)$ density:</p>
+$$
+f_{X \mid S_n = k} (p) ~ = ~ C(r+k, s+n-k) p^{r+k-1}(1-p)^{s + n - k - 1}, ~~~ 0 &lt; p &lt; 1
+$$<p>This is called the <em>posterior density of $X$ given $S_n = k$</em>.</p>
+<p>The prior distribution of the probability of heads is from the beta family. The posterior distribution of the probability of heads, given the number of heads, is another beta density. The beta prior and binomial likelihood combine to result in a beta posterior. The beta family is therefore called a <em>family of conjugate priors</em> for the binomial distribution: the posterior is another member of the same family as the prior.</p>
+<p>The <em>posterior mean</em> of $X$ given $S_n = k$ is just the expectation of the beta posterior density:</p>
+$$
+E(X \mid S_n = k) ~ = ~ \frac{r+k}{r+s+n} 
+$$<p>Let's examine these results in an example. Suppose the prior distribution of $X$ is beta $(5, 3)$, and thus the prior mean is $E(X) = 5/8 = 0.625$.  Now suppose we are given that $S_{100} = 70$. Then the posterior distribution of $X$ given $S_{100} = 70$ is beta $(75, 33)$ with mean $75/108 = 0.694$.</p>
+<p>The graph below shows the two densities along with the corresponding means. Run the cell again, keeping $r = 5$ and $s = 3$ but changing $n$ to 10 and $k$ to 7; then again changing $n$ to 1000 and $k$ to $700$. The observed proportion is 0.7 in all cases. Notice how increasing the sample size concentrates the prior around 0.7. We will soon see the reason for this.</p>
+<p>Also try other values of the parameters as well as $n$ and $k$, including values where the observed proportion is quite different from the mean of the prior.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Prior: beta (r, s)</span>
+<span class="c1"># Given: S_n = k</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">s</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="n">plot_prior_and_posterior</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/22_2_Beta_Binomial_6_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can see how the data dominate the prior. The posterior distribution is concentrated around the posterior mean. The prior mean was 0.625, but given that we got 70 heads in 100 tosses, the posterior mean is 0.694 which is very close to the observerd proportion 0.7.</p>
+<p>The formula for the posterior mean shows that for large $n$ it is likely to be close to the observed proportion of heads. Given $S_n = k$, the posterior mean is</p>
+$$
+E(X \mid S_n = k) ~ = ~ \frac{r + k}{r + s + n}
+$$<p>Therefore as a random variable, the posterior mean is
+$$
+E(X \mid S_n) ~ = ~ \frac{r + S_n}{r + s + n}
+$$</p>
+<p>As the number of tosses $n$ gets large, the number of heads $S_n$ is likely to get large too. So the value of $S_n$ is likely to dominate the numerator, and $n$ will dominate the denominator, because $r$ and $s$ are constants. Thus for large $n$, the posterior mean is likely to be close to $S_n/n$.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Prediction:-The-Distribution-of-$S_{n+1}$-Given-$S_n$">Prediction: The Distribution of $S_{n+1}$ Given $S_n$<a class="anchor-link" href="#Prediction:-The-Distribution-of-$S_{n+1}$-Given-$S_n$">¶</a></h3><p>As we saw in the previous section, the chance that a random coin lands heads is the expected value of its random probability of heads. Apply this to our current setting to see that</p>
+$$
+P(S_1 = 1) ~ = ~ P(\text{first toss is a head}) ~ = ~ E(X) ~ = ~ \frac{r}{r+s}
+$$<p>Now suppose that we have the results of the first $n$ tosses, and that $k$ of those tosses were heads. Given that $S_n = k$, the possible values of $S_{n+1}$ are $k$ and $k+1$. We can now use our updated distribution of $X$ and the same reasoning as above to see that</p>
+$$
+P(S_{n+1} = k+1 \mid S_n = k) ~ = ~ P(\text{toss } n+1 \text{ is a head} \mid S_n = k)
+~ = ~ E(X \mid S_n = k) ~ = ~ \frac{r+k}{r + s + n}
+$$<p>We can work out $P(S_{n+1} = k \mid S_n = k)$ by the complement rule. We now have a transition function. Given that $S_n = k$, the conditional distribution of $S_{n+1}$ is given by</p>
+$$
+S_{n+1} =
+\begin{cases} 
+k ~~~~~~~~ \text{ with probability } (s + n - k)/(r + s + n) \\
+k+1 ~~ \text{ with probability } (r+k)/(r + s + n)
+\end{cases}
+$$<p>In other words, given the results of the first $n$ tosses, the chance that Toss $n+1$ is a tail is proportional to $s$ plus the number of failures. The chance that Toss $n+1$ is a head is proportional to $r$ plus the number of successes.</p>
+<p>You can think of the sequence $\{ S_n: n \ge 1 \}$ as a Markov chain, but keep in mind that the transition probabilities are not time-homogenous – the formulas involve $n$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

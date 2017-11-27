@@ -1,0 +1,191 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 19/19_1_Probabilities_and_Expectations.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Probabilities-and-Expectations">Probabilities and Expectations<a class="anchor-link" href="#Probabilities-and-Expectations">¶</a></h3><p>A function $f$ on the plane is called a <em>joint density</em> if:</p>
+<ul>
+<li>$f(x, y) \ge 0$ for all $x$, $y$</li>
+<li>$\int_x \int_y f(x, y)dydx = 1$</li>
+</ul>
+<p>If you think of $f$ as a surface, then the first condition says that the surface is on or above the plane. The second condition says that the total volume under the surface is 1.</p>
+<p>Think of probabilities as volumes under the surface, and define $f$ to be the <em>joint density of random variables $X$ and $Y$</em> if</p>
+$$
+P((X, Y) \in A) ~ = ~ \mathop{\int \int}_A f(x,y)dydx ~~~~~ \text{for all } A
+$$<p>That is, the chance that the random point $(X, Y)$ falls in the region $A$ is the volume under the joint density surface over the region $A$.</p>
+<p>This is a two-dimensional analog of the fact that in probabilities involving a single random variable can be thought of as areas under the density curve.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Infinitesimals">Infinitesimals<a class="anchor-link" href="#Infinitesimals">¶</a></h3><p>Also analogous is the interpretation of the joint density as an element in the calculation of the probability of an infinitesimal region.
+<img alt="joint density matchstick" src="jt_density.png"/>
+The infinitesimal region is a tiny rectangle in the plane just around the point $(x, y)$. Its width is $dx$ and its length is $dy$. The corresponding volume is that of a rectangular box whose base is the tiny rectangle and whose height is $f(x, y)$.</p>
+<p>Thus for all $x$ and $y$,
+$$
+P(X \in dx, Y \in dy) ~ \sim ~ f(x, y)dxdy
+$$</p>
+<p>and the joint density measures <em>probability per unit area</em>:
+$$
+f(x, y) ~ \sim ~ \frac{P(X \in dx, Y \in dy)}{dxdy}
+$$</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>An example will help us visualize all this. Let $f$ be defined as follows:</p>
+$$
+f(x, y) ~ = ~ 
+\begin{cases}
+120x(y-x)(1-y), ~~~ 0 &lt; x &lt; y &lt; 1 \\
+0 ~~~~~~~~ \text{otherwise}
+\end{cases}
+$$<p>For now, just assume that this is a joint density, that is, it integrates to 1. Let's first take a look at what the surface looks like.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Plotting-the-Surface">Plotting the Surface<a class="anchor-link" href="#Plotting-the-Surface">¶</a></h3><p>To do this, we will use a 3-dimensional plotting routine. First, we define the joint density function. For use in our plotting routine, this function must take $x$ and $y$ as its inputs and return the value $f(x, y)$ as defined above.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">joint</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">x</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">120</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then we call <code>Plot_3d</code> to plot the surface. The arguments are the limits on the $x$ and $y$ axes, the name of the function to be plotted, and two optional arguments <code>rstride</code> and <code>cstride</code> that determine how many grid lines to use (larger numbers correspond to less frequent grid lines).</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Plot_3d</span><span class="p">(</span><span class="n">x_limits</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">y_limits</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">f</span><span class="o">=</span><span class="n">joint</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/19_1_Probabilities_and_Expectations_7_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You can see that the surface has level 0 in the lower right hand triangle. In fact, the possible values of $(X, Y)$ are as shown below. For calculations, we will frequently draw just the possible values and not the surface.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/19_1_Probabilities_and_Expectations_9_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Total-Volume-Under-the-Surface">The Total Volume Under the Surface<a class="anchor-link" href="#The-Total-Volume-Under-the-Surface">¶</a></h3><p>First, it's a good idea to check that the total probability under the surface is equal to 1.
+The function $f$ looks like a bit of a mess but it is easy to see that it is non-negative. Let's use <code>SymPy</code> to see that it integrates to 1. Done by hand, the integration is routine but tedious.</p>
+<p>We will first declare the two variables to have values in the unit interval, and assign the function to the name <code>f</code>. This specification doesn't say that $x &lt; y$, but we will enforce that condition when we integrate.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">declare</span><span class="p">(</span><span class="s1">'x'</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">declare</span><span class="p">(</span><span class="s1">'y'</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">f</span> <span class="o">=</span> <span class="mi">120</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To set up the double integral over the entire region of possible values, notice that $x$ goes from 0 to 1, and for each fixed value of $x$, the value of $y$ goes from $x$ to 1.</p>
+<p>We will fix $x$ and first integrate with respect to $y$. Then we will integrate $x$. The double integral requires a call to <code>Integral</code> that specifies the inner integral first and then the outer. The call says:</p>
+<ul>
+<li>The function being integrated is $f$.</li>
+<li>The inner integral is over the variable $y$ which goes from $x$ to 1.</li>
+<li>The outer integral is over the variable $x$ which goes from 0 to 1.</li>
+</ul></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Integral</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$\int_{0}^{1}\int_{x}^{1} 120 x \left(- x + y\right) \left(- y + 1\right)\, dy\, dx$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To evaluate the integral, use <code>doit()</code>:</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Integral</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$1$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Probabilities-as-Volumes">Probabilities as Volumes<a class="anchor-link" href="#Probabilities-as-Volumes">¶</a></h3><p>Probabilities are volumes under the joint density surface; in other words, they are double integrals of the function $f$. For each probability, we have to first identify the region of integration, which we will do by geometry and by inspecting the event. Once we have set up the integral, we have to calculate its value, which we will do by <code>SymPy</code>.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-1.">Example 1.<a class="anchor-link" href="#Example-1.">¶</a></h4><p>Suppose you want to find $P(Y &gt; 4X)$. The event is the blue region in the graph below.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/19_1_Probabilities_and_Expectations_18_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The volume under the density surface over this region is given by an integral specified analogously to the previous one: first the inner integral and then the outer.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Integral</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$\int_{0}^{0.25}\int_{4 x}^{1} 120 x \left(- x + y\right) \left(- y + 1\right)\, dy\, dx$$</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Integral</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$0.15625$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example-2.">Example 2.<a class="anchor-link" href="#Example-2.">¶</a></h4><p>Suppose you want to find $P(X &gt; 0.25, Y &gt; 0.5)$. The event is the colored region below.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/19_1_Probabilities_and_Expectations_23_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now $P(X &gt; 0.25, Y &gt; 0.5)$ is the integral of the joint density function over this region. Notice that for each fixed value of $y &gt; 0.5$, the value of $x$ in this event goes from $0.25$ to $y$. So let's integrate $x$ first and then $y$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Integral</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$\int_{0.5}^{1}\int_{0.25}^{y} 120 x \left(- x + y\right) \left(- y + 1\right)\, dx\, dy$$</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">Integral</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$0.578125$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Expectation">Expectation<a class="anchor-link" href="#Expectation">¶</a></h3><p>Let $g$ be a function on the plane. Then
+$$
+E(g(X, Y)) ~ = ~ \int_y \int_x g(x, y)f(x, y)dxdy 
+$$
+provided the integral exists, in which case it can be carried out in either order ($x$ first, then $y$, or the other way around).</p>
+<p>This is the non-linear function rule for expectation, applied to two random variables with a joint density.</p>
+<p>As an example, let's find $E(\frac{Y}{X})$ for $X$ and $Y$ with the joint density $f$ given in the examples above.</p>
+<p>Here $g(x, y) = \frac{y}{x}$, and</p>
+\begin{align*}
+E\big{(}\frac{Y}{X}\big{)} &amp;= \int_y \int_x g(x, y)f(x, y)dxdy \\ \\
+&amp;= \int_0^1 \int_x^1 \frac{y}{x} 120x(y-x)(1-y)dy dx \\ \\
+&amp;= \int_0^1 \int_x^1 120y(y-x)(1-y)dy dx
+\end{align*}<p>Now let's use <code>SymPy</code>. Remember that <code>x</code> and <code>y</code> have already been defined as symbolic variables with values in the unit interval.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ev_y_over_x</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="mi">120</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">ev_y_over_x</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$\int_{0}^{1}\int_{x}^{1} 120 y \left(- x + y\right) \left(- y + 1\right)\, dy\, dx$$</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ev_y_over_x</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$3$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So for this pair of random variables $X$ and $Y$, we have 
+$$
+E\big{(}\frac{Y}{X}\big{)} = 3
+$$</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

@@ -1,0 +1,114 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 18/18_3_Monotone_Functions.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Monotone-Functions">Monotone Functions<a class="anchor-link" href="#Monotone-Functions">¶</a></h3><p>Let $X$ have density $f_X$. Let $g$ be a smooth (that is, differentiable) increasing function, and let $Y = g(X)$. Examples of such functions $g$ are:</p>
+<ul>
+<li>$g(x) = ax + b$ for some $a &gt; 0$. This case was covered in the previous section.</li>
+<li>$g(x) = e^x$</li>
+<li>$g(x) = \sqrt{x}$ on positive values of $x$</li>
+</ul>
+<p>To find a formula for the density of $Y$ in terms of $f_X$ and $g$, we will use the same approach as in the previous section.</p>
+<ul>
+<li>For $Y$ to be $y$, $X$ has to be $g^{-1}(y)$.</li>
+<li>Now $g$ need not be linear, so the tranformation by $g$ won't necessarily stretch the horizontal axis by a constant factor. Instead, the factor has different values at each $x$. If $g'$ denotes the derivative of $g$, then the stretch factor at $x$ is $g'(x)$, the rate of change of $g$ at $x$. To make the total area under the density equal to 1, we have to compensate by dividing by $g'(x)$. This is valid because $g$ is increasing and hence $g'$ is positive.</li>
+</ul>
+<p>Thus we have an intuitive justification for the following formula.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Change-of-Variable-Formula-for-Density:-Increasing-Function">Change of Variable Formula for Density: Increasing Function<a class="anchor-link" href="#Change-of-Variable-Formula-for-Density:-Increasing-Function">¶</a></h3><p>The density of $Y = g(X)$ is given by
+$$
+f_Y(y) ~ = ~ f_X(x) \cdot \frac{1}{g'(x)} ~~~ \text{at } x = g^{-1}(y)
+$$</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before we formally establish the formula, let's use it in an example so that we understand all its component parts.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Log-normal-Density">Log-normal Density<a class="anchor-link" href="#Log-normal-Density">¶</a></h3><p>Let $Z$ be a standard normal random variable and suppose $\mu$ and $\sigma$ are constants with $\sigma &gt; 0$. Let $Y = e^{\sigma Z + \mu}$. Then $Y$ is a random variable <em>whose $\log$ is normal</em> and hence its density is known as <em>log-normal</em>.</p>
+<p>To find the density of $Y$, first note that the possible values of $Y$ are in $(0, \infty)$. Here are the components of the change of variable formula.</p>
+<ul>
+<li>Define $g(z) = e^{\sigma z + \mu}$. Then $g$ is increasing because $\sigma &gt; 0$.</li>
+<li>The derivative of $g$ is given by $g'(z) = \sigma e^{\sigma z + \mu}$.</li>
+<li>For $y &gt; 0$ let $y = g(z) = e^{\sigma z + \mu}$. Then $z = g^{-1}(y) = \frac{\log(y) - \mu}{\sigma}$.</li>
+<li>The density of $Z$ is $\phi(z) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}z^2}$.</li>
+</ul>
+<p>For $y &gt; 0$ our formula says
+$$
+f_Y(y) ~ = ~ \phi(z) \frac{1}{g'(z)} ~~~ \text{at } z = g^{-1}(y)
+$$
+So</p>
+$$
+f_Y(y) ~ = ~ \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}z^2} \frac{1}{\sigma e^{\sigma z + \mu}}
+~~~ \text{at } z = g^{-1}(y) 
+$$<p>At $z = g^{-1}(y) = \frac{\log(y) - \mu}{\sigma}$ we have $\sigma z + \mu = \log(y)$ and hence $e^{\sigma z + \mu} = y$.</p>
+<p>Hence for $y &gt; 0$,
+$$
+f_Y(y) ~ = ~ \frac{1}{\sqrt{2\pi}\sigma y} e^{-\frac{1}{2} \big{(} \frac{\log(y) - \mu}{\sigma} \big{)}^2}
+$$</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/18_3_Monotone_Functions_5_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A log-normal density can be used as an approximation for the density of a product of a large number of i.i.d. random variables. The log of the product is the sum of a large number of i.i.d. variables, and hence is approximately normal by the Central Limit Theorem.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Proof-of-Formula">Proof of Formula<a class="anchor-link" href="#Proof-of-Formula">¶</a></h3><p>Let $g$ be smooth and increasing, and let $Y = g(X)$. We want a formula for $f_Y$. We can derive it by using the cdf as we did for linear functions.</p>
+\begin{align*}
+F_Y(y) ~ &amp; = ~ P(Y \le y) \\
+&amp;= ~ P(g(X) \le y) \\
+&amp;= ~ P(X \le g^{-1}(y)) ~~~~ g \text{ is increasing} \\
+&amp;= ~ F_X(g^{-1}(y))
+\end{align*}<p>By the chain rule and the fact that the derivative of an inverse is the reciprocal of the derivative,
+$$
+f_Y(y) ~ = ~ f_X(g^{-1}(y)) \frac{d}{dy} g^{-1}(y)
+~ = ~ f_X(x) \frac{1}{g'(x)} ~ \text{at } x = g^{-1}(y)
+$$</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Change-of-Variable-Formula-for-Density:-Monotone-Function">Change of Variable Formula for Density: Monotone Function<a class="anchor-link" href="#Change-of-Variable-Formula-for-Density:-Monotone-Function">¶</a></h3><p>Let $g$ be smooth and monotone (that is, either increasing or decreasing). The density of $Y = g(X)$ is given by</p>
+$$
+f_Y(y) ~ = ~ f_X(x) \cdot \frac{1}{\lvert g'(x) \rvert} ~~~ \text{at } x = g^{-1}(y)
+$$<p>We have proved the result for increasing $g$. When $g$ is decreasing, the proof is analogous to proof in the linear case and accounts for $g'$ being negative. We won't take the time to write it out.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Reciprocal-of-a-Uniform-Variable">Reciprocal of a Uniform Variable<a class="anchor-link" href="#Reciprocal-of-a-Uniform-Variable">¶</a></h3><p>Let $U$ be uniform on $(0, 1)$ and let $V = 1/U$. The distribution of $V$ is called the <em>inverse uniform</em> but the word "inverse" is confusing in the context of change of variable. So we will simply call $V$ the reciprocal of $U$.</p>
+<p>To find the density of $V$, start by noticing that the possible values of $V$ are in $(1, \infty)$ as the possible values of $U$ are in $(0, 1)$.</p>
+<p>The components of the change of variable formula for densities:</p>
+<ul>
+<li>Define $g(u) = 1/u$.</li>
+<li>Then $g'(u) = -u^{-2}$.</li>
+<li>Let $v = g(u) = 1/u$. Then $u = g^{-1}(v) = 1/v$.</li>
+<li>$f_U(u) = 1$ for $0 &lt; u &lt; 1$.</li>
+</ul>
+<p>By the formula, for $v &gt; 1$ we have
+$$
+f_V(v) ~ = ~ f_U(u) \cdot \frac{1}{\lvert g'(u) \rvert} ~~~ \text{at } u = g^{-1}(v)
+$$</p>
+<p>That is, for $v &gt; 1$,
+$$
+f_V(v) ~ = ~ 1 \cdot u^2 ~~~ \text{at } u = 1/v
+$$
+So 
+$$
+f_V(v) ~ = ~ \frac{1}{v^2}, ~~~ v &gt; 1
+$$</p>
+<p>You should check that $f_V$ is indeed a density, that is, it integrates to 1. You should also check that the expectation of $V$ is infinite.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/18_3_Monotone_Functions_10_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

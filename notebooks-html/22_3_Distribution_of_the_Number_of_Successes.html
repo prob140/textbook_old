@@ -1,0 +1,67 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 22/22_3_Distribution_of_the_Number_of_Successes.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Distribution-of-the-Number-of-Successes">Distribution of the Number of Successes<a class="anchor-link" href="#Distribution-of-the-Number-of-Successes">¶</a></h3><p>As in the previous section, let $X$ have the beta $(r, s)$ prior, and given $X = p$ let the $S_n$ be the number of heads in the first $n$ tosses of a $p$-coin.</p>
+<p>All the calculations we carried out in the previous section were under the condition that $S_n = k$, but we never needed to find the probability of this event. It appeared as the denominator in the calculation of the posterior density of $X$:</p>
+$$
+P(X \in dp \mid S_n = k) ~ = ~ \frac{C(r, s) p^{r-1}(1-p)^{s-1}dp \binom{n}{k} p^k (1-p)^{n-k}}{P(S_n = k)}
+$$<p>where $C(r, s)$ is the constant of integration in the beta $(r, s)$ density.</p>
+<p>Because this results in the beta $(r+k, s+n-k)$ density we can equate constants to derive the identity</p>
+$$
+\frac{C(r, s) \binom{n}{k}}{P(S_n = k)} ~ = ~ C(r+k, s+n-k)
+$$<p>So for $k$ in the range 0 through $n$,</p>
+$$
+P(S_n = k) ~ = ~  \binom{n}{k} \frac{C(r, s)}{C(r+k, s+n-k)}
+$$<p>One $(r, s)$ pair is particularly interesting: $r = s = 1$. That's the case when $X$ has the uniform prior. The distribution of $S_n$ reduces to</p>
+$$
+P(S_n = k ) ~ = ~ \frac{n!}{k!(n-k)!} \cdot \frac{1!}{0!0!} \cdot \frac{k!(n-k)!}{(n+1)!} ~ = ~ \frac{1}{n+1}
+$$<p>There's no $k$ in the answer! The conclusion is that <strong>if you choose $p$ uniformly between 0 and 1 and toss a $p$-coin $n$ times, the distribution of the number of heads is uniform on $\{ 0, 1, 2, \ldots, n\}$.</strong></p>
+<p>If you choose $p$ uniformly between 0 and 1, then for the conditional distribution of $S_n$ given that $p$ was the selected value is binomial $(n, p)$. But the unconditional distribution of $S_n$ is uniform.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Checking-the-Answer-by-Integration">Checking the Answer by Integration<a class="anchor-link" href="#Checking-the-Answer-by-Integration">¶</a></h3><p>If you prefer, you can find the distribution of $S_n$ directly, by conditioning on $X$.</p>
+\begin{align*}
+P(S_n = k) ~ &amp;= \int_0^1 P(S_n = k \mid X = p)f_X(p)dp \\ \\
+&amp;= ~ \int_0^1 \binom{n}{k} p^k(1-p)^{n-k}C(r, s)p^{r-1}(1-p)^{s-1}dp \\ \\
+&amp;= ~ \binom{n}{k} C(r, s) \int_0^1 p^{r+k-1}(1-p)^{s+n-k-1} dp \\ \\
+&amp;= ~ \binom{n}{k} C(r, s) \frac{1}{C(r+k, s+n-k)}
+\end{align*}</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Unconditional-Expectation-of-$S_n$">Unconditional Expectation of $S_n$<a class="anchor-link" href="#Unconditional-Expectation-of-$S_n$">¶</a></h3><p>Given $X = p$, the conditional distribution of $S_n$ is binomial $(n, p)$. Therefore</p>
+$$
+E(S_n \mid X = p) ~ = ~ np
+$$<p>or, equivalently,
+$$
+E(S_n \mid X) ~ = ~ nX
+$$
+and so by iteration,
+$$
+E(S_n) ~ = ~ E(nX) ~ = ~ nE(X) ~ = ~ n\frac{r}{r+s}
+$$</p>
+<p>The expected proportion of heads is
+$$
+E\big{(} \frac{S_n}{n} \big{)} ~ = ~ \frac{r}{r+s}
+$$</p>
+<p>which is the expectation of the prior distribution of $X$.</p>
+<p>In the next section we will examine the long run behavior of this random proportion.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Endnote">Endnote<a class="anchor-link" href="#Endnote">¶</a></h3><p>The unconditional probability $P(S_n = k)$ appeared in the denominator of our calculation of the posterior density of $X$ given $S_n$. Because of the simplifications that result from using conjugate priors, we were able to calculate the denominator in a couple of different ways. But often the calculation can be intractable, especially in high dimensional settings. Methods of dealing with this problem are covered in more advanced courses.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

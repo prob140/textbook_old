@@ -1,0 +1,127 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&path=textbook/Chapter 23/23_1_Conditional_Variance.ipynb">Interact</a>
+            
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$']],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Conditional-Variance">Conditional Variance<a class="anchor-link" href="#Conditional-Variance">¶</a></h3><p>This section brings us back to the conditional expectation $E(Y \mid X)$, this time looking at it in relation to the scatter plot of points $(X, Y)$ generated according to the joint distribution of $X$ and $Y$. Deviations from this conditional mean lead to a definition of conditional variance, which can be a useful tool for finding variances of random variables that are defined in terms of other random variables.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Review-of-Conditional-Expectation">Review of Conditional Expectation<a class="anchor-link" href="#Review-of-Conditional-Expectation">¶</a></h3><p>In an earlier section we defined the conditional expectation $E(Y \mid X)$ as a function of $X$, as follows:</p>
+$$
+b(x) ~ = ~ E(Y \mid X = x)
+$$<p>We are using the letter $b$ to signifiy the "best guess" of $Y$ given the value of $X$. Later in this chapter we will make precise the sense in which it is the best.</p>
+<p>In random variable notation,
+$$
+E(Y \mid X) ~ = ~ b(X)
+$$</p>
+<p>Recall that the properties of conditional expectations are analogous to those of expectation, but the identities are of random variables, not real numbers. There are also some additional properties due to the aspect of conditioning. We provide a list of the properties here for ease of reference.</p>
+<ul>
+<li><strong>Linear transformation</strong>: $E(aY + b \mid X) ~ = ~ aE(Y \mid X) + b$</li>
+<li><strong>Additivity</strong>: $E(Y + W \mid X) ~ = ~ E(Y \mid X) + E(W \mid X)$</li>
+<li><strong>"The given variable is a constant"</strong>: $E(g(X) \mid X) ~ = ~ g(X)$</li>
+<li><strong>"Pulling out" constants</strong>: $E(g(X)Y \mid X) ~ = ~ g(X)E(Y \mid X)$</li>
+<li><strong>Independence</strong>: If $X$ and $Y$ are independent then $E(Y \mid X) = E(Y)$, a constant.</li>
+</ul>
+<p>The fundamental property that we have used most often is that of <strong>iteration</strong>:</p>
+$$
+E\big{(} b(X) \big{)} ~ = ~ E\big{(} E(Y \mid X) \big{)} ~ = ~ E(Y)
+$$<p>Therefore
+$$
+Var\big{(} b(X) \big{)} ~ = ~ E\Big{(} \big{(}b(X) - E(Y)\big{)}^2\Big{)}
+$$</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Vertical-Strips">Vertical Strips<a class="anchor-link" href="#Vertical-Strips">¶</a></h3><p>As an example, let $X$ be standard normal, and let
+$$
+Y ~ = ~ X^2 + W
+$$
+where $W$ is uniform on $(-2, 2)$ and is independent of $X$. Then by properties of conditional expectation,</p>
+$$
+E(Y \mid X) ~ = ~ E(X^2 \mid X) + E(W \mid X) ~ = ~ X^2 + E(W) ~ = ~ X^2 + 0 ~ = ~ X^2
+$$<p>The graph below shows a scatter diagram of simulated $(X, Y)$ points, along with the curve $E(Y \mid X) = X^2$. Notice how the curve picks off the centers of the vertical strips. Given a value of $X$, the conditional expectation $E(Y \mid X)$ is essentially (upto sampling variabliity) the average of the vertical strip at the given value of $X$.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/23_1_Conditional_Variance_6_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Deviation-from-the-Conditional-Mean">Deviation from the Conditional Mean<a class="anchor-link" href="#Deviation-from-the-Conditional-Mean">¶</a></h3><p>As we said in Data 8, the points in each vertical strip form their own little data set, with their own mean. In probability language, the conditional distribution of $Y$ given $X = x$ has mean $E(Y \mid X = x)$.</p>
+<p>The deviation from the conditional mean given $X = x$ is $Y - E(Y \mid X = x) ~ = ~ Y - b(x)$. An example of such a deviation is the length of the red segment in the graph below.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/23_1_Conditional_Variance_8_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In random variable notation, this deviation from the mean of a random vertical strip becomes</p>
+$$
+Y - E(Y \mid X) ~ = ~ Y - b(X)
+$$<p>For any distribution, all of the deviations from average cancel each other out and have an average of 0. The calculation below establishes this for each vertical strip:</p>
+$$
+E(Y - b(X) \mid X) ~ = ~  E(Y \mid X) - b(X) ~ = ~ E(Y \mid X) - E(Y \mid X) ~ = ~ 0
+$$<p>This result helps us understand the relation between $X$ and the deviation $Y - b(X)$ within the vertical strip at $X$. First, let $g(X)$ be any function of $X$. Then</p>
+$$
+E\big{(}(Y - b(X))g(X) \mid X\big{)} ~ = ~ g(X)E(Y - b(X) \mid X) = 0
+$$<p>So by iteration, the expected product of $g(X)$ the deviation $Y - b(X)$ is 0:</p>
+$$
+E\big{(}(Y - b(X))g(X)\big{)} ~ = ~ E\Big{(}E\big{(}(Y - b(X))g(X) \mid X\big{)}\Big{)} ~ = ~ 0
+$$<p>Because $E(Y - b(X)) = 0$, we see that the covariance between $g(X)$ and the deviation is</p>
+$$
+Cov(g(X), Y - b(X)) ~ = ~ 0
+$$<p>That is, <strong>the deviation from the conditional mean is uncorrelated with functions of $X$</strong>.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Conditional-Variance">Conditional Variance<a class="anchor-link" href="#Conditional-Variance">¶</a></h3><p>In terms of the scatter plot, the familiar quantity $Var(Y) = E\big{(}(Y - E(Y))^2\big{)}$ is  the mean squared distance between the points and the horizontal line at level $E(Y)$.</p>
+<p>In our example, $Y = X^2 + W$ where $X$ is standard normal and $W$ is uniform on $(-2, 2)$. So $E(Y) = E(X^2) = 1$ because $X^2$ has the chi-squared $(1)$ distribution.</p>
+<p>Clearly, the rough size of the deviations from the flat line at $E(Y)$ is greater than the rough size of the deviation from the conditional expectation curve $E(Y \mid X)$.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/23_1_Conditional_Variance_11_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To quantify this, we will first define the <em>conditional variance of $Y$ given $X$</em> as</p>
+$$
+Var(Y \mid X) ~ = ~ E\Big{(} \big{(}Y - E(Y \mid X)\big{)}^2 \mid X \Big{)}
+~ = ~ E\Big{(} \big{(}Y - b(X)\big{)}^2 \mid X \Big{)}
+$$<p>To understand this definition, keep in mind that being "given X" is the same as working within the vertical strip at a random value on the horizontal axis chosen according to the distribution of $X$. The conditional distribution of $Y$ in that strip has a variance. That's $Var(Y \mid X)$.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/23_1_Conditional_Variance_13_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now let's see how variance and conditional variance are related to each other.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Variance-by-Conditioning">Variance by Conditioning<a class="anchor-link" href="#Variance-by-Conditioning">¶</a></h3><p>The vertical distance between a point and the flat line at $E(Y)$ is thus sum of two distances: the vertical distance between the point and the curve $E(Y \mid X)$, and the distance between the curve and the flat line.</p>
+$$
+Y - E(Y) ~ = ~ (Y - E(Y \mid X)) + (E(Y \mid X) - E(Y) ~ = ~ (Y - b(X)) + (b(X) - E(Y))
+$$<p>The first term on the right hand side is the red segment and the second term is the green segment right below it.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/23_1_Conditional_Variance_16_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now we can see how the variance of $Y$ breaks down, using these two pieces.</p>
+\begin{align*}
+Var(Y) ~ &amp;= ~ E\Big{(}\big{(}Y - E(Y)\big{)}^2\Big{)} \\
+&amp;= ~ E\Big{(} \big{(} (Y-b(X)) + (b(X) - E(Y)) \big{)}^2\Big{)} \\
+&amp;= ~ E\Big{(}\big{(}Y - b(X)\big{)}^2\Big{)} + E\Big{(}\big{(}b(X) - E(Y)\big{)}^2\Big{)} + 2E\Big{(}\big{(}Y - b(X)\big{)}\big{(}b(X) - E(Y)\big{)}\Big{)} \\
+&amp;= ~ E\Big{(}\big{(}Y - b(X)\big{)}^2\Big{)} + Var\Big{(}b(X)\Big{)}
+\end{align*}<p>The cross product term is 0 because $b(X) - E(Y)$ is a function of $X$ (remember that $E(Y)$ is a constant) and the deviation $Y - b(X)$ is uncorrelated with functions of $X$.</p>
+<p>Thus we have shown:</p>
+<p><strong>Variance is the sum of the expectation of the conditional variance and the variance of the conditional expectation.</strong></p>
+<p>It makes sense that the two quantities on the right hand side are involved. The variability of $Y$ has two components:</p>
+<ul>
+<li>the rough size of the variability within the individual vertical strips, that is, the expectation of the conditional variance</li>
+<li>the variability between strips, measured by the variance of the centers of the strips.</li>
+</ul>
+<p>The beautiful property of variance is that you can just add the two terms to get the unconditional variance.</p>
+<p>We know that the lengths of the red and green segments are uncorrelated; the deviation $Y - b(X)$ is uncorrelated with $b(X) - E(Y)$. What the result is saying is that the square of the sum of the two distances is the sum of their squares. There is a precise analogy between this result and Pythagoras' Theorem, with "uncorrelated" replacing "orthogonal". In later sections we will get a better sense of this analogy. The geometry requires an understanding of orthogonal vectors and is well worth studying.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>
