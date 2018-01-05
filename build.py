@@ -24,7 +24,7 @@ def make_md_file(title,ipynb_name):
     filled_outline = outline.format(title,ipynb_name.replace('ipynb','html'))
     with open('notebooks-md/%s'%(ipynb_name.replace('ipynb','md')),'w') as f:
         f.write(filled_outline)
-    
+
 
 
 
@@ -48,7 +48,7 @@ for n,chapter in zip(range(1,len(configuration)+1),configuration):
         ipynb_file = dest.rpartition('/')[2]
         make_md_file(section[:-6].replace('_',' '),ipynb_file)
         shutil.copy2(src,dest)
-        
+
 
 
 #
@@ -61,7 +61,7 @@ for n,chapter in zip(range(1,len(configuration)+1),configuration):
 SUMMARY_head = """
 # Summary
 
-* [To the Student](notebooks-md/to_the_student.md)
+* [To the Student](notebooks-md/To_the_Student.md)
 
 """
 

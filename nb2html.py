@@ -26,11 +26,10 @@ preamble = """
     }
   });
 </script>
-<script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
 """
-
+preamble = """
+"""
 # Use ExtractOutputPreprocessor to extract the images to separate files
 config = Config()
 config.HTMLExporter.preprocessors = [

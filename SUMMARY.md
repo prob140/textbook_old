@@ -1,7 +1,7 @@
 
 # Summary
 
-* [To the Student](notebooks-md/to_the_student.md)
+* [To the Student](notebooks-md/To_the_Student.md)
 
 
 * [Chapter 1: Fundamentals](notebooks-md/1_0_Fundamentals.md)
