@@ -1,0 +1,80 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CLOSING_DIV_REGEX	_book/nb2html.py	/^CLOSING_DIV_REGEX = re.compile('\\s+<\/div>')$/;"	kind:variable	line:69
+CLOSING_DIV_REGEX	nb2html.py	/^CLOSING_DIV_REGEX = re.compile('\\s+<\/div>')$/;"	kind:variable	line:69
+Config	_book/nb2html.py	/^from traitlets.config import Config$/;"	kind:namespace	line:18
+Config	nb2html.py	/^from traitlets.config import Config$/;"	kind:namespace	line:18
+DATASET_REGEX	_book/nb2html.py	/^DATASET_REGEX = re.compile($/;"	kind:variable	line:57
+DATASET_REGEX	nb2html.py	/^DATASET_REGEX = re.compile($/;"	kind:variable	line:57
+HTMLExporter	_book/nb2html.py	/^from nbconvert import HTMLExporter$/;"	kind:namespace	line:17
+HTMLExporter	nb2html.py	/^from nbconvert import HTMLExporter$/;"	kind:namespace	line:17
+NOTEBOOK_HTML_DIR	_book/nb2html.py	/^NOTEBOOK_HTML_DIR = 'notebooks-html'$/;"	kind:variable	line:43
+NOTEBOOK_HTML_DIR	nb2html.py	/^NOTEBOOK_HTML_DIR = 'notebooks-html'$/;"	kind:variable	line:43
+NOTEBOOK_IMAGE_DIR	_book/nb2html.py	/^NOTEBOOK_IMAGE_DIR = 'notebooks-images'$/;"	kind:variable	line:46
+NOTEBOOK_IMAGE_DIR	nb2html.py	/^NOTEBOOK_IMAGE_DIR = 'notebooks-images'$/;"	kind:variable	line:46
+SUMMARY_md	_book/build.py	/^SUMMARY_md ="\\n".join(chapter_summaries)$/;"	kind:variable	line:79
+SUMMARY_md	build.py	/^SUMMARY_md ="\\n".join(chapter_summaries)$/;"	kind:variable	line:79
+_extract_cells	_book/nb2html.py	/^def _extract_cells(html):$/;"	kind:function	line:140
+_extract_cells	nb2html.py	/^def _extract_cells(html):$/;"	kind:function	line:140
+bs4	_book/nb2html.py	/^import bs4$/;"	kind:namespace	line:15
+bs4	nb2html.py	/^import bs4$/;"	kind:namespace	line:15
+build.py	_book/build.py	1;"	kind:file	line:1
+build.py	build.py	1;"	kind:file	line:1
+chapter_summaries	_book/build.py	/^chapter_summaries = [SUMMARY_head]$/;"	kind:variable	line:68
+chapter_summaries	build.py	/^chapter_summaries = [SUMMARY_head]$/;"	kind:variable	line:68
+config	_book/nb2html.py	/^config = Config()$/;"	kind:variable	line:33
+config	nb2html.py	/^config = Config()$/;"	kind:variable	line:33
+configuration	_book/build.py	/^configuration = yaml.load(open('notebooks\/config.yml'))$/;"	kind:variable	line:7
+configuration	build.py	/^configuration = yaml.load(open('notebooks\/config.yml'))$/;"	kind:variable	line:7
+convert_notebooks_to_html_partial	_book/nb2html.py	/^def convert_notebooks_to_html_partial(notebook_paths):$/;"	kind:function	line:73
+convert_notebooks_to_html_partial	nb2html.py	/^def convert_notebooks_to_html_partial(notebook_paths):$/;"	kind:function	line:73
+dest	_book/build.py	/^        dest = ('notebooks-flat\/%d_%d_%s'%(n,i,section))$/;"	kind:variable	line:47
+dest	build.py	/^        dest = ('notebooks-flat\/%d_%d_%s'%(n,i,section))$/;"	kind:variable	line:47
+entries	_book/build.py	/^    entries = ['* [Chapter %d: %s](notebooks-md\/%d_0_%s)'%(n,chapter['name'],n,chapter['sections'][0].replace('ipynb','md'))]$/;"	kind:variable	line:71
+entries	build.py	/^    entries = ['* [Chapter %d: %s](notebooks-md\/%d_0_%s)'%(n,chapter['name'],n,chapter['sections'][0].replace('ipynb','md'))]$/;"	kind:variable	line:71
+glob	_book/build.py	/^import glob$/;"	kind:namespace	line:2
+glob	_book/nb2html.py	/^import glob$/;"	kind:namespace	line:11
+glob	build.py	/^import glob$/;"	kind:namespace	line:2
+glob	nb2html.py	/^import glob$/;"	kind:namespace	line:11
+html_exporter	_book/nb2html.py	/^html_exporter = HTMLExporter(config=config)$/;"	kind:variable	line:39
+html_exporter	nb2html.py	/^html_exporter = HTMLExporter(config=config)$/;"	kind:variable	line:39
+ipynb_file	_book/build.py	/^        ipynb_file = dest.rpartition('\/')[2]$/;"	kind:variable	line:48
+ipynb_file	build.py	/^        ipynb_file = dest.rpartition('\/')[2]$/;"	kind:variable	line:48
+is_cell	_book/nb2html.py	/^    def is_cell(classes):$/;"	kind:function	line:144
+is_cell	nb2html.py	/^    def is_cell(classes):$/;"	kind:function	line:144
+make_md_file	_book/build.py	/^def make_md_file(title,ipynb_name):$/;"	kind:function	line:23
+make_md_file	build.py	/^def make_md_file(title,ipynb_name):$/;"	kind:function	line:23
+nb2html	_book/build.py	/^import nb2html$/;"	kind:namespace	line:4
+nb2html	build.py	/^import nb2html$/;"	kind:namespace	line:4
+nb2html.py	_book/nb2html.py	1;"	kind:file	line:1
+nb2html.py	nb2html.py	1;"	kind:file	line:1
+nbformat	_book/nb2html.py	/^import nbformat$/;"	kind:namespace	line:16
+nbformat	nb2html.py	/^import nbformat$/;"	kind:namespace	line:16
+notebook_paths	_book/build.py	/^notebook_paths = glob.glob('notebooks-flat\/*.ipynb')$/;"	kind:variable	line:90
+notebook_paths	_book/nb2html.py	/^    notebook_paths = glob.glob('notebooks-flat\/*.ipynb')$/;"	kind:variable	line:158
+notebook_paths	build.py	/^notebook_paths = glob.glob('notebooks-flat\/*.ipynb')$/;"	kind:variable	line:90
+notebook_paths	nb2html.py	/^    notebook_paths = glob.glob('notebooks-flat\/*.ipynb')$/;"	kind:variable	line:158
+os	_book/nb2html.py	/^import os$/;"	kind:namespace	line:13
+os	nb2html.py	/^import os$/;"	kind:namespace	line:13
+pdb	_book/nb2html.py	/^import pdb$/;"	kind:namespace	line:71
+pdb	nb2html.py	/^import pdb$/;"	kind:namespace	line:71
+re	_book/nb2html.py	/^import re$/;"	kind:namespace	line:12
+re	nb2html.py	/^import re$/;"	kind:namespace	line:12
+remove_empty_spans_and_prompts	_book/nb2html.py	/^    def remove_empty_spans_and_prompts(tag):$/;"	kind:function	line:150
+remove_empty_spans_and_prompts	nb2html.py	/^    def remove_empty_spans_and_prompts(tag):$/;"	kind:function	line:150
+section_entry	_book/build.py	/^        section_entry = ('\\t* [%d.%d %s](notebooks-md\/%d_%d_%s)'%(n,i,section_name,n,i,section_md))$/;"	kind:variable	line:75
+section_entry	build.py	/^        section_entry = ('\\t* [%d.%d %s](notebooks-md\/%d_%d_%s)'%(n,i,section_name,n,i,section_md))$/;"	kind:variable	line:75
+section_md	_book/build.py	/^        section_md = section.replace ('ipynb','md')$/;"	kind:variable	line:74
+section_md	build.py	/^        section_md = section.replace ('ipynb','md')$/;"	kind:variable	line:74
+section_name	_book/build.py	/^        section_name = section.partition('.')[0].replace('_',' ')$/;"	kind:variable	line:73
+section_name	build.py	/^        section_name = section.partition('.')[0].replace('_',' ')$/;"	kind:variable	line:73
+shutil	_book/build.py	/^import shutil$/;"	kind:namespace	line:3
+shutil	build.py	/^import shutil$/;"	kind:namespace	line:3
+src	_book/build.py	/^        src = ('notebooks\/%s\/%s'%(chapter['folder'],section))$/;"	kind:variable	line:46
+src	build.py	/^        src = ('notebooks\/%s\/%s'%(chapter['folder'],section))$/;"	kind:variable	line:46
+yaml	_book/build.py	/^import yaml$/;"	kind:namespace	line:1
+yaml	build.py	/^import yaml$/;"	kind:namespace	line:1
