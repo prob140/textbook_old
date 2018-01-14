@@ -1,21 +1,24 @@
 {
-    "plugins": ["addcssjs","collapsible-menu"],
+    "plugins": [
+        "katex@git+https://github.com/SamLau95/plugin-katex",
+        "addcssjs",
+        "collapsible-menu"
+    ],
     "links": {
         "sidebar": {
             "Main Prob140 Site": "http://prob140.org/"
         }
     },
-    "pluginsConfig": { 
-        "addcssjs": { 
-            "js": ["js/custom.js"],
+    "pluginsConfig": {
+        "addcssjs": {
+            "js": [],
             "css": []
-         },
+        },
         "theme-default": {
             "showLevel": false
         },
-         "fontsettings": {
+        "fontsettings": {
             "size": 1
-        }   
-     }
-     
+        }
+    }
 }
