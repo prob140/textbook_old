@@ -3,6 +3,7 @@
 
 .katex {
   font-size: 1.1em;
+  line-height: 1;
 
   /* Allow user to scroll to view the entire eqn if it's too long for screen */
   width: 100%;
