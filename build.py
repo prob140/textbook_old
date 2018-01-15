@@ -1,11 +1,39 @@
-import yaml
+import nbformat as nbf
 import glob
 import shutil
 import nb2html
 
+retrieve_name_from_cell = lambda cell_source: cell_source.replace('#','').strip()
 
-configuration = yaml.load(open('notebooks/config.yml'))
-configuration[0]
+def retrieve_name_from_fname(fname):
+    nb = nbf.read(open(fname),nbf.current_nbformat)
+    for cell in nb['cells']:
+        if cell['cell_type'] == 'markdown':
+            return  retrieve_name_from_cell(cell['source'])
+    return 'ERROR'
+
+def get_manual_configuration():
+    import yaml
+    return yaml.load(open('notebooks/config.yml'))
+
+def get_configuration():
+    configuration = []
+    for chapter_folder in sorted(glob.glob("notebooks/Chapter_*")):
+        all_section_fnames = sorted(glob.glob("%s/*.ipynb"%chapter_folder))
+        all_section_info = [
+                dict(
+                    file_name=fname.rpartition('/')[2],
+                    section_name=retrieve_name_from_fname(fname)
+                )
+            for fname in all_section_fnames]
+
+        chapter_name = all_section_info[0]['section_name']
+        configuration.append(dict(
+            chapter_name=chapter_name,
+            folder_name=chapter_folder[10:],
+            sections=all_section_info,
+                        ))
+    return configuration
 
 
 #
@@ -20,8 +48,11 @@ outline = """{}
 {{% include "../notebooks-html/{}" %}}
 """
 
-def make_md_file(title,ipynb_name):
+def make_md_file(title,ipynb_name,cold=False):
     filled_outline = outline.format(title,ipynb_name.replace('ipynb','html'))
+    if cold:
+        print(filled_outline)
+        return
     with open('notebooks-md/%s'%(ipynb_name.replace('ipynb','md')),'w') as f:
         f.write(filled_outline)
 
@@ -36,57 +67,59 @@ def make_md_file(title,ipynb_name):
 #
 #
 
-
-shutil.copy2('notebooks/To_the_Student.ipynb','notebooks-flat/To_the_Student.ipynb')
-make_md_file('To The Student','To_the_Student.ipynb')
-
-
-for n,chapter in zip(range(1,len(configuration)+1),configuration):
-    for i,section in enumerate(chapter['sections']):
-        src = ('notebooks/%s/%s'%(chapter['folder'],section))
-        dest = ('notebooks-flat/%d_%d_%s'%(n,i,section))
-        ipynb_file = dest.rpartition('/')[2]
-        make_md_file(section[:-6].replace('_',' '),ipynb_file)
-        shutil.copy2(src,dest)
+def copy_into_flat_directory(configuration,cold=False):
+    shutil.copy2('notebooks/To_the_Student.ipynb','notebooks-flat/To_the_Student.ipynb')
+    make_md_file('To The Student','To_the_Student.ipynb')
 
 
+    for n,chapter in zip(range(1,len(configuration)+1),configuration):
+        for section in chapter['sections']:
+            src = ('notebooks/%s/%s'%(chapter['folder_name'],section['file_name']))
+            dest = ('notebooks-flat/%d_%s'%(n,section['file_name']))
 
+            ipynb_file = '%d_%s'%(n,section['file_name'])
+            make_md_file(section['section_name'],ipynb_file,cold=cold)
+            if cold:
+                print("Copying from %s to %s"%(src,dest))
+            else:
+                shutil.copy2(src,dest)
+                
 #
 #
 # In this section
 #  - The summary file (SUMMARY.md) is generated
 #
 #
-
-SUMMARY_head = """
+def generate_summary(configuration,cold=False):
+    SUMMARY_head = """
 # Summary
 
 * [To the Student](notebooks-md/To_the_Student.md)
 
-"""
+    """
 
-chapter_summaries = [SUMMARY_head]
+    chapter_summaries = [SUMMARY_head]
 
-for n,chapter in zip(range(1,len(configuration)+1),configuration):
-    entries = ['* [Chapter %d: %s](notebooks-md/%d_0_%s)'%(n,chapter['name'],n,chapter['sections'][0].replace('ipynb','md'))]
-    for i,section in list(enumerate(chapter['sections']))[1:]:
-        section_name = section.partition('.')[0].replace('_',' ')
-        section_md = section.replace ('ipynb','md')
-        section_entry = ('\t* [%d.%d %s](notebooks-md/%d_%d_%s)'%(n,i,section_name,n,i,section_md))
-        entries.append(section_entry)
-    chapter_summaries.append('\n'.join(entries)+'\n')
+    for n,chapter in zip(range(1,len(configuration)+1),configuration):
+        chapter_intro_md = chapter['sections'][0]['file_name'].replace('ipynb','md')
+        entries = ['* [Chapter %d: %s](notebooks-md/%d_%s)'%(n,chapter['chapter_name'],n,chapter_intro_md)]
+        for i,section in list(enumerate(chapter['sections']))[1:]:
+            section_md = section['file_name'].replace ('ipynb','md')
+            section_entry = ('\t* [%d.%d %s](notebooks-md/%d_%s)'%(n,i,section['section_name'],n,section_md))
+            entries.append(section_entry)
+        chapter_summaries.append('\n'.join(entries)+'\n')
 
-SUMMARY_md ="\n".join(chapter_summaries)
-with open("SUMMARY.md","w") as f:
-    f.write(SUMMARY_md)
-
-#
-#
-# In this section
-#  - basic html files are generated from "notebooks-flat", and placed in "notebooks-html"
-#
-#
-
-notebook_paths = glob.glob('notebooks-flat/*.ipynb')
-nb2html.convert_notebooks_to_html_partial(notebook_paths)
-
+    SUMMARY_md ="\n".join(chapter_summaries)
+    if cold:
+        print(SUMMARY_md)
+    else:
+        with open("SUMMARY.md","w") as f:
+            f.write(SUMMARY_md)
+            
+if __name__ == "__main__":
+    configuration = get_configuration()
+    copy_into_flat_directory(configuration,cold=False)
+    generate_summary(configuration,cold=False)
+    notebook_paths = glob.glob('notebooks-flat/*.ipynb')
+    nb2html.convert_notebooks_to_html_partial(notebook_paths)
+    print(open("SUMMARY.md",'r').read())

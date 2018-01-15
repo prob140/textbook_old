@@ -18,17 +18,11 @@ from nbconvert import HTMLExporter
 from traitlets.config import Config
 
 preamble = """
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$']],
-      processEscapes: true
-    }
-  });
-</script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
 """
-preamble = """
+
+postscript  = """
+<hr></hr>
+<div class='footnote'> Authors: Ani Adhikari and Jim Pitman. Licensed for reuse under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a> </div>
 """
 # Use ExtractOutputPreprocessor to extract the images to separate files
 config = Config()
@@ -48,10 +42,10 @@ NOTEBOOK_IMAGE_DIR = 'notebooks-images'
 
 # The prefix for the interact button links. The path format string gets filled
 # in with the notebook as well as any datasets the notebook requires.
-INTERACT_LINK = 'http://prob140.berkeley.edu/user-redirect/interact?repo=prob140&{paths}'
+INTERACT_LINK = 'http://datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https://github.com/prob140/materials&branch=gh-pages&{paths}'
 
 # The prefix for each notebook + its dependencies
-PATH_PREFIX = 'path=textbook/{}'
+PATH_PREFIX = 'subPath=textbook/{}'
 
 # The regex used to find file dependencies for notebooks. I could have used
 # triple quotes here but it messes up Python syntax highlighting :(
@@ -102,7 +96,7 @@ def convert_notebooks_to_html_partial(notebook_paths):
         raw_html, resources = html_exporter.from_notebook_node(notebook,
             resources=extract_output_config)
 
-        html = preamble + _extract_cells(raw_html)
+        html = preamble + _extract_cells(raw_html)+postscript
 
         # Get dependencies from notebook
         matches = list(DATASET_REGEX.finditer(

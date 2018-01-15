@@ -6,7 +6,7 @@ require(['gitbook'], function(gitbook) {
     script.type = "text/x-mathjax-config";
     script[(window.opera ? "innerHTML" : "text")] =
       "MathJax.Hub.Config({\n" +
-      "  tex2jax: { inlineMath: [['$','$'], ['\\\\(','\\\\)']] }\n" +
+      "  tex2jax: { inlineMath: [['$','$'], ['\\\\(','\\\\)']] },CommonHTML: { linebreaks: { automatic: true } },\"HTML-CSS\": { linebreaks: { automatic: true } },SVG: { linebreaks: { automatic: true } }" +
       "});";
     head.appendChild(script);
     script = document.createElement("script");
