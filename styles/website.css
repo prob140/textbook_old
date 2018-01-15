@@ -3,6 +3,10 @@
 
 .katex {
   font-size: 1.1em;
+
+  /* Allow user to scroll to view the entire eqn if it's too long for screen */
+  width: 100%;
+  overflow: scroll;
 }
 
 .page-inner {
