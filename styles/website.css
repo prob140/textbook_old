@@ -1,6 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Droid+Serif|Source+Sans+Pro:400,700');
 @import url('https://fonts.googleapis.com/css?family=PT+Sans');
 
+.katex {
+  font-size: 1.1em;
+  line-height: 1;
+
+  /* Allow user to scroll to view the entire eqn if it's too long for screen */
+  width: 100%;
+  overflow-x: scroll;
+}
+
 .page-inner {
     max-width: 1000px;
     margin: 1em auto;
@@ -661,10 +670,10 @@ cite, code, tt {
 .gsc-input::-webkit-input-placeholder {
   opacity:0;
 }
-.gsc-input::-moz-placeholder { 
+.gsc-input::-moz-placeholder {
   opacity:0;
 }
-.gsc-input:-ms-input-placeholder { 
+.gsc-input:-ms-input-placeholder {
   opacity:0;
 }
 .gsc-input:-moz-placeholder {
