@@ -21,7 +21,7 @@ preamble = """
 """
 
 postscript  = """
-<hr></hr>
+<hr style='margin:0'></hr>
 <div class='footnote'> Authors: Ani Adhikari and Jim Pitman. Licensed for reuse under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a> </div>
 """
 # Use ExtractOutputPreprocessor to extract the images to separate files
@@ -42,7 +42,7 @@ NOTEBOOK_IMAGE_DIR = 'notebooks-images'
 
 # The prefix for the interact button links. The path format string gets filled
 # in with the notebook as well as any datasets the notebook requires.
-INTERACT_LINK = 'http://datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https://github.com/prob140/materials&branch=gh-pages&{paths}'
+INTERACT_LINK = 'http://prob140.berkeley.edu/hub/user-redirect/git-pull?repo=https://github.com/prob140/materials&branch=gh-pages&{paths}'
 
 # The prefix for each notebook + its dependencies
 PATH_PREFIX = 'subPath=textbook/{}'
