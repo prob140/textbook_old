@@ -1,6 +1,7 @@
 
 # Summary
 
+* [Authors and License](README.md)
 * [To the Student](notebooks-md/To_the_Student.md)
 
     

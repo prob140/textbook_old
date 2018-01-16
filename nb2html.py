@@ -24,6 +24,7 @@ postscript  = """
 <hr style='margin:0'></hr>
 <div class='footnote'> Authors: Ani Adhikari and Jim Pitman. Licensed for reuse under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a> </div>
 """
+postscript = ""
 # Use ExtractOutputPreprocessor to extract the images to separate files
 config = Config()
 config.HTMLExporter.preprocessors = [

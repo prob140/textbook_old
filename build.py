@@ -83,7 +83,7 @@ def copy_into_flat_directory(configuration,cold=False):
                 print("Copying from %s to %s"%(src,dest))
             else:
                 shutil.copy2(src,dest)
-                
+
 #
 #
 # In this section
@@ -94,6 +94,7 @@ def generate_summary(configuration,cold=False):
     SUMMARY_head = """
 # Summary
 
+* [Authors and License](README.md)
 * [To the Student](notebooks-md/To_the_Student.md)
 
     """
@@ -115,7 +116,7 @@ def generate_summary(configuration,cold=False):
     else:
         with open("SUMMARY.md","w") as f:
             f.write(SUMMARY_md)
-            
+
 if __name__ == "__main__":
     configuration = get_configuration()
     copy_into_flat_directory(configuration,cold=False)
