@@ -18,3 +18,16 @@
 	* [2.3 Multiplication](notebooks-md/2_03_Multiplication.md)
 	* [2.4 More Examples](notebooks-md/2_04_More_Examples.md)
 	* [2.5 Updating Probabilities](notebooks-md/2_05_Updating_Probabilities.md)
+
+* [Chapter 3: Random Variables](notebooks-md/3_00_Random_Variables.md)
+	* [3.1 Functions on an Outcome Space](notebooks-md/3_01_Functions_on_an_Outcome_Space.md)
+	* [3.2 Distributions](notebooks-md/3_02_Distributions.md)
+	* [3.3 Equality](notebooks-md/3_03_Equality.md)
+
+* [Chapter 4: Relations Between Variables](notebooks-md/4_00_Relations_Between_Variables.md)
+	* [4.1 Joint Distributions](notebooks-md/4_01_Joint_Distributions.md)
+	* [4.2 Marginal Distributions](notebooks-md/4_02_Marginal_Distributions.md)
+	* [4.3 Conditional Distributions](notebooks-md/4_03_Conditional_Distributions.md)
+	* [4.4 Updating Distributions](notebooks-md/4_04_Updating_Distributions.md)
+	* [4.5 Dependence and Independence](notebooks-md/4_05_Dependence_and_Independence.md)
+

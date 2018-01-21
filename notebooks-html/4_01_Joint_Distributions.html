@@ -1,0 +1,163 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/hub/user-redirect/git-pull?repo=https://github.com/prob140/materials&branch=gh-pages&subPath=textbook/4_01_Joint_Distributions.ipynb">Interact</a>
+            
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Joint-Distributions">Joint Distributions<a class="anchor-link" href="#Joint-Distributions">¶</a></h2></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Suppose $X$ and $Y$ are two random variables defined on the same outcome space. We will use the notation $P(X = x, Y = y)$ for the probability that $X$ has the value $x$ and $Y$ has the value $y$.</p>
+<p>The <em>joint distribution of $X$ and $Y$</em> consists of all the probabilities $P(X=x, Y=y)$ where $(x, y)$ ranges over all the possible values of $(X, Y)$.</p>
+<h4 id="Example">Example<a class="anchor-link" href="#Example">¶</a></h4><p>In three tosses of a coin, let $X$ be the number of heads in the first two tosses and $Y$ the number of heads in the last two tosses. Then</p>
+<p>$$
+P(X = 0, Y = 2) = 0 = P(X = 2, Y = 0)
+$$</p>
+<p>$$
+P(X = 1, Y = 1) = P(\text{THT or HTH}) = \frac{2}{8}
+$$</p>
+<p>All the other probabilities are $1/8$, as you can see by examining the six remaining outcomes of three tosses. For example,</p>
+<p>$$
+P(X = 1, Y = 2) = P(\text{THH}) = \frac{1}{8}
+$$</p>
+<p>The constraints on $x$ and $y$ are that each must be in the range $\{0, 1, 2\}$ and $\vert x - y \vert &lt; 2$. Let's define a function that takes $x$ and $y$ as its arguments and returns $P(X = x, Y = y)$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">joint_probability</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">2</span><span class="o">/</span><span class="mi">8</span>
+    <span class="k">elif</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <code>prob140</code> library contains Table methods for displaying the joint distribution of two random variables. As a first step, you need the possible values of each of the two variables. In our example, both have values $\{0, 1, 2\}$ and so the same list or array will serve for both.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To construct a joint distribution object, we have to first construct a table of all possible pairs of values and probabilities. The call is:</p>
+<p><code>Table().values(variable_name_1, values_1, variable_name_2, values_2).probability_function(function_name)</code></p>
+<p>where <code>function_name</code> is a function that takes $x$ and $y$ as arguments and returns $P(X = x, Y = y)$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">joint_table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">'X'</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="s1">'Y'</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">probability_function</span><span class="p">(</span><span class="n">joint_probability</span><span class="p">)</span>
+<span class="n">joint_table</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<table border="1" class="dataframe">
+    <thead>
+        <tr>
+            <th>X</th> <th>Y</th> <th>Probability</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>0   </td> <td>0   </td> <td>0.125      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0   </td> <td>1   </td> <td>0.125      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>0   </td> <td>2   </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1   </td> <td>0   </td> <td>0.125      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1   </td> <td>1   </td> <td>0.25       </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>1   </td> <td>2   </td> <td>0.125      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2   </td> <td>0   </td> <td>0          </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2   </td> <td>1   </td> <td>0.125      </td>
+        </tr>
+    </tbody>
+        <tbody><tr>
+            <td>2   </td> <td>2   </td> <td>0.125      </td>
+        </tr>
+    </tbody>
+</table></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This table displays the joint distribution. To check that this is indeed a distribution, we can add up all the probabilities. The sum is 1, as it should be for a distribution.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">joint_table</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>1.0</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Joint-Distribution-Table">Joint Distribution Table<a class="anchor-link" href="#Joint-Distribution-Table">¶</a></h3><p>Though the table above does display the joint distribution, it is more conventional and also more illuminating to visualize the same information in a different way.</p>
+<p>The method <code>to_joint</code> converts the table above into a "joint distribution object" that is displayed as a conventional <em>joint distribution table</em> for $X$ and $Y$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">joint_dist</span> <span class="o">=</span> <span class="n">joint_table</span><span class="o">.</span><span class="n">to_joint</span><span class="p">()</span>
+<span class="n">joint_dist</span>
+</pre></div></div></div>
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>X=0</th>
+      <th>X=1</th>
+      <th>X=2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Y=2</th>
+      <td>0.000</td>
+      <td>0.125</td>
+      <td>0.125</td>
+    </tr>
+    <tr>
+      <th>Y=1</th>
+      <td>0.125</td>
+      <td>0.250</td>
+      <td>0.125</td>
+    </tr>
+    <tr>
+      <th>Y=0</th>
+      <td>0.125</td>
+      <td>0.125</td>
+      <td>0.000</td>
+    </tr>
+  </tbody>
+</table></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Each cell corresponds to a pair $(x, y)$, where $x$ is a value of $X$ and $y$ a value of $Y$. In the cell you see $P(X = x, Y = y)$, the probability of the pair $(x, y)$.</p>
+<p>Joint distribution tables are analogous to the contingency tables you saw in Data 8 when you were analyzing the relation between two categorical variables. In contingency tables, each cell contains the number of individuals in one particular pair of categories. In joint distribution tables, such as the one above, each cell contains the probability of one particular pair of values.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Finding-Probabilities">Finding Probabilities<a class="anchor-link" href="#Finding-Probabilities">¶</a></h3><p>The table contains complete information about the relation between $X$ and $Y$. To find the probabiilty of any event determined by $X$ and $Y$, simply identify the cells that make the event happen, and add up their chances. This is an application of the fundamental method of finding probabilities by partitioning an event.</p>
+<p>For example,</p>
+<p>\begin{align*}
+P(X &gt; Y ) &amp;= P(X = 1, Y = 0) + P(X = 2, Y = 0) + P(X = 2 , Y = 1) \\
+&amp;= 0.125 + 0 + 0.125 \\
+&amp;= 0.25
+\end{align*}
+And
+\begin{align*}
+P(X = Y ) &amp;= P(X = 0, Y = 0) + P(X = 1, Y = 1) + P(X = 2 , Y = 2) \\
+&amp;= 0.125 + 0.25 + 0.125 \\
+&amp;= 0.5
+\end{align*}</p></div></div></div>
