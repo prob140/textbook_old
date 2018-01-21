@@ -31,3 +31,8 @@
 	* [4.4 Updating Distributions](notebooks-md/4_04_Updating_Distributions.md)
 	* [4.5 Dependence and Independence](notebooks-md/4_05_Dependence_and_Independence.md)
 
+* [Chapter 5: Collections of Events](notebooks-md/5_00_Collections_of_Events.md)
+	* [5.1 Bounding the Chance of a Union](notebooks-md/5_01_Bounding_the_Chance_of_a_Union.md)
+	* [5.2 Inclusion-Exclusion](notebooks-md/5_02_Inclusion_Exclusion.md)
+	* [5.3 The Matching Problem](notebooks-md/5_03_The_Matching_Problem.md)
+	* [5.4 Sampling Without Replacement](notebooks-md/5_04_Sampling_Without_Replacement.md)
