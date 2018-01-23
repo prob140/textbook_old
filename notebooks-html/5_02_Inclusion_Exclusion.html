@@ -33,13 +33,8 @@ P(A_1 \cup A_2 \cup A_3) ~ = ~ P(B \cup A_3) &amp;= ~ P(B) + P(A_3) - P(BA_3) \\
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="General-Inclusion-Exclusion-Formula">General Inclusion-Exclusion Formula<a class="anchor-link" href="#General-Inclusion-Exclusion-Formula">¶</a></h3><p>For events $A_1, A_2, \ldots, A_n$,</p>
 <p>\begin{align*}
-P\big{(}\bigcup_{i=1}^n A<em>i \big{)} &amp;=
-\sum</em>{i=1}^n P(A<em>i) - \mathop{\sum \sum}</em>{1 \le i &lt; j \le n} P(A_iA_j)</p>
-<ul>
-<li>\mathop{\sum \sum \sum}_{1 \le i &lt; j &lt; k \le n} P(A_iA_jA_j) - \cdots</li>
-<li>(-1)^{n+1} P(A_1A_2 \ldots A_n)
-\end{align*}</li>
-</ul>
+P\big{(}\bigcup_{i=1}^n A_i \big{)} &amp;= \sum_{i=1}^n P(A_i) - \mathop{\sum \sum}_{1 \le i &lt; j \le n} P(A_iA_j) + \mathop{\sum \sum \sum}_{1 \le i &lt; j &lt; k \le n} P(A_iA_jA_j) - \cdots + (-1)^{n+1} P(A_1A_2 \ldots A_n)
+\end{align*}</p>
 <p>You can prove this by induction if you feel inclined; just go through steps analogous to those above for the case $n=3$. We will prove the formula in a later chapter by a different method.</p>
 <p>For now, let's accept it and move on.</p></div></div>
 <div class="inner_cell">
@@ -47,13 +42,8 @@ P\big{(}\bigcup_{i=1}^n A<em>i \big{)} &amp;=
 <h3 id="The-Number-of-Terms-in-Each-Sum">The Number of Terms in Each Sum<a class="anchor-link" href="#The-Number-of-Terms-in-Each-Sum">¶</a></h3><p>To end the section we will count the number of terms in each of the sums in the inclusion-exclusion formula, so we know the extent of the work that has to be done to apply it.</p>
 <p>Here is the formula again for reference:</p>
 <p>\begin{align*}
-P\big{(}\bigcup_{i=1}^n A<em>i \big{)} &amp;=
-\sum</em>{i=1}^n P(A<em>i) - \mathop{\sum \sum}</em>{1 \le i &lt; j \le n} P(A_iA_j)</p>
-<ul>
-<li>\mathop{\sum \sum \sum}_{1 \le i &lt; j &lt; k \le n} P(A_iA_jA_j) - \cdots</li>
-<li>(-1)^{n+1} P(A_1A_2 \ldots A_n)
-\end{align*}</li>
-</ul>
+P\big{(}\bigcup_{i=1}^n A_i \big{)} &amp;= \sum_{i=1}^n P(A_i) - \mathop{\sum \sum}_{1 \le i &lt; j \le n} P(A_iA_j) + \mathop{\sum \sum \sum}_{1 \le i &lt; j &lt; k \le n} P(A_iA_jA_j) - \cdots + (-1)^{n+1} P(A_1A_2 \ldots A_n)
+\end{align*}</p>
 <p>Clearly there are $n$ terms in the first sum. For reasons that will become clear in the next step, we will write that as
 $$
 \binom{n}{1} = n
