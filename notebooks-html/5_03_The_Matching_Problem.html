@@ -53,17 +53,10 @@ P(\text{no match}) &amp;= 1 - P(\text{at least one match}) \\
 where $A_i$ is the event "match at Position $i$".</p>
 <p>By the inclusion-exclusion formula and our calculations above,</p>
 <p>\begin{align*}
-P\big{(}\bigcup_{i=1}^n A<em>i \big{)} &amp;=
-\sum</em>{i=1}^n P(A<em>i) - \mathop{\sum \sum}</em>{1 \le i &lt; j \le n} P(A_iA_j)</p>
-<ul>
-<li>\mathop{\sum \sum \sum}_{1 \le i &lt; j &lt; k \le n} P(A_iA_jA_j) - \cdots</li>
-<li>(-1)^{n+1} P(A_1A_2 \ldots A<em>n) \
-&amp;= \sum</em>{i=1}^n \frac{1}{n} - \mathop{\sum \sum}<em>{1 \le i &lt; j \le n} \frac{1}{n} \cdot \frac{1}{n-1} + 
-\mathop{\sum \sum \sum}</em>{1 \le i &lt; j &lt; k \le n}
-\frac{1}{n} \cdot \frac{1}{n-1} \cdot \frac{1}{n-2} -
-\cdots + (-1)^{n+1} \frac{1}{n!}
-\end{align*}</li>
-</ul>
+P\big{(}\bigcup_{i=1}^n A_i \big{)} &amp;=
+\sum_{i=1}^n P(A_i) - \mathop{\sum \sum}_{1 \le i &lt; j \le n} P(A_iA_j) + \mathop{\sum \sum \sum}_{1 \le i &lt; j &lt; k \le n} P(A_iA_jA_j) - \cdots + (-1)^{n+1} P(A_1A_2 \ldots A_n) \\
+&amp;= \sum_{i=1}^n \frac{1}{n} - \mathop{\sum \sum}_{1 \le i &lt; j \le n} \frac{1}{n} \cdot \frac{1}{n-1} + \mathop{\sum \sum \sum}_{1 \le i &lt; j &lt; k \le n} \frac{1}{n} \cdot \frac{1}{n-1} \cdot \frac{1}{n-2} - \cdots + (-1)^{n+1} \frac{1}{n!}
+\end{align*}</p>
 <p>If those sums look hair-raising, look again. None of the terms being added has an index ($i$, $j$, etc) in it! Each sum consists of adding a constant value multiple times, and is therefore equal to the constant times the number of terms in the sum.</p>
 <p>The number of terms in the first sum is $n$. As we observed in an earlier section, the number of terms being added in the second sum is
 $$
