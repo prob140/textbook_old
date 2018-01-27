@@ -36,3 +36,14 @@
 	* [5.2 Inclusion-Exclusion](notebooks-md/5_02_Inclusion_Exclusion.md)
 	* [5.3 The Matching Problem](notebooks-md/5_03_The_Matching_Problem.md)
 	* [5.4 Sampling Without Replacement](notebooks-md/5_04_Sampling_Without_Replacement.md)
+
+* [Chapter 6: Random Counts](notebooks-md/6_00_Random_Counts.md)
+	* [6.1 The Binomial Distribution](notebooks-md/6_01_Binomial_Distribution.md)
+	* [6.2 Examples](notebooks-md/6_02_Examples.md)
+	* [6.3 The Hypergeometric Distribution](notebooks-md/6_03_Hypergeometric_Distribution.md)
+	* [6.4 Odds Ratios](notebooks-md/6_04_Odds_Ratios.md)
+	* [6.5 The Law of Small Numbers](notebooks-md/6_05_Law_of_Small_Numbers.md)
+
+* [Chapter 7: Poissonization](notebooks-md/7_00_Poissonization.md)
+	* [7.1 Poissonizing the Binomial](notebooks-md/7_01_Poissonizing_the_Binomial.md)
+	* [7.2 Poissonizing the Multinomial](notebooks-md/7_02_Poissonizing_the_Multinomial.md)
