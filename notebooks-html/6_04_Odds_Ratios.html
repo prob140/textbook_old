@@ -81,7 +81,7 @@ tells us the the ratios are a <em>decreasing function of $k$</em>. In the formul
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>What Python is helpfully telling us is that the invisible bar at 1 is 53.666... times larger than the even more invisible bar at 0. The ratios decrease after that but they are still bigger than 1 through $k = 16$. The histogram rises till it reaches its peak at $k = 16$. You can see that $R(16) = 1.1666 &gt; 1$. Then the ratios drop below one, so the histogram starts going down.</p>
-<p>If you are intrepid, you can solve an inequality to show that the largest $k$ for which $R(k) \ge 1$ is the integer part of $(n+1)p$. In our example, this is $k = 16$ because</p></div></div>
+<p>We can solve an inequality to show that the largest $k$ for which $R(k) \ge 1$ is the integer part of $(n+1)p$. In our example, this is $k = 16$ because</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">p</span>
@@ -90,6 +90,22 @@ tells us the the ratios are a <em>decreasing function of $k$</em>. In the formul
 <pre>16.799999999999997</pre></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>You can also check that if $(n+1)p$ is an integer, then the bars $k = (n+1)p$ and $k-1$ are equally large and both are the largest among all bars.</p>
+<h3 id="Mode-of-the-Binomial">Mode of the Binomial<a class="anchor-link" href="#Mode-of-the-Binomial">¶</a></h3><p>A <em>mode</em> of a discrete distribution is a possible value that has the highest probability. There may be more than one such value, so there may be more than one mode.</p>
+<p>For all $k$ such that $R(k) \ge 1$, we will say that the binomial histogram is either rising or flat at $k$. The largest $k$ for which $R(k) \ge 1$ has to be a mode; for all larger $k$, the histogram will be falling.</p>
+<p>Let $q = 1-p$. Every value $k$ for which $R(k) \ge 1$ must satisfy
+$$
+\big{(} \frac{n+1}{k} - 1 \big{)} \frac{p}{q} ~ \ge ~ 1
+$$
+That is, 
+$$
+\frac{n+1}{k} ~ \ge ~ \frac{q}{p} + 1 ~ = ~ \frac{1}{p}
+$$
+which is equivalent to
+$$
+k ~ \le ~ (n+1)p
+$$</p>
+<p>Therefore the largest $k$ for which $R(k) \le 1$ is the integer part of $(n+1)p$. That's a mode of the binomial.</p>
+<p>Because the odds ratios are non-decreasing in $k$, the only way in which there can be more than one mode is if there is a $k$ such that $R(k) = 1$. In that case, $P(k) = P(k-1)$ and therefore both $k$ and $k-1$ will be modes. To summarize:</p>
+<h4 id="The-Mode">The Mode<a class="anchor-link" href="#The-Mode">¶</a></h4><p>The mode of the binomial $(n, p)$ distribution is the integer part of $(n+1)p$. If $(n+1)p$ is an integer, then $(n+1)p - 1$ is also a mode.</p>
 <p>But in fact, $np$ is a more natural quantity to calculate. For example, if you are counting the number of heads in 100 tosses of a coin, then the distribution is binomial $(100, 1/2)$ and you naturally expect $np = 50$ heads. You don't want to be worrying about $101 \times (1/2)$.</p>
 <p>You don't have to worry when $n$ is large, because then $np$ and $(n+1)p$ are pretty close. In a later section we will examine a situation in which you can use $np$ to get an approximation to the shape of the binomial distribution when $n$ is large.</p></div></div></div>

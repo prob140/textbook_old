@@ -17,6 +17,7 @@ where $\mu = np$.</p>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>A little care is required before we go further. First, we must state the additivity axiom of probability theory in terms of countably many outcomes:</p>
+<p>If events $A_1, A_2, \ldots $ are mutually exclusive, then</p>
 <p>$$
 P(\bigcup_{i=1}^\infty A_i) ~ = ~ \sum_{i=1}^\infty P(A_i)
 $$</p>
@@ -41,7 +42,7 @@ $$</p>
 <p>The Poisson is a distribution in its own right. It does not have to arise as a limit, though it is sometimes helpful to think of it that way.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="The-Mode">The Mode<a class="anchor-link" href="#The-Mode">¶</a></h3><p>To understand the parameter $\mu$ of the Poisson distribution, a first step is to notice that mode of the distribution is just around $\mu$. Here is an example where $\mu = 3.74$. No computing system can calculate infinitely many probabilities, so we have just calculated the Poisson probabilities till the sum is close enough to 1 that the <code>prob140</code> library considers it a Distribution object.</p></div></div>
+<h3 id="An-Interpretation-of-the-Parameter">An Interpretation of the Parameter<a class="anchor-link" href="#An-Interpretation-of-the-Parameter">¶</a></h3><p>To understand the parameter $\mu$ of the Poisson distribution, a first step is to notice that mode of the distribution is just around $\mu$. Here is an example where $\mu = 3.74$. No computing system can calculate infinitely many probabilities, so we have just calculated the Poisson probabilities till the sum is close enough to 1 that the <code>prob140</code> library considers it a Distribution object.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="mf">3.74</span>
@@ -56,7 +57,7 @@ $$</p>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The mode is 3. To find a formula for the mode, follow the process we used for the binomial: calculate the consecutive odds ratios, notice that they are decreasing, and see where they cross 1. This is left to you as an exercise. Your calculations should conclude the following:</p>
-<h4 id="Mode-of-the-Poisson">Mode of the Poisson<a class="anchor-link" href="#Mode-of-the-Poisson">¶</a></h4><p>The mode of the Poisson distribution is the integer part of $\mu$, that is, the most likely value is $\mu$ rounded <em>down</em> to an integer. If $\mu$ is an integer, both $\mu$ and $\mu - 1$ are modes.</p></div></div>
+<h4 id="Mode-of-the-Poisson">Mode of the Poisson<a class="anchor-link" href="#Mode-of-the-Poisson">¶</a></h4><p>The mode of the Poisson distribution is the integer part of $\mu$. That is, the most likely value is $\mu$ rounded <em>down</em> to an integer. If $\mu$ is an integer, both $\mu$ and $\mu - 1$ are modes.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="mi">4</span>

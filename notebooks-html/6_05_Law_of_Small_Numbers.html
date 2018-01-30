@@ -72,7 +72,7 @@ $$</p>
 $$
 \frac{\mu^k}{k!}, ~~ k \ge 0
 $$
-The expansion is infinite, but we are only going upto a finite (though large) number of terms $n$. You now start to see the value of being able to work with probability spaces that have an infinite number of possible outcomes.</p>
+The expansion is infinite, but we are only going up to a finite (though large) number of terms $n$. You now start to see the value of being able to work with probability spaces that have an infinite number of possible outcomes.</p>
 <p>We'll get to that in a later section. For now, let's see if the approximation we derived is any good.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -132,5 +132,6 @@ The expansion is infinite, but we are only going upto a finite (though large) nu
 <img src="../notebooks-images/6_05_Law_of_Small_Numbers_18_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p>In lab, you will use total variation distance to get an error bound on the approximation.</p>
 <p>A reasonable question to ask at this stage is, "Well that's all very nice, but why should I bother with approximations when I can just use Python to compute the exact binomial probabilities using <code>stats.binom.pmf</code>?"</p>
 <p>Part of the answer is that if a function involves parameters, you can't understand how it behaves by just computing its values for some particular choices of the parameters. In the case of Poisson probabilities, we will also see shortly that they form a powerful distribution in their own right, on an infinite set of values.</p></div></div></div>
