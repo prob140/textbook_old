@@ -9,17 +9,14 @@
 <p>Suppose $X$ and $Y$ are two random variables defined on the same outcome space. We will use the notation $P(X = x, Y = y)$ for the probability that $X$ has the value $x$ and $Y$ has the value $y$.</p>
 <p>The <em>joint distribution of $X$ and $Y$</em> consists of all the probabilities $P(X=x, Y=y)$ where $(x, y)$ ranges over all the possible values of $(X, Y)$.</p>
 <h4 id="Example">Example<a class="anchor-link" href="#Example">¶</a></h4><p>In three tosses of a coin, let $X$ be the number of heads in the first two tosses and $Y$ the number of heads in the last two tosses. Then</p>
-<p>$$
+$$
 P(X = 0, Y = 2) = 0 = P(X = 2, Y = 0)
-$$</p>
-<p>$$
+$$$$
 P(X = 1, Y = 1) = P(\text{THT or HTH}) = \frac{2}{8}
-$$</p>
-<p>All the other probabilities are $1/8$, as you can see by examining the six remaining outcomes of three tosses. For example,</p>
-<p>$$
+$$<p>All the other probabilities are $1/8$, as you can see by examining the six remaining outcomes of three tosses. For example,</p>
+$$
 P(X = 1, Y = 2) = P(\text{THH}) = \frac{1}{8}
-$$</p>
-<p>The constraints on $x$ and $y$ are that each must be in the range $\{0, 1, 2\}$ and $\vert x - y \vert &lt; 2$. Let's define a function that takes $x$ and $y$ as its arguments and returns $P(X = x, Y = y)$.</p></div></div>
+$$<p>The constraints on $x$ and $y$ are that each must be in the range $\{0, 1, 2\}$ and $\vert x - y \vert &lt; 2$. Let's define a function that takes $x$ and $y$ as its arguments and returns $P(X = x, Y = y)$.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">joint_probability</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -150,14 +147,17 @@ $$</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Finding-Probabilities">Finding Probabilities<a class="anchor-link" href="#Finding-Probabilities">¶</a></h3><p>The table contains complete information about the relation between $X$ and $Y$. To find the probabiilty of any event determined by $X$ and $Y$, simply identify the cells that make the event happen, and add up their chances. This is an application of the fundamental method of finding probabilities by partitioning an event.</p>
 <p>For example,</p>
-<p>\begin{align*}
+\begin{align*}
 P(X &gt; Y ) &amp;= P(X = 1, Y = 0) + P(X = 2, Y = 0) + P(X = 2 , Y = 1) \\
 &amp;= 0.125 + 0 + 0.125 \\
 &amp;= 0.25
-\end{align*}
-And
-\begin{align*}
-P(X = Y ) &amp;= P(X = 0, Y = 0) + P(X = 1, Y = 1) + P(X = 2 , Y = 2) \\
-&amp;= 0.125 + 0.25 + 0.125 \\
+\end{align*}<p>And
+\begin{align<em>}
+P(X = Y ) &amp;= P(X = 0, Y = 0) + P(X = 1, Y = 1) + P(X = 2 , Y = 2) \
+&amp;= 0.125 + 0.25 + 0.125 \
 &amp;= 0.5
-\end{align*}</p></div></div></div>
+\end{align</em>}</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

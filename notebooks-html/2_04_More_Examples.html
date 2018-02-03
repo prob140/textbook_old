@@ -29,14 +29,13 @@ P(\text{first ball black}) = \frac{b}{b+w}
 $$</p>
 <p><strong>Question 2.</strong> What is the chance that the second ball drawn is black?</p>
 <p><strong>Answer 2.</strong> Your mind goes naturally to what the first ball was, so partition according to the color of that one, and add. The fundamental method strikes again.</p>
-<p>\begin{align*}
+\begin{align*}
 P(\text{second ball black}) &amp;= P(WB) + P(BB) \\ \\
 &amp;= \frac{w}{b+w} \cdot \frac{b}{b+w+d} ~+~ \frac{b}{b+w} \cdot \frac{b+d}{b+w+d} \\ \\
 &amp;= \frac{wb + b^2 + bd}{(b+w)(b+w+d)} \\ \\
 &amp;= \frac{b(b+w+d)}{(b+w)(b+w+d)} \\ \\
 &amp;= \frac{b}{b+w}
-\end{align*}</p>
-<p>That's the same as the chance that the first ball is black, no matter what $d$ is. This scheme is interesting!</p>
+\end{align*}<p>That's the same as the chance that the first ball is black, no matter what $d$ is. This scheme is interesting!</p>
 <p><strong>Question 3.</strong> What is the chance that the second ball drawn is black, given that the first one drawn was black?</p>
 <p><strong>Answer 3.</strong> We already used this in the calculation above. Conditional probabilities "going forwards in time" can often just be read off the information in the question, as in this case:
 $$
@@ -45,11 +44,14 @@ P(\text{second ball black} \mid \text{first ball black}) =
 $$</p>
 <p><strong>Question 4.</strong> What is the chance that the first ball drawn is black, given that the second one drawn was black?</p>
 <p><strong>Answer 4.</strong> This kind of "going back in time" conditional probability isn't easy to just read off. <strong>This is where the division rule comes in.</strong></p>
-<p>\begin{align*}
+\begin{align*}
 P(\text{first ball black} \mid \text{second ball black}) &amp;=
 \frac{P(BB)}{P(\text{second ball black})} \\ \\
 &amp;= \frac{\frac{b}{b+w} \cdot \frac{b+d}{b+w+d}}{\frac{b}{b+w}} \\ \\
 &amp;= \frac{b+d}{b+w+d}
-\end{align*}</p>
-<p>This one does depend on $d$, but it's the same as Answer 3. Forwards and backwards don't seem to make a difference.</p>
-<p>Now you begin to see why this scheme carries the name of its renowned originator <a href="https://en.wikipedia.org/wiki/George_Pólya">George Polya</a> (1887-1985). You can keep repeating the scheme – replace the drawn ball with another $d$ balls of its color, and draw again – to get a <em>process</em> with beautiful and useful properties for updating opinions as data comes in. We'll see that later in the course.</p></div></div></div>
+\end{align*}<p>This one does depend on $d$, but it's the same as Answer 3. Forwards and backwards don't seem to make a difference.</p>
+<p>Now you begin to see why this scheme carries the name of its renowned originator <a href="https://en.wikipedia.org/wiki/George_Pólya">George Polya</a> (1887-1985). You can keep repeating the scheme – replace the drawn ball with another $d$ balls of its color, and draw again – to get a <em>process</em> with beautiful and useful properties for updating opinions as data comes in. We'll see that later in the course.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

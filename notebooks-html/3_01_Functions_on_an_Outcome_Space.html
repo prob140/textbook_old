@@ -7,10 +7,9 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Random sampling can be thought of as repeated random trials, and therefore many outcome spaces consist of sequences. An outcome space representing two tosses of a coin is</p>
-<p>$$ 
+$$ 
 \Omega = \{ \text{HH, HT, TH, TT} \}
-$$</p>
-<p>If you were tossing 10 times, the outcome space would consist of the $2^{10}$ sequences of 10 elements where each element is H or T. The outcomes are a pain to list by hand, but computers are good at saving us that kind of pain.</p></div></div>
+$$<p>If you were tossing 10 times, the outcome space would consist of the $2^{10}$ sequences of 10 elements where each element is H or T. The outcomes are a pain to list by hand, but computers are good at saving us that kind of pain.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Product-Spaces">Product Spaces<a class="anchor-link" href="#Product-Spaces">¶</a></h3><p>The <em>product</em> of two sets $A$ and $B$ is the set of all pairs $(a, b)$ where $a \in A$ and $b \in B$. This concept is exactly what we need to describe spaces representing multiple trials.</p>
@@ -198,9 +197,9 @@ $$
 S: \Omega \rightarrow \{ 5, 6, \ldots, 30 \}
 $$
 The range of $S$ is the integers 5 through 30, because each die shows at least one spot and at most six spots. We can also use the equivalent notation</p>
-<p>$$
+$$
 \Omega \stackrel{S}{\rightarrow} \{ 5, 6, \ldots, 30 \}
-$$</p></div></div>
+$$</div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>From a computational perspective, the elements of $\Omega$ are in the column <code>omega</code> of <code>five_roll_space</code>. Let's apply this function and create a larger table.</p></div></div>
@@ -290,18 +289,16 @@ $$</p></div></div>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Functions-of-Random-Variables">Functions of Random Variables<a class="anchor-link" href="#Functions-of-Random-Variables">¶</a></h4><p>A random variable is a numerical function on $\Omega$. Therefore by composition, a numerical function of a random variable is also a random variable.</p>
 <p>For example, $S^2$ is a random variable, calculated as follows:</p>
-<p>$$
+$$
 S^2(\omega) = \big{(} S(\omega)\big{)}^2
-$$</p>
-<p>Thus for example $S^2(\text{[6 6 6 6 6]}) = 30^2 = 900$.</p></div></div>
+$$<p>Thus for example $S^2(\text{[6 6 6 6 6]}) = 30^2 = 900$.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Events-Determined-by-$S$">Events Determined by $S$<a class="anchor-link" href="#Events-Determined-by-$S$">¶</a></h3><p>From the table <code>five_rolls_sum</code> it is hard to tell how many rows show a sum of 6, or 10, or any other value. To better understand the properties of $S$, we have to organize the information in <code>five_rolls_sum</code>.</p>
 <p>For any subset $A$ of the range of $S$, define the event $\{S \in A\}$ as</p>
-<p>$$
+$$
 \{S \in A \} = \{\omega: S(\omega) \in A \}
-$$</p>
-<p>That is, $\{ S \in A\}$ is the collection of all $\omega$ for which $S(\omega)$ is in $A$. In terms of the table, the set consists of the values of $\omega$ in all the rows in which the sum is in $A$.</p>
+$$<p>That is, $\{ S \in A\}$ is the collection of all $\omega$ for which $S(\omega)$ is in $A$. In terms of the table, the set consists of the values of $\omega$ in all the rows in which the sum is in $A$.</p>
 <p>Try out the definition in a special case. Take $A = \{5, 30\}$. Then $\{S \in A\}$ if and only if either all the rolls show 1 spot or all the rolls show 6 spots. So 
 $$
 \{S \in A\} = \{\text{[1 1 1 1 1], [6 6 6 6 6]}\}
@@ -367,4 +364,8 @@ $$</p>
 <p>We will usually be informal with notation and write $\{ S = 10 \}$ instead of $\{ S \in \{10\} \}$:
 $$
 P(S = 10) = \frac{126}{7776} = 1.62\%
-$$</p></div></div></div>
+$$</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

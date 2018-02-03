@@ -27,20 +27,19 @@
 <li>Thus there are $N(N-1)(N-2)$ ways of filling Places 0, 1, and 2.</li>
 <li>Notice that for each $i$, the term in the product corresponding to Place $i$ is $N-i$. This makes the sequence easy to continue up to the end, that is, to Place $(n-1)$.</li>
 </ul>
-<p>$$
+$$
 P(\mbox{no collisions}) ~=~ 
 \frac{N(N-1)(N-2) \cdots (N-(n-1))}{N^n}
 ~=~ \frac{N(N-1)(N-2) \cdots (N-n+1)}{N^n}
-$$</p>
-<p>"Continuing the sequence" is an informal process that needs a mathematical justification. You can prove that by the method of induction.</p></div></div>
+$$<p>"Continuing the sequence" is an informal process that needs a mathematical justification. You can prove that by the method of induction.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>There are $n$ terms in the product in the numerator, and there are $n$ factors of $N$ in the denominator. This allows us to write the formula in a different way, as a product of $n$ fractions:</p>
-<p>$$
+$$
 P(\mbox{no collisions}) ~=~
 \frac{N}{N} \cdot \frac{N-1}{N} \cdot \frac{N-2}{N} \cdots \frac{N-n+1}{N}
 ~=~ \prod_{i=0}^{n-1} \frac{N-i}{N}
-$$</p></div></div>
+$$</div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The symbol $\prod$ stands for "product" just as $\sum$ stands for "sum".</p></div></div>
@@ -50,9 +49,9 @@ $$</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="At-Least-One-Collision">At Least One Collision<a class="anchor-link" href="#At-Least-One-Collision">¶</a></h3><p>Each sequence either has at least one collision, or it has no collisions. No sequence can be in both of those categories, so by the rules of proportion we have</p>
-<p>$$
+$$
 P(\mbox{at least one collision}) ~=~ 1 ~-~ \prod_{i=0}^{n-1} \frac{N-i}{N}
-$$</p></div></div>
+$$</div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We have a formula. That's great! But is the answer large or is it small? It's not easy to tell just by looking at the formula. So let's start examining the answer in different ways.</p>

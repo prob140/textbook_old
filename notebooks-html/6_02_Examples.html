@@ -71,10 +71,9 @@ $$</p></div></div>
 <p><strong>Question.</strong> What is the chance that you get at least 3 heads and at least 3 tails?</p>
 <p><strong>Answer.</strong> Here is a great first step in working with any distribution: identify the set of possible values that make your event occur.</p>
 <p>Those are 3, 4, 5, 6, and 7 heads, and now the answer is clear:</p>
-<p>$$
+$$
 \sum_{k=3}^7 \binom{10}{k} 0.5^k 0.5^{10-k}
-$$</p>
-<p>which is</p></div></div>
+$$<p>which is</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sum</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
@@ -84,9 +83,9 @@ $$</p>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Resist the impulse to start off by calculating $P(H \ge 3)$, the chance of at least three heads, with $H$ denoting the number of heads. It's not very helpful here. To see why, let $T$ be the number of tails in the 10 tosses. Then</p>
-<p>$$
+$$
 P(H \ge 3, T \ge 3) = P(H \ge 3)P(T \ge 3 \mid H \ge 3)
-$$</p>
+$$<p></p>
 <p>The first factor is easily found, but the second isn't clear at all. It's not $P(T \ge 3)$ because $H$ and $T$ are far from independent: $T = 10 - H$.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -95,11 +94,14 @@ $$</p>
 <p><strong>Answer.</strong> Let $R$ be the roll in which the six appeared, and let $S$ be the total number of sixes in the 24 rolls. We want the conditional distribution of $R$ given $S = 1$.</p>
 <p>When you are trying to find a distribution, always start with its possible values. I got 1 six, so its position $R$ can be any roll in the range 1 through 24.</p>
 <p>For $k = 1, 2, \ldots 24$,</p>
-<p>\begin{align*}
+\begin{align*}
 P(R = k \mid S = 1) &amp;= \frac{P(R = k, S = 1)}{P(S=1)} \\ \\
 &amp;= \frac{P(k-1 \text{ non-sixes, then six, then } 24-k \text{ non-sixes})}{P(S = 1)} \\ \\
 &amp;= \frac{(5/6)^{k-1} (1/6) (5/6)^{24-k}}
 {\binom{24}{1}(1/6)^1(5/6)^{23}} \\ \\
 &amp;= \frac{1}{24}
-\end{align*}</p>
-<p>Note the absence of $k$ in the answer. Given that I got 1 six, the position in which that six appeared is uniformly distributed across all the rolls.</p></div></div></div>
+\end{align*}<p>Note the absence of $k$ in the answer. Given that I got 1 six, the position in which that six appeared is uniformly distributed across all the rolls.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

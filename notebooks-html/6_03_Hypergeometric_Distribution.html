@@ -20,18 +20,16 @@
 <h3 id="Number-of-Good-Elements-in-a-SRS">Number of Good Elements in a SRS<a class="anchor-link" href="#Number-of-Good-Elements-in-a-SRS">¶</a></h3><p>Let $X$ be the number of good elements in the sample. What is the distribution of $X$?</p>
 <p>The largest $X$ can be is $\min(G, n)$. We'll say the smallest $X$ can be is 0, though if we are very careful we will see that in fact $X$ can't be any smaller than $\max(0, n-B)$.</p>
 <p>Let $g$ be a possible value of $X$. Then, since all $\binom{N}{n}$ samples are equally likely,</p>
-<p>$$
+$$
 P(X = g) ~ = ~ \frac{\binom{G}{g} \binom{B}{b}}{\binom{N}{n}}, ~~~
 g+b=n
-$$</p>
-<p>This is called the <em>hypergeometric distribution</em> with population size $N$, number of good elements or "successes" $G$, and sample size $n$. The name comes from the fact that the terms are the coefficients in a <a href="https://en.wikipedia.org/wiki/Hypergeometric_function#The_hypergeometric_series"><em>hypergeometric series</em></a>, which is a piece of mathematics that we won't go into in this course.</p></div></div>
+$$<p>This is called the <em>hypergeometric distribution</em> with population size $N$, number of good elements or "successes" $G$, and sample size $n$. The name comes from the fact that the terms are the coefficients in a <a href="https://en.wikipedia.org/wiki/Hypergeometric_function#The_hypergeometric_series"><em>hypergeometric series</em></a>, which is a piece of mathematics that we won't go into in this course.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Example:-Aces-in-a-Five-Card-Poker-Hand">Example: Aces in a Five-Card Poker Hand<a class="anchor-link" href="#Example:-Aces-in-a-Five-Card-Poker-Hand">¶</a></h3><p>The number of aces $N_a$ in a five-card poker hand has the hypergeometric distribution with population size 52, four good elements in the population, and a simple random sample size of 5.</p>
-<p>$$
+$$
 P(N_a = k) = \frac{\binom{4}{k} \binom{48}{5-k}}{\binom{52}{5}}, ~~ k = 0, 1, 2, 3, 4
-$$</p>
-<p>The <code>stats.hypergeom.pmf</code> function allows us to calculate hypergeometric probabilities. The first argument is the set of possible values for which we want the probabilities. Then come the parameters, in the order population size, number of good elements, sample size.</p></div></div>
+$$<p>The <code>stats.hypergeom.pmf</code> function allows us to calculate hypergeometric probabilities. The first argument is the set of possible values for which we want the probabilities. Then come the parameters, in the order population size, number of good elements, sample size.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -135,4 +133,8 @@ $$</p>
 <p>That's a very small P-value, which implies that the data support the alternative hypothesis more than they support the null. The treatment helped. This is consistent with the conclusion of the researchers and also with our own analysis in Data 8 – but all three analyses are different.</p>
 <p>In Data 8 we simulated the difference between the two group proportions under the null hypothesis, by pooling the two groups and randomly permuting the pooled sample. Our conclusion was based on an empirical, approximate P-value.</p>
 <p>The calculation here does not require simulation and produces an exact P-value.</p>
-<p>This method is called Fisher's exact test. That's the same Sir Ronald Fisher who formalized tests of hypotheses, suggested cutoffs for P-values, and so on. The method can be used for any sample size and any randomized controlled experiment with a binary response.</p></div></div></div>
+<p>This method is called Fisher's exact test. That's the same Sir Ronald Fisher who formalized tests of hypotheses, suggested cutoffs for P-values, and so on. The method can be used for any sample size and any randomized controlled experiment with a binary response.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

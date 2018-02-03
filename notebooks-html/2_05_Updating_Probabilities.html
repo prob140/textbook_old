@@ -19,11 +19,11 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To solve the problem, we will use the division rule. Let $D$ be the event that the patient has the disease, and, with some abuse of math notation, let $+$ be the event that the patient tests positive. Then what we're looking for is $P(D \mid +)$. By the division rule,</p>
-<p>$$
+$$
 P(D \mid + ) = \frac{P(D \text{ and } +)}{P(+)}
 = \frac{0.004 \cdot 0.99}{0.004 \cdot 0.99 + 0.996 \cdot 0.005}
 = 44.3\%
-$$</p></div></div>
+$$</div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="o">.</span><span class="mi">004</span><span class="o">*.</span><span class="mi">99</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">0.004</span><span class="o">*.</span><span class="mi">99</span> <span class="o">+</span> <span class="mf">0.996</span><span class="o">*.</span><span class="mi">005</span><span class="p">)</span>
@@ -33,13 +33,12 @@ $$</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Bayes'-Rule">Bayes' Rule<a class="anchor-link" href="#Bayes'-Rule">¶</a></h3><p>In general, if the entire outcome space can be partitioned into events $A_1, A_2 \ldots , A_n$, and $B$ is an event of positive probability, then for each $i$,</p>
-<p>\begin{align*}
+\begin{align*}
 P(A_i \mid B) &amp;= \frac{P(A_iB)}{P(B)} ~~~~ \text{(division rule)} \\ \\
 &amp;= \frac{P(A_iB)}{\sum_{j=1}^n P(A_j B)} ~~~~ \text{(the }A_j\text{'s partition the whole space)} \\ \\
 &amp;= \frac{P(A_i)P(B \mid A_i)}{\sum_{j=1}^n P(A_j)P(B \mid A_j)} ~~~~
 \text{(multiplication rule)}
-\end{align*}</p>
-<p>This calculation, called Bayes' Rule, is an application of the division rule in a setting where the events $A_1, A_2, \ldots , A_n$ can be thought of as the results of an "earlier" stage of an experiment and $B$ the result of a "later" stage. The calculation allows us to find "backwards in time" conditional chances of an earlier event given a later one, by writing the chance in terms of the "forwards in time" conditional chances of the later event given the earlier ones.</p></div></div>
+\end{align*}<p>This calculation, called Bayes' Rule, is an application of the division rule in a setting where the events $A_1, A_2, \ldots , A_n$ can be thought of as the results of an "earlier" stage of an experiment and $B$ the result of a "later" stage. The calculation allows us to find "backwards in time" conditional chances of an earlier event given a later one, by writing the chance in terms of the "forwards in time" conditional chances of the later event given the earlier ones.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="The-Effect-of-the-Prior">The Effect of the Prior<a class="anchor-link" href="#The-Effect-of-the-Prior">¶</a></h3><p>Let's take a closer look at the numerical value of the answer we got in our example. It's a bit disconcerting. It says that even though the person has tested positive, there is less than 50% chance they have the disease. That seems strange, as the accuracy rates of the test are quite high.</p>
@@ -90,4 +89,8 @@ P(A_i \mid B) &amp;= \frac{P(A_iB)}{P(B)} ~~~~ \text{(division rule)} \\ \\
 </table></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The table shows that the posterior chance that the person has the disease, given that they tested positive, depends heavily on the prior. For example, if the person thinks they even have a 10% chance of the disease, then, given that they test positive, their probability of having the disease gets updated to over 95%.</p></div></div></div>
+<p>The table shows that the posterior chance that the person has the disease, given that they tested positive, depends heavily on the prior. For example, if the person thinks they even have a 10% chance of the disease, then, given that they test positive, their probability of having the disease gets updated to over 95%.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

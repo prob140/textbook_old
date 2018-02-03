@@ -19,33 +19,29 @@
 <p>Thus the number of sixes in 7 rolls can be any integer in the 0 through 7 range. Let's find $P(S_7 = 3)$.</p>
 <p>Partition the event $\{S_7 = 3\}$ into the different ways it can happen. One way can be denoted SSSFFFF, where S denotes "success" (or "six"), and F denotes failure. Another is SFFSSFF. And so on.</p>
 <p>Now notice that</p>
-<p>$$
+$$
 P(\text{SSSFFFF}) = 
 \big{(}\frac{1}{6}\big{)}^3 \big{(}\frac{5}{6}\big{)}^4
 = P(\text{SFFSSFF})
-$$
-by independence. Indeed, any sequence of three S's and four F's has the same probability. So by the addition rule,</p>
-<p>\begin{align*}
+$$<p>by independence. Indeed, any sequence of three S's and four F's has the same probability. So by the addition rule,</p>
+\begin{align*}
 P(S_7 = 3) &amp;= \text{(number of sequences that have three S and four F)} \cdot \big{(}\frac{1}{6}\big{)}^3 \big{(}\frac{5}{6}\big{)}^4 \\ \\
 &amp;= \binom{7}{3} \big{(}\frac{1}{6}\big{)}^3 \big{(}\frac{5}{6}\big{)}^4
-\end{align*}</p>
-<p>because $\binom{7}{3}$ counts the number of ways you can choose 3 places out of 7 in which to put the symbol S, with the remaining 4 places being filled with F.</p>
+\end{align*}<p>because $\binom{7}{3}$ counts the number of ways you can choose 3 places out of 7 in which to put the symbol S, with the remaining 4 places being filled with F.</p>
 <p>An analogous argument leads us to one of the most important distributions in probability theory.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="The-Binomial-$(n,-p)$-Distribution">The Binomial $(n, p)$ Distribution<a class="anchor-link" href="#The-Binomial-$(n,-p)$-Distribution">¶</a></h3><p>Let $S_n$ be the number of successes in $n$ independent Bernoulli $(p)$ trials. Then $S_n$ has the <em>binomial distribution with parameters $n$ and $p$</em>, defined by</p>
-<p>$$
+$$
 P(S_n = k) = \binom{n}{k} p^k (1-p)^{n-k}, ~~~ k = 0, 1, \ldots, n
-$$</p>
-<p>Parameters of a distribution are constants associated with it. The Bernoulli $(p)$ distribution has parameter $p$. The binomial distribution defined above has parameters $n$ and $p$ and is referred to as the binomial $(n, p)$ distribution for short. You should check that the Bernoulli $(p)$ distribution is the same as the binomial $(1, p)$ distribution.</p>
+$$<p>Parameters of a distribution are constants associated with it. The Bernoulli $(p)$ distribution has parameter $p$. The binomial distribution defined above has parameters $n$ and $p$ and is referred to as the binomial $(n, p)$ distribution for short. You should check that the Bernoulli $(p)$ distribution is the same as the binomial $(1, p)$ distribution.</p>
 <p>Before we get going on calculations with the binomial distribution, let's make a few observations.</p>
 <ul>
 <li>The functional form of the probabilities is symmetric in successes and failures, because</li>
 </ul>
-<p>$$
+$$
 P(S_n = k) = \frac{n!}{k!(n-k)!} p^k (1-p)^{n-k}, ~~~ k = 0, 1, \ldots, n
-$$</p>
-<p>That's "number of trials factorial; divided by number of successes factorial times number of failures factorial; times the probability of success to the power number of successes; times the probability of failure to the power number of failures."</p>
+$$<p>That's "number of trials factorial; divided by number of successes factorial times number of failures factorial; times the probability of success to the power number of successes; times the probability of failure to the power number of failures."</p>
 <ul>
 <li>The formula makes sense for the edge cases $k=0$ and $k=n$. We can calculate $P(S_n = 0)$ without any of the machinery developed above. It's the chance of no successes, which is the chance of all failures, which is $(1-p)^n$. Our formula says
 $$
@@ -58,18 +54,17 @@ chance that all the trials are successes.</li>
 <ul>
 <li>The probabilities in the distribution sum to 1. To see this, recall that for any two numbers $a$ and $b$,</li>
 </ul>
-<p>\begin{align*}
+\begin{align*}
 (a+b)^2 &amp;= a^2 + 2ab + b^2 \\
 (a+b)^3 &amp;= a^3 + 3a^2b + 3ab^2 + b^3 \\
 \ldots \\
 (a+b)^n &amp;= \sum_{k=0}^n \binom{n}{k} a^k b^{n-k}
-\end{align*}</p>
-<p>by the <em>binomial expansion</em> of $(a+b)^n$. The numbers $\binom{n}{k}$ are the elements of Pascal's triangle, as you will have seen in a math class.</p>
+\end{align*}<p>by the <em>binomial expansion</em> of $(a+b)^n$. The numbers $\binom{n}{k}$ are the elements of Pascal's triangle, as you will have seen in a math class.</p>
 <p>Plug in $a = p$ and $b = 1-p$ and notice that the terms in the sum are exactly the binomial probabilities we defined above. So the sum of the probabilities is</p>
-<p>$$
+$$
 \sum_{k=0}^n \binom{n}{k} p^k (1-p)^{n-k}
 ~ = ~ \big{(} p + (1-p) \big{)}^n ~ = ~ 1^n ~ = ~ 1
-$$</p></div></div>
+$$</div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Binomial-Probabilities-in-Python">Binomial Probabilities in Python<a class="anchor-link" href="#Binomial-Probabilities-in-Python">¶</a></h3><p><code>SciPy</code> is a system for scientific computing, based on Python. The <code>stats</code> submodule of <code>scipy</code> does numerous calculations in probability and statistics. We will be importing it at the start of every notebook from now on.</p></div></div>
@@ -175,4 +170,8 @@ $\binom{7}{3}(1/6)^3(5/6)^4$ by the binomial formula, which works out to about 8
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now you can see that in 600 independent trials with probability 1/600 of success on each trial, you are most likely to get no successes or 1 success. There is some chance that you get 2 through 4 successes, but the chance of any number of successes greater than 4 is barely visible on the scale of the graph.</p>
-<p>Clearly, the shape of the histogram is determined by both $n$ and $p$. We will study the shape carefully in an upcoming section. But first let's see some numerical examples of using the binomial distribution.</p></div></div></div>
+<p>Clearly, the shape of the histogram is determined by both $n$ and $p$. We will study the shape carefully in an upcoming section. But first let's see some numerical examples of using the binomial distribution.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

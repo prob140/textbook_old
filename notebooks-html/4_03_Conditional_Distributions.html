@@ -115,10 +115,9 @@
 <p>To understand this table, start with the first column. In that column, the given condition is $X = 0$, that is, there were no heads in the first two tosses. Under this condition, $Y$ can't be 2, which is why you see the probability 0 in the top cell. If $X = 0$ then $Y$ can only be 1 or 0, according to whether the third toss was a head or a tail. That explains the probability of 0.5 in each of the remaining two cells.</p>
 <p>You can work out all the other probabilities in this way. But you don't have to go back to the original outcomes to figure out these conditional probabilities. Just use the joint distribution table displayed at the start of the example, and the division rule.</p>
 <p>For example,</p>
-<p>$$
+$$
 P(Y = 1 \mid X = 0) = \frac{P(X = 0, Y = 1)}{P(X = 0)} = \frac{0.125}{0.25} = 0.5
-$$</p>
-<p>It is easy to see why each column in the table of conditional distributions sums to 1. Each cell in one column is obtained from the joint distribution table by taking the corresponding cell in that table and dividing it by the sum of its column. So the columns in the resulting table sum to 1.</p></div></div>
+$$<p>It is easy to see why each column in the table of conditional distributions sums to 1. Each cell in one column is obtained from the joint distribution table by taking the corresponding cell in that table and dividing it by the sum of its column. So the columns in the resulting table sum to 1.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="The-Theory">The Theory<a class="anchor-link" href="#The-Theory">¶</a></h3><p>We will now generalize the calculations we did in the example above.</p>
@@ -133,14 +132,13 @@ $$
 where $y$ ranges over all the values of $Y$. Keep in mind that $y$ represents values of the variable here. The value $x^*$ is the particular value of $X$ that was observed; it is a constant.</p>
 <h3 id="The-Probabilities-in-a-Conditional-Distribution-Sum-to-1">The Probabilities in a Conditional Distribution Sum to 1<a class="anchor-link" href="#The-Probabilities-in-a-Conditional-Distribution-Sum-to-1">¶</a></h3><p>In a distribution, the probabilities have to sum to 1. To see that this is true for the conditional distribution defined above, start by using the fundamental rule.</p>
 <p>Find $P(X = x^*)$ by partitioning the event $\{ X = x^* \}$ according to the values of $Y$:</p>
-<p>$$
+$$
 P(X = x^*) = \sum_{\text{all }y} P(X = x^*, Y = y)
-$$</p>
-<p>Now let's sum the probabilities in the conditional distribution of $Y$ given $X = x^*$, and see if the sum is 1.</p>
-<p>\begin{align*}
+$$<p>Now let's sum the probabilities in the conditional distribution of $Y$ given $X = x^*$, and see if the sum is 1.</p>
+\begin{align*}
 \sum_{\text{all }y} P(Y = y \mid X = x^*) &amp;=
 \sum_{\text{all }y} \frac{P(X = x^*, Y = y)}{P(X = x^*)} \\ \\
 &amp;= \frac{1}{P(X = x^*)} \sum_{\text{all }y} P(X = x^*, Y = y) \\
 &amp;= \frac{1}{P(X = x^*)} \cdot P(X = x^*) \\
 &amp;= 1
-\end{align*}</p></div></div></div>
+\end{align*}</div></div></div>

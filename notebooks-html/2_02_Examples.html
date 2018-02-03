@@ -46,11 +46,10 @@ $$</p>
 </ul>
 <p>We're thinking of the set $\{4\}$ as a difference: $\{1, 2, 3, 4\} \backslash \{1, 2, 3\}$.</p>
 <p>So by the difference rule,</p>
-<p>\begin{align*}
+\begin{align*}
 P(\text{maximum is equal to 4}) &amp;= P(\text{maximum is less than 5}) - P(\text{maximum is less than 4}) \\
 &amp;= \frac{4^{12}}{6^{12}} - \frac{3^{12}}{6^{12}}
-\end{align*}</p>
-<p>There is nothing special about 12 rolls. You can replace 12 by $n$ throughout, and the argument will go through just as above.</p>
+\end{align*}<p>There is nothing special about 12 rolls. You can replace 12 by $n$ throughout, and the argument will go through just as above.</p>
 <p>The maximum is an example of an <em>extremum</em>, the other being the minimum.</p>
 <p><strong>Problem solving technique:</strong> When you work with extrema, remember the observation we used in this example: saying that the maximum is small is the same as saying that all the elements are small. Analogously, saying the minimum is large is the same as saying that all the elements are large.</p></div></div>
 <div class="inner_cell">
@@ -68,13 +67,15 @@ P(\text{maximum is equal to 4}) &amp;= P(\text{maximum is less than 5}) - P(\tex
 <p>This partition makes it easy to count all the pairs in which the second digit is greater than the first: there are $9+8+7+6+5+4+3+2+1 = (9\times10)/2 = 45$ of them among the 100 possible pairs. So the answer is 0.45.</p>
 <p><strong>Answer, Method II – Symmetry:</strong> Convince yourself of some symmetry: the chance that the second digit is greater than the first is the same as the chance that the first digit is greater than the second. One way to do this is to partition the second event according to the value of the second digit and notice the correspondence with the partition in Method I.</p>
 <p>So if $p = P(\text{second digit is greater than the first})$, the addition rule says</p>
-<p>\begin{align*}
+\begin{align*}
 1 &amp;= P(\text{first digit is greater than the second}) + P(\text{the two digits are equal}) + P(\text{second digit is greater than the first}) \\
 &amp;= p + \frac{10}{100} + p
-\end{align*}</p>
-<p>because there are 10 pairs of equal digits: 00, 11, 22, $\ldots$, 99. Now solve for $p$:</p>
-<p>$$
-p = \frac{1 - 0.1}{2} = 0.45
+\end{align*}<p>because there are 10 pairs of equal digits: 00, 11, 22, $\ldots$, 99. Now solve for $p$:</p>
 $$
-as before.</p>
-<p>It is a good idea to learn both methods. Partitions and symmetry will be used throughout this course.</p></div></div></div>
+p = \frac{1 - 0.1}{2} = 0.45
+$$<p>as before.</p>
+<p>It is a good idea to learn both methods. Partitions and symmetry will be used throughout this course.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

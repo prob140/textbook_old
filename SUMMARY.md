@@ -47,3 +47,13 @@
 * [Chapter 7: Poissonization](notebooks-md/7_00_Poissonization.md)
 	* [7.1 Poissonizing the Binomial](notebooks-md/7_01_Poissonizing_the_Binomial.md)
 	* [7.2 Poissonizing the Multinomial](notebooks-md/7_02_Poissonizing_the_Multinomial.md)
+
+* [Chapter 8: Expectation](notebooks-md/8_00_Expectation.md)
+	* [8.1 Definition](notebooks-md/8_01_Definition.md)
+	* [8.2 Additivity](notebooks-md/8_02_Additivity.md)
+	* [8.3 Expectations of Functions](notebooks-md/8_03_Expectations_of_Functions.md)
+
+* [Chapter 9: Conditioning, Revisited](notebooks-md/9_00_Conditioning_Revisited.md)
+	* [9.1 Probability by Conditioning](notebooks-md/9_01_Probability_by_Conditioning.md)
+	* [9.2 Expectation by Conditioning](notebooks-md/9_02_Expectation_by_Conditioning.md)
+	* [9.3 Expected Waiting Times](notebooks-md/9_03_Expected_Waiting_Times.md)
