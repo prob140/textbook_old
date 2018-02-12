@@ -1,0 +1,16 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/hub/user-redirect/git-pull?repo=https://github.com/prob140/materials&branch=gh-pages&subPath=textbook/11_00_Reversing_Markov_Chains.ipynb">Interact</a>
+            
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Reversing-Markov-Chains">Reversing Markov Chains<a class="anchor-link" href="#Reversing-Markov-Chains">¶</a></h1></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>What do stock markets, mutating viruses, and computer search engines have in common? They have all been analyzed using Markov Chain models. Understanding the long run behavior of Markov Chains helps us understand many different random phenomena.</p>
+<p>In data science, Markov Chains are also used for quite a different purpose. Markov Chains help data scientists draw random samples from distributions that are too complicated for standard sampling methods to handle. Markov Chains can also be used to approximate expectations of random quantities whose distributions are either very complicated or involve unknown quantities that are too difficult to estimate using standard methods.</p>
+<p>Sometimes, this can be achieved by creating a Markov Chain that has the complicated distribution as its stationary distribution, and then running the chain for a long time till it gets close to stationarity. This method is called Markov Chain Monte Carlo, abbreviated to MCMC. Surprisingly, it involves understanding what happens when Markov Chains are run backwards, that is, when they are <em>reversed</em>.</p>
+<p>To understand and implement MCMC algorithms you have to study the reversibility of Markov Chains and also do the computations. In this chapter and the accompanying lab we will give you a brief introduction to this area of data science.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

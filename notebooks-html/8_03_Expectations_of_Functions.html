@@ -179,7 +179,7 @@ $$<p>As before, it is a straightforward matter of grouping to show that all the 
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Example-3:-$E(X^2)$-for-a-Poisson-Variable-$X$">Example 3: $E(X^2)$ for a Poisson Variable $X$<a class="anchor-link" href="#Example-3:-$E(X^2)$-for-a-Poisson-Variable-$X$">¶</a></h3><p>Let $X$ have the Poisson $(\mu)$ distribution. You will see in the next chapter that it will be useful to know the value of $E(X^2)$. By our non-linear function rule,</p>
 $$
-E(X^2) = \sum_{k=0}^\infty k^2 e^{\mu} \frac{\mu^k}{k!}
+E(X^2) = \sum_{k=0}^\infty k^2 e^{-\mu} \frac{\mu^k}{k!}
 $$<p>This sum turns out to be hard to simplify. The term for $k=0$ is 0. In each term for $k \ge 1$, one of the $k$'s in the numerator cancels a $k$ in the denominator but the other factor of $k$ in the numerator remains. It would be so nice if that factor $k$ were $k-1$ instead, so it could cancel $k-1$ in the denominator.</p>
 <p>This motivates the following calculation. No matter what $X$ is, if we know $E(X)$ and can find $E(X(X-1))$, then we can use additivity to find $E(X^2)$ as follows:</p>
 $$

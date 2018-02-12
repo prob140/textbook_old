@@ -57,3 +57,15 @@
 	* [9.1 Probability by Conditioning](notebooks-md/9_01_Probability_by_Conditioning.md)
 	* [9.2 Expectation by Conditioning](notebooks-md/9_02_Expectation_by_Conditioning.md)
 	* [9.3 Expected Waiting Times](notebooks-md/9_03_Expected_Waiting_Times.md)
+
+* [Chapter 10: Markov Chains](notebooks-md/10_00_Markov_Chains.md)
+	* [10.1 Transitions](notebooks-md/10_01_Transitions.md)
+	* [10.2 Deconstructing Chains](notebooks-md/10_02_Deconstructing_Chains.md)
+	* [10.3 Long Run Behavior](notebooks-md/10_03_Long_Run_Behavior.md)
+	* [10.4 Examples](notebooks-md/10_04_Examples.md)
+
+* [Chapter 11: Reversing Markov Chains](notebooks-md/11_00_Reversing_Markov_Chains.md)
+	* [11.1 Detailed Balance](notebooks-md/11_01_Detailed_Balance.md)
+	* [11.2 Reversibility](notebooks-md/11_02_Reversibility.md)
+	* [11.3 Code Breaking](notebooks-md/11_03_Code_Breaking.md)
+	* [11.4 Markov Chain Monte Carlo](notebooks-md/11_04_Markov_Chain_Monte_Carlo.md)
