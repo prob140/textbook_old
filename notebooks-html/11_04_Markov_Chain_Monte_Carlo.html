@@ -18,12 +18,12 @@
 </ul>
 $$
 \frac{\pi(j)}{\pi(i)} = \frac{P(i, j)}{P(j, i)}
-$$<p>The right hand side is based on the transition probabilities of the chain that we want to create. Notice that the left hand side <em>only involves ratios of the terms in $\pi$</em>, and therefore can be checked <em>even if we don't know the constant that normalizes $\pi$</em>.</p></div></div>
+$$<p>The right hand side only involves the transition probabilities of the chain that we want to create. The left hand side only involves ratios of the terms in $\pi$, and therefore can be checked even if we don't know the constant that normalizes $\pi$.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Metropolis-Algorithm">Metropolis Algorithm<a class="anchor-link" href="#Metropolis-Algorithm">¶</a></h3><p>Exactly who proposed the first algorithm to create such a Markov Chain is the subject of some debate. A general version was proposed by Hastings. Here we will describe an earlier version attributed to Metropolis and co-authors in 1953.</p>
-<p>The goal is to create a transition matrix $P$ so that $\pi$ and $P$ together solve the detailed balance equations.</p>
-<p>The algorithm is based on any symmetric transition matrix $Q$ that creates an irreducible chain on the state space. For example, if the state space is numerical you could start with, "Wherever the chain is, it picks one of the three closest values (including itself) with probability $1/3$ each." For a pair of states $i$ and $j$, the transition probability $Q(i, j)$ is called the <em>proposal probability</em>.</p>
+<p>The goal is to create a transition matrix $\mathbb{P}$ so that $\pi$ and $\mathbb{P}$ together solve the detailed balance equations.</p>
+<p>The algorithm is based on any symmetric transition matrix $Q$ that creates an irreducible aperiodic chain on the state space. For example, if the state space is numerical you could start with, "Wherever the chain is, it picks one of the three closest values (including itself) with probability $1/3$ each." For a pair of states $i$ and $j$, the transition probability $Q(i, j)$ is called the <em>proposal probability</em>.</p>
 <p>Here are the steps that determine the transitions of the new chain.</p>
 <ul>
 <li><p>Suppose the chain is at $i$ at time $n$, that is, suppose $X_n = i$. Pick a state $j$ according to the proposal probability $Q(i, j)$. This $j$ is the candidate state to which your chain might move.</p>
@@ -50,7 +50,7 @@ $$</p>
 <p>First notice that we are requiring $Q$ to be symmetric as well as irreducible. The symmetry requirement makes sense as each detailed balance equation involves transitions $i \to j$ as well as $j \to i$.</p>
 <p>Fix any starting decoder and call it $i$. Now you have to decide where the chain is going to move next, that is, what the next decoder is going to be. The algorithm starts this process off by picking a decoder $j$ according to $Q$. We say that <em>$Q$ proposes a move to $j$</em>.</p>
 <p>To decide whether or not the chain should move to $j$, remember that the distribution $\pi$ contains the likelihoods of all the decoders. You want to end up with decoders that have high likelihood, so it is natural to compare $\pi(i)$ and $\pi(j)$.</p>
-<p>The algorithm does this by comparing the <em>acceptance ratio</em> $r(i, j) = \pi(j)/\pi(1)$ to 1.</p>
+<p>The algorithm does this by comparing the <em>acceptance ratio</em> $r(i, j) = \pi(j)/\pi(i)$ to 1.</p>
 <ul>
 <li><p>If $r(i, j) \ge 1$, the likelihood of $j$ is at least as large that of $i$, so you <em>accept the proposal</em> and move to $j$.</p>
 </li>
@@ -63,7 +63,7 @@ $$</p>
 <p>Take any two states $i$ and $j$.</p>
 <h4 id="Case-1:-$\pi(i)-=-\pi(j)$">Case 1: $\pi(i) = \pi(j)$<a class="anchor-link" href="#Case-1:-$\pi(i)-=-\pi(j)$">¶</a></h4><p>Then $r(i, j) = 1$. By the algorithm, $P(i, j) = Q(i, j)$ and also $P(j, i) = Q(j, i) = Q(i, j)$ by the symmetry of $Q$.</p>
 <p>Therefore $P(i, j) = P(j, i)$ and the detailed balance equation $\pi(i)P(i, j) = \pi(j)P(j, i)$ is satisfied.</p>
-<h4>Case 2: $\pi(i) &lt; \pi(j)$</h4>
+<h4>Case 2: $\pi(j) &lt; \pi(i)$</h4>
 <p>Then $r(i, j) &lt; 1$, so</p>
 $$
 P(i, j) ~=~ Q(i, j)r(i, j) 
@@ -77,7 +77,7 @@ which is the same as
 $$
 \pi(i)P(i, j) ~ = ~ \pi(j)P(j, i)
 $$</p>
-<h4 id="Case-2:-$\pi(i)-&gt;-\pi(j)$">Case 2: $\pi(i) &gt; \pi(j)$<a class="anchor-link" href="#Case-2:-$\pi(i)-&gt;-\pi(j)$">¶</a></h4><p>Reverse the roles of $i$ and $j$ in Case 2.</p></div></div>
+<h4 id="Case-2:-$\pi(j)-&gt;-\pi(i)$">Case 2: $\pi(j) &gt; \pi(i)$<a class="anchor-link" href="#Case-2:-$\pi(j)-&gt;-\pi(i)$">¶</a></h4><p>Reverse the roles of $i$ and $j$ in Case 2.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>That's it! A simple and brilliant idea that provides a solution to a difficult problem. In lab, you will see it in action when you implement the algorithm to decode text.</p></div></div></div>

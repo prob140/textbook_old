@@ -19,9 +19,22 @@ $$<p>If $r &gt; p$, then the original path has higher chance.</p>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Reversed-Process">Reversed Process<a class="anchor-link" href="#Reversed-Process">¶</a></h3><p>Let $X_0, X_1, \ldots $ be an irreducible Markov Chain with a finite state space and stationary distribution $\pi$. Start the chain off with this stationary distribution; that is, let $X_0$ have distribution $\pi$. Then for all $n \ge 1$, the distribution of $X_n$ is also $\pi$.</p>
-<p>Fix $n &gt; 0$ and consider the <em>reversed</em> sequence $Y_0, Y_1, \ldots, Y_n$ defined by $Y_k = X_{n-k}$ for $k = 0, 1, \ldots, n$.</p>
-<p>It is a wonderful fact that the reversed sequence is a Markov Chain. To see why, we will check that the Markov property holds.</p>
-<p>Fix states $i$ and $j$ and an integer $m$ in the range 0 through $n-1$.</p>
+<p>Fix $n &gt; 0$ and consider the <em>reversed</em> sequence $Y_0, Y_1, \ldots, Y_n$ defined by $Y_k = X_{n-k}$ for $k = 0, 1, \ldots, n$. Call $X_0, X_1, \ldots, X_n$ the <em>forwards</em> sequence.</p>
+<p>It is a wonderful fact that the reversed sequence is a time homogenous Markov Chain. To see why, we will check that the Markov property holds.</p>
+<p>Before we prove the general fact, let's make some exploratory calculations. Start with $n = 1$, so that $Y_0 = X_1$ and $Y_1 = X_0$. For states $i$ and $j$.</p>
+\begin{align*}
+P(Y_1 = j \mid Y_0 = i) ~ &amp;= ~ \frac{P(Y_1 = j, Y_0 = i)}{P(Y_0 = i)} \\
+&amp;= ~ \frac{P(X_0 = j, X_1 = i)}{P(X_1 = i)} \\
+&amp;= ~ \frac{\pi(j)P(j, i)}{\pi(i)}
+\end{align*}<p>because the forwards sequence is in steady state. We have found a transition probability for the reversed sequence using the transition matrix and stationary distribution of the forwards sequence.</p>
+<p>For $n = 2$, we have $Y_0 = X_2$, $Y_1 = X_1$, and $Y_2 = X_0$. For states $k$, $i$, and $j$,</p>
+\begin{align*}
+P(Y_2 = j \mid Y_0 = k, Y_1 = i) ~ &amp;= ~ \frac{P(Y_2 = j, Y_1 = i, Y_0 = k)}{P(Y_1 = i, Y_0 = k)} \\
+&amp;= ~ \frac{P(X_0 = j, X_1 = i, X_2 = k)}{P(X_1 = i, X_2 = k)} \\
+&amp;= ~ \frac{\pi(j)P(j, i)P(i, k)}{\pi(i)P(i, k)} \\
+&amp;= ~ \frac{\pi(j)P(j, i)}{\pi(i)}
+\end{align*}<p>The answer doesn't depend on $k$. That's consistent with the Markov property. Also, put together the two facts we have just proved to notice that the transition probabilities are time homogenous.</p>
+<p>For general $n$, fix states $i$ and $j$ and an integer $m$ in the range 0 through $n-1$.</p>
 \begin{align*}
 &amp; P(Y_{m+1} = j \mid Y_0 = i_0, Y_1 = i_1, \ldots, Y_{m-1} = i_{m-1}, Y_m = i) \\ \\ 
 &amp;=
@@ -34,7 +47,7 @@ $$<p>If $r &gt; p$, then the original path has higher chance.</p>
 &amp;= \frac{\pi(j)P(j, i)}{\pi(i)}
 \end{align*}<p>This involves only $i$ and $j$, and not on $i_0, i_1, \ldots, i_{m-1}$ nor on $m$. So the Markov property is satisfied and the transition probabilities are time homogenous. The one-step "$i$ to $j$" transition probability for the reversed sequence is</p>
 $$
-P(Y_{m+1} = j \mid Y_m = i) = \frac{\pi(j)P(j, i)}{\pi(i)}
+P(Y_1 = j \mid Y_0 = i) = \frac{\pi(j)P(j, i)}{\pi(i)}
 $$</div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -51,9 +64,9 @@ $$<p>In other words:</p>
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>At the start of this section we looked at a random walk on a circle. Let's see what the definition of reversibility implies for this chain.</p>
 <ul>
-<li><p>In the previous section we showed that when $p \ne 1/2$, the detailed balance equations have no positive solution. Therefore, when $p \ne 1/2$, the chain is not reversible. This is consistent with our earlier analysis.</p>
+<li><p>In the previous section we showed that when $p \ne r$, the detailed balance equations have no positive solution. Therefore, when $p \ne r$, the chain is not reversible. This is consistent with our earlier analysis.</p>
 </li>
-<li><p>When $p = 1/2$, the detailed balance equations do have a solution, and therefore the chain is reversible. This formalizes our idea that if $p = 1/2$ then in steady state the chain "looks the same run forwards or backwards."</p>
+<li><p>When $p = r$, we found a solution to the detailed balance equations, and therefore the chain is reversible. This formalizes our idea that if $p = r$ then in steady state the chain "looks the same run forwards or backwards."</p>
 </li>
 </ul></div></div>
 <div class="inner_cell">
