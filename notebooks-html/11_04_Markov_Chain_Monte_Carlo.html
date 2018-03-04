@@ -43,7 +43,8 @@ $$</p>
 </li>
 <li>Repeat all the steps, with $X_{n+1}$ as the starting value.</li>
 </ul>
-<p>Thus the chain either moves to the state picked according to $Q$, or it stays where it is. We say that it <em>accepts a move to a new state</em> based on $Q$ and $r$, and otherwise it doesn't move.</p></div></div>
+<p>Thus the new chain either moves to the state picked according to $Q$, or it stays where it is. We say that it <em>accepts a move to a new state</em> based on $Q$ and $r$, and otherwise it doesn't move.</p>
+<p>The new chain is irreducible because the proposal chain is irreducible. It is aperiodic because it can stay in place. So it has a steady state distribution. The alogrithm says that this steady state distribution is the same as the distribution $\pi$ that was used to define the ratios $r(i, j)$.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="How-to-Think-About-the-Algorithm">How to Think About the Algorithm<a class="anchor-link" href="#How-to-Think-About-the-Algorithm">¶</a></h3><p>Before we prove that the algorithm works, let's examine what it is doing in the context of decoders.</p>

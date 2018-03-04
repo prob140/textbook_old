@@ -69,3 +69,15 @@
 	* [11.2 Reversibility](notebooks-md/11_02_Reversibility.md)
 	* [11.3 Code Breaking](notebooks-md/11_03_Code_Breaking.md)
 	* [11.4 Markov Chain Monte Carlo](notebooks-md/11_04_Markov_Chain_Monte_Carlo.md)
+
+* [Chapter 12: Standard Deviation](notebooks-md/12_00_Standard_Deviation.md)
+	* [12.1 Definition](notebooks-md/12_01_Definition.md)
+	* [12.2 Prediction and Estimation](notebooks-md/12_02_Prediction_and_Estimation.md)
+	* [12.3 Tail Bounds](notebooks-md/12_03_Bounds.md)
+	* [12.4 Heavy Tails](notebooks-md/12_04_Heavy_Tails.md)
+
+* [Chapter 13: Variance Via Covariance](notebooks-md/13_00_Variance_Via_Covariance.md)
+	* [13.1 Properties of Covariance](notebooks-md/13_01_Properties_of_Covariance.md)
+	* [13.2 Sums of IID Samples](notebooks-md/13_02_Sums_of_IID_Samples.md)
+	* [13.3 Sums of Simple Random Samples](notebooks-md/13_03_Sums_of_Simple_Random_Samples.md)
+	* [13.4 Finite Population Correction](notebooks-md/13_04_Finite_Population_Correction.md)
