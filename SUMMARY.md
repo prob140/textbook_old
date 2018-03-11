@@ -81,3 +81,17 @@
 	* [13.2 Sums of IID Samples](notebooks-md/13_02_Sums_of_IID_Samples.md)
 	* [13.3 Sums of Simple Random Samples](notebooks-md/13_03_Sums_of_Simple_Random_Samples.md)
 	* [13.4 Finite Population Correction](notebooks-md/13_04_Finite_Population_Correction.md)
+
+* [Chapter 14: The Central Limit Theorem](notebooks-md/14_00_The_Central_Limit_Theorem.md)
+	* [14.1 Exact Distribution](notebooks-md/14_01_Exact_Distribution.md)
+	* [14.2 PGFs in NumPy](notebooks-md/14_02_PGFs_in_NumPy.md)
+	* [14.3 Central Limit Theorem](notebooks-md/14_03_Central_Limit_Theorem.md)
+	* [14.4 The Sample Mean](notebooks-md/14_04_The_Sample_Mean.md)
+	* [14.5 Confidence Intervals](notebooks-md/14_05_Confidence_Intervals.md)
+
+* [Chapter 15: Continuous Distributions](notebooks-md/15_00_Continuous_Distributions.md)
+	* [15.1 Density and CDF](notebooks-md/15_01_Density_and_CDF.md)
+	* [15.2 The Meaning of Density](notebooks-md/15_02_The_Meaning_of_Density.md)
+	* [15.3 Expectation](notebooks-md/15_03_Expectation.md)
+	* [15.4 Exponential Distribution](notebooks-md/15_04_Exponential_Distribution.md)
+	* [15.5 Calculus in SymPy](notebooks-md/15_05_Calculus_in_SymPy.md)
