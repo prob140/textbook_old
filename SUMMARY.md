@@ -95,3 +95,14 @@
 	* [15.3 Expectation](notebooks-md/15_03_Expectation.md)
 	* [15.4 Exponential Distribution](notebooks-md/15_04_Exponential_Distribution.md)
 	* [15.5 Calculus in SymPy](notebooks-md/15_05_Calculus_in_SymPy.md)
+
+* [Chapter 16: Transformations](notebooks-md/16_00_Transformations.md)
+	* [16.1 Linear Transformations](notebooks-md/16_01_Linear_Transformations.md)
+	* [16.2 Monotone Functions](notebooks-md/16_02_Monotone_Functions.md)
+	* [16.3 Two-to-One Functions](notebooks-md/16_03_Two_to_One_Functions.md)
+
+* [Chapter 17: Joint Densities](notebooks-md/17_00_Joint_Densities.md)
+	* [17.1 Probabilities and Expectations](notebooks-md/17_01_Probabilities_and_Expectations.md)
+	* [17.2 Independence](notebooks-md/17_02_Independence.md)
+	* [17.3 Marginal and Conditional Densities](notebooks-md/17_03_Marginal_and_Conditional_Densities.md)
+	* [17.4 Beta Densities with Integer Parameters](notebooks-md/17_04_Beta_Densities_with_Integer_Parameters.md)

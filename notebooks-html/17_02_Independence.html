@@ -1,0 +1,134 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/hub/user-redirect/git-pull?repo=https://github.com/prob140/materials&branch=gh-pages&subPath=textbook/17_02_Independence.ipynb">Interact</a>
+            
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Independence">Independence<a class="anchor-link" href="#Independence">¶</a></h2></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Jointly distributed random variables $X$ and $Y$ are <em>independent</em> if
+$$
+P(X \in A, Y \in B) = P(X \in A)P(Y \in B)
+$$
+for all intervals $A$ and $B$.</p>
+<p>Let $X$ have density $f_X$, let $Y$ have density $f_Y$, and suppose $X$ and $Y$ are independent. Then if $f$ is the joint density of $X$ and $Y$,</p>
+\begin{align*}
+f(x, y)dxdy &amp;\sim P(X \in dx, Y \in dy) \\
+&amp;= P(X \in dx)P(Y \in dy) ~~~~~ \text{(independence)} \\
+&amp;= f_X(x)dx f_Y(y)dy \\
+&amp;= f_X(x)f_Y(y)dxdy
+\end{align*}<p>Thus if $X$ and $Y$ are independent then their joint density is given by</p>
+$$
+f(x, y) = f_X(x)f_Y(y)
+$$<p>This is the <em>product rule for densities</em>: the joint density of two independent random variables is the product of their densities.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Independent-Standard-Normal-Random-Variables">Independent Standard Normal Random Variables<a class="anchor-link" href="#Independent-Standard-Normal-Random-Variables">¶</a></h3><p>Suppose $X$ and $Y$ are i.i.d. standard normal random variables. Then their joint density is given by</p>
+$$
+f(x, y) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}x^2} \cdot \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}y^2}, ~~~~ -\infty &lt; x, y &lt; \infty
+$$<p>Equivalently,
+$$
+f(x, y) = \frac{1}{2\pi} e^{-\frac{1}{2}(x^2 + y^2)}, ~~~~ -\infty &lt; x, y &lt; \infty
+$$</p>
+<p>Here is a graph of the joint density surface.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">indep_standard_normals</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">Plot_3d</span><span class="p">((</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">indep_standard_normals</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/17_02_Independence_4_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Notice the circular symmetry of the surface. This is because the formula for the joint density involves the pair $(x, y)$ through the expression $x^2 + y^2$ which is symmetric in $x$ and $y$.</p>
+<p>Notice also that $P(X = Y) = 0$, as the probability is the volume over a line. This is true of all pairs of independent random variables with a joint density: $P(X = Y) = 0$. So for example $P(X &gt; Y) = P(X \ge Y)$. You don't have to worry about whether or not to the inequality should be strict.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Larger-of-Two-Independent-Exponential-Random-Variables">The Larger of Two Independent Exponential Random Variables<a class="anchor-link" href="#The-Larger-of-Two-Independent-Exponential-Random-Variables">¶</a></h3><p>Let $X$ and $Y$ be independent random variables. Suppose $X$ has the exponential $(\lambda)$ distribution and $Y$ has the exponential $(\mu)$ distribution. The goal of this example is to find $P(Y &gt; X)$.</p>
+<p>By the product rule, the joint density of $X$ and $Y$ is given by</p>
+$$
+f(x, y) ~ = ~ \lambda e^{\lambda x} \mu e^{-\mu y}, ~~~~ x &gt; 0, ~ y &gt; 0
+$$<p>The graph below shows the joint density surface in the case $\lambda = 0.5$ and $\mu = 0.25$, so that $E(X) = 2$ and $E(Y) = 4$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">independent_exp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="mf">0.25</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">Plot_3d</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">independent_exp</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/17_02_Independence_7_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To find $P(Y &gt; X)$ we must integrate the joint density over the upper triangle of the first quadrant, a portion of which is shown below.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/17_02_Independence_9_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The probability is therefore
+$$
+P(Y &gt; X) ~ = ~ \int_0^\infty \int_x^\infty \lambda e^{-\lambda x} \mu e^{-\mu y} dy dx
+$$</p>
+<p>We can do this double integral without much calculus, just by using probability facts.</p>
+\begin{align*}
+P(Y &gt; X) &amp;= \int_0^\infty \int_x^\infty \lambda e^{-\lambda x} \mu e^{-\mu y} dy dx \\ \\
+&amp;= \int_0^\infty \lambda e^{-\lambda x} \big{(} \int_x^\infty \mu e^{-\mu y} dy\big{)} dx \\ \\
+&amp;= \int_0^\infty \lambda e^{-\lambda x} e^{-\mu x} dx ~~~~~~ \text{(survival function of } Y\text{, evaluated at } x \text{)} \\ \\
+&amp;= \frac{\lambda}{\lambda + \mu} \int_0^\infty (\lambda + \mu) e^{-(\lambda + \mu)x} dx \\ \\
+&amp;= \frac{\lambda}{\lambda + \mu} ~~~~~~~ \text{(total integral of exponential }
+(\lambda + \mu) \text{ density is 1)}
+\end{align*}<p>Thus
+$$
+P(Y &gt; X) ~ = ~ \frac{\lambda}{\lambda + \mu}
+$$
+Analogously,
+$$
+P(X &gt; Y) ~ = ~ \frac{\mu}{\lambda + \mu}
+$$</p>
+<p>Notice that the two chances are proportional to the parameters. This is consistent with intuition if you think of $X$ and $Y$ as two lifetimes. If $\lambda$ is large, the corresponding lifetime $X$ is likely to be short, and therefore $Y$ is likely to be larger than $X$ as the formula implies.</p>
+<p>If $\lambda = \mu$ then $P(Y &gt; X) = 1/2$ which you can see by symmetry since $P(X = Y) = 0$.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we had attempted the double integral in the other order – first $x$, then $y$ – we would have had to do more work. The integral is</p>
+$$
+\int_0^\infty \int_0^y \lambda e^{-\lambda x} \mu e^{-\mu y} dx dy
+$$<p>Let's do it in <code>SymPy</code> to check that the answer comes out the same.</p>
+<p>Keep in mind that <code>SymPy</code> doesn't like to display negative exponents, so some functions appear in a different form compared to the way we usually write them.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">declare</span><span class="p">(</span><span class="s1">'x'</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">,</span> <span class="s1">'lamda'</span><span class="p">,</span> <span class="s1">'mu'</span><span class="p">,</span> <span class="n">positive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">f_X</span> <span class="o">=</span> <span class="n">lamda</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lamda</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="n">f_Y</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">mu</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">jt_density</span> <span class="o">=</span> <span class="n">f_X</span> <span class="o">*</span> <span class="n">f_Y</span>
+<span class="n">jt_density</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$\frac{\lambda \mu}{e^{\lambda x} e^{\mu y}}$$</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p_Y_greater_than_X</span> <span class="o">=</span> <span class="n">Integral</span><span class="p">(</span><span class="n">jt_density</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">oo</span><span class="p">))</span>
+<span class="n">p_Y_greater_than_X</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$\int_{0}^{\infty}\int_{0}^{y} \frac{\lambda \mu}{e^{\lambda x} e^{\mu y}}\, dx\, dy$$</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p_Y_greater_than_X</span><span class="o">.</span><span class="n">doit</span><span class="p">()</span>
+</pre></div></div></div>
+<div class="output_latex output_subarea output_execute_result">
+$$1 - \frac{\mu}{\lambda \left(1 + \frac{\mu}{\lambda}\right)}$$</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>That looks strange but it is equal to</p>
+$$
+1 - \frac{\mu}{\lambda + \mu} ~ = ~ \frac{\lambda}{\lambda + \mu}
+$$<p>which is the same as the answer we got earlier.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

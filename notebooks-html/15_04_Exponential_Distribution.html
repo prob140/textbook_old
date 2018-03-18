@@ -70,6 +70,17 @@ $$<p>Notice that $t$ does not appear in the answer. So for example the chance th
 <p>This is called the <em>memoryless property</em> of the exponential distribution. It can be shown that the exponential and the geometric are the only two distributions that have the memoryless property. As you can see, the graph of the exponential density resembles the geometric probability histogram. It can be thought of as a continuous limit of the geometric, as we will see later.</p>
 <p>The memoryless property is an excellent reason <em>not</em> to use the exponential distribution to model the lifetimes of people or of anything that ages. For lifetimes of things like lightbulbs or radioactive atoms, the exponential distribution often does fine.</p></div></div>
 <div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="The-Rate">The Rate<a class="anchor-link" href="#The-Rate">¶</a></h3><p>If $\lambda$ is large, then $E(T) = 1/\lambda$ is small. If you think of $T$ as a lifetime then large $\lambda$ implies that an early death is expected. To formalize the notion of $\lambda$ as a rate, let $\Delta_t$ be a tiny increment of time and use the memoryless property:</p>
+\begin{align*}
+P(T \le t + \Delta_t \mid T &gt; t ~ &amp;= ~ 1 - e^{-\lambda \Delta_t} \\
+&amp;= ~ \lambda \Delta_t + \frac{\lambda^2\Delta_t^2}{2!} + \cdots \\
+&amp;\sim ~ \lambda \Delta_t ~~~~~ \mbox{because } \Delta_t \mbox{ is small}
+\end{align*}<p>The left hand side is the chance that the object dies immediately after time $t$, given that it was still alive at time $t$. We say that $\lambda$ is the <em>instantaneous death rate</em>, because</p>
+$$
+\lambda ~ \sim ~ \frac{P(T \le t+\Delta_t \mid T &gt; t)}{\Delta_t}
+$$</div></div>
+<div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div></div></div></div>
