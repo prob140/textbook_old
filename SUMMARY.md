@@ -106,3 +106,29 @@
 	* [17.2 Independence](notebooks-md/17_02_Independence.md)
 	* [17.3 Marginal and Conditional Densities](notebooks-md/17_03_Marginal_and_Conditional_Densities.md)
 	* [17.4 Beta Densities with Integer Parameters](notebooks-md/17_04_Beta_Densities_with_Integer_Parameters.md)
+
+* [Chapter 18: The Normal and Gamma Families 
+
+The family of normal distributions has a uniquely important place in probability theory and data science. You started working with normal distributions in Data 8 long before you understood much formal probability theory. So you have taken several basic facts for granted without proof. We will start by establishing those facts and then study sums of independent normal variables.
+
+The gamma family of distributions, properties of which you have established in exercises, arises in numerous contexts. For example, you have seen that the exponential distribution is a member of the gamma family, as is the square of a standard normal variable. Later in this chapter we will collect what we know about the gamma family and see what we can say about sums of independent gamma variables.](notebooks-md/18_00_The_Normal_and_Gamma_Families.md)
+	* [18.1 Standard Normal: The Basics](notebooks-md/18_01_Standard_Normal_Basics.md)
+	* [18.2 Sums of Independent Normal Variables](notebooks-md/18_02_Sums_of_Independent_Normal_Variables.md)
+	* [18.3 The Gamma Family](notebooks-md/18_03_The_Gamma_Family.md)
+	* [18.4 Chi-Squared Distributions](notebooks-md/18_04_Chi_Squared_Distributions.md)
+
+* [Chapter 19: Distributions of Sums](notebooks-md/19_00_Distributions_of_Sums.md)
+	* [19.1 The Convolution Formula](notebooks-md/19_01_Convolution_Formula.md)
+	* [19.2 Moment Generating Functions](notebooks-md/19_02_Moment_Generating_Functions.md)
+	* [19.3 MGFs, the Normal, and the CLT](notebooks-md/19_03_MGFs_Normal_and_the_CLT.md)
+	* [19.4 Chernoff Bound](notebooks-md/19_04_Chernoff_Bound.md)
+
+* [Chapter 20: Approaches to Estimation](notebooks-md/20_00_Approaches_to_Estimation.md)
+	* [20.1 Maximum Likelihood](notebooks-md/20_01_Maximum_Likelihood.md)
+	* [20.2 Prior and Posterior](notebooks-md/20_02_Prior_and_Posterior.md)
+	* [20.3 Independence, Revisited](notebooks-md/20_03_Independence_Revisited.md)
+
+* [Chapter 21: The Beta and the Binomial](notebooks-md/21_00_The_Beta_and_the_Binomial.md)
+	* [21.1 Updating and Prediction](notebooks-md/21_01_Updating_and_Prediction.md)
+	* [21.2 The Beta-Binomial Distribution](notebooks-md/21_02_Beta_Binomial_Distribution.md)
+	* [21.3 Long Run Proportion of Heads](notebooks-md/21_03_Long_Run_Proportion_of_Heads.md)
