@@ -55,11 +55,19 @@ f_{X \vert S_n=k} (p) ~ &amp;\propto ~ {C(r, s) p^{r-1}(1-p)^{s-1} \cdot \binom{
 $$
 f_{X \mid S_n = k} (p) ~ = ~ C(r+k, s+n-k) p^{r+k-1}(1-p)^{s + n - k - 1}, ~~~ 0 &lt; p &lt; 1
 $$<p>This beta posterior density is easy to remember. Start with the prior; update the first parameter by adding the observed number of heads; update the second parameter by adding the observed number of tails.</p>
-<h4 id="Conjugate-Prior">Conjugate Prior<a class="anchor-link" href="#Conjugate-Prior">¶</a></h4><p>The prior distribution of the probability of heads is from the beta family. The posterior distribution of the probability of heads, given the number of heads, is another beta density. The beta prior and binomial likelihood combine to result in a beta posterior. The beta family is therefore called a <em>family of conjugate priors</em> for the binomial distribution: the posterior is another member of the same family as the prior.</p>
-<p>The posterior mean of $X$ given $S_n = k$ is the expectation of the beta posterior distribution:</p>
+<h4 id="Conjugate-Prior">Conjugate Prior<a class="anchor-link" href="#Conjugate-Prior">¶</a></h4><p>The prior distribution of the probability of heads is from the beta family. The posterior distribution of the probability of heads, given the number of heads, is another beta density. The beta prior and binomial likelihood combine to result in a beta posterior. The beta family is therefore called a <em>family of conjugate priors</em> for the binomial distribution: the posterior is another member of the same family as the prior.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="MAP-Estimate:-Posterior-Mode">MAP Estimate: Posterior Mode<a class="anchor-link" href="#MAP-Estimate:-Posterior-Mode">¶</a></h3><p>The MAP estimate of the chance of heads is the mode of the posterior distribution. If $r$ and $s$ are both greater than 1 then the mode of the posterior distribution of $X$ is</p>
+$$
+\frac{r+k-1}{r+s+n-2}
+$$</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Posterior-Mean">Posterior Mean<a class="anchor-link" href="#Posterior-Mean">¶</a></h3><p>The posterior mean of $X$ given $S_n = k$ is the expectation of the beta posterior distribution, which for large $n$ is not far from the mode:</p>
 $$
 E(X \mid S_n = k) ~ = ~ \frac{r+k}{r+s+n} 
-$$<p>Let's examine these results in an example. Suppose the prior distribution of $X$ is beta $(5, 3)$, and thus the prior mean is $E(X) = 5/8 = 0.625$.  Now suppose we are given that $S_{100} = 70$. Then the posterior distribution of $X$ given $S_{100} = 70$ is beta $(75, 33)$ with mean $75/108 = 0.694$.</p>
+$$<p>Let's examine this result in an example. Suppose the prior distribution of $X$ is beta $(5, 3)$, and thus the prior mean is $E(X) = 5/8 = 0.625$.  Now suppose we are given that $S_{100} = 70$. Then the posterior distribution of $X$ given $S_{100} = 70$ is beta $(75, 33)$ with mean $75/108 = 0.694$.</p>
 <p>The graph below shows the two densities along with the corresponding means. The red dot is at the observed proportion of heads.</p>
 <p>Run the cell again, keeping $r = 5$ and $s = 3$ but changing $n$ to 10 and $k$ to 7, then again changing $n$ to 1000 and $k$ to $700$. The observed proportion is 0.7 in all cases. Notice how increasing the sample size concentrates the prior around 0.7. We will soon see the reason for this.</p>
 <p>Also try other values of the parameters as well as $n$ and $k$, including values where the observed proportion is quite different from the mean of the prior.</p></div></div>
@@ -78,7 +86,7 @@ $$<p>Let's examine these results in an example. Suppose the prior distribution o
 <span class="n">plot_prior_and_posterior</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="../notebooks-images/21_01_Updating_and_Prediction_7_0.png"/></div>
+<img src="../notebooks-images/21_01_Updating_and_Prediction_9_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>You can see how the data dominate the prior. The posterior distribution is concentrated around the posterior mean. The prior mean was 0.625, but given that we got 70 heads in 100 tosses, the posterior mean is 0.694 which is very close to the observerd proportion 0.7.</p>

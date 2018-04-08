@@ -128,3 +128,4 @@
 	* [21.1 Updating and Prediction](notebooks-md/21_01_Updating_and_Prediction.md)
 	* [21.2 The Beta-Binomial Distribution](notebooks-md/21_02_Beta_Binomial_Distribution.md)
 	* [21.3 Long Run Proportion of Heads](notebooks-md/21_03_Long_Run_Proportion_of_Heads.md)
+

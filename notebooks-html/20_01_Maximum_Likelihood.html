@@ -35,7 +35,22 @@ $$<p>where $C$ doesn't depend on $\mu$ and thus won't affect the maximization.</
 <p>Let $L$ be the log of the likelihood function, also known as the <em>log likelihood function</em>. You can see the letter l appearing repeatedly in the terminology. Since we'll be doing most of our work with the log likelihood function, we are calling it $L$ and using $Lik$ for the likelihood function.</p>
 $$
 L(\mu) ~ = ~ \log(C) - \frac{1}{2\sigma^2}\sum_{i=1}^n (X_i - \mu)^2
-$$<p>The function $L$ looks much more friendly than $Lik$. To maximize it, we will find its derivative with respect to $\mu$ and set that equal to 0.</p>
+$$<p>The function $L$ looks much more friendly than $Lik$.</p>
+<p>Because $\log(C)$ doesn't affect the maximization, we have defined a function to calculate $L - \log(C)$ for the sample 52.8, 51.1, 54.2, and 52.5 drawn from the normal $(\mu, 1)$ distribution. Remember that we began this section by comparing 32 and 52 as estimates of $\mu$, based on this sample.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="n">make_array</span><span class="p">(</span><span class="mf">52.8</span><span class="p">,</span> <span class="mf">51.1</span><span class="p">,</span> <span class="mf">54.2</span><span class="p">,</span> <span class="mf">52.5</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">shifted_log_lik</span><span class="p">(</span><span class="n">mu</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="nb">sum</span><span class="p">((</span><span class="n">sample</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here is a graph of the function for $\mu$ in the interval $(30, 70)$.</p></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/20_01_Maximum_Likelihood_6_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The maximizing value of $\mu$ looks very close to 52.5. To find exactly where it is, we will find the derivative of $L$ with respect to $\mu$ and set that equal to 0.</p>
 <h4 id="Derivative-of-the-Log-Likelihood-Function">Derivative of the Log Likelihood Function<a class="anchor-link" href="#Derivative-of-the-Log-Likelihood-Function">¶</a></h4><p>Use the Chain Rule and be careful about negative signs.</p>
 $$
 \frac{d}{d\mu} L(\mu) ~ = ~ \frac{2}{2\sigma^2} \sum_{i=1}^n (X_i - \mu)
@@ -43,8 +58,16 @@ $$<h4 id="Set-Equal-to-0-and-Solve-for-the-MLE">Set Equal to 0 and Solve for the
 $$
 \sum_{i=1}^n (X_i - \hat{\mu}) ~ = ~ 0 ~~~~~~ \Longleftrightarrow ~~~~~~ \sum_{i=1}^n X_i ~ = ~ n\hat{\mu} ~~~~~~ \Longleftrightarrow ~~~~~~ \hat{\mu} ~ = ~ \frac{1}{n} \sum_{i=1}^n X_i ~ = ~ \bar{X}
 $$<p>We should check that this yields a maximum and not a minimum, but given the answer you will surely accept that it's a max. You are welcome to take the second derivative of $L$ and check that we do indeed have a maximum.</p>
-<p>We have shown that the MLE of $\mu$ is the sample mean $\bar{X}$, regardless of the population SD $\sigma$.</p>
-<p>You know that the distribution of $\bar{X}$ is normal with mean $\mu$ and variance $\sigma^2/n$. You also know that if the sample is large, you can estimate $\sigma$ by the SD of the sample and hence construct confidence intervals for $\mu$.</p></div></div>
+<p>We have shown that the MLE of $\mu$ is the sample mean $\bar{X}$, regardless of the population SD $\sigma$. In the case of the sample we used for the plot above, $\bar{X} = 52.65$.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_text output_subarea output_execute_result">
+<pre>52.650000000000006</pre></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>You know that the distribution of $\bar{X}$ is normal with mean $\mu$ and variance $\sigma^2/n$. If you don't know $\sigma$, then if the sample is large you can estimate $\sigma$ by the SD of the sample and hence construct confidence intervals for $\mu$.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Steps-for-Finding-the-MLE">Steps for Finding the MLE<a class="anchor-link" href="#Steps-for-Finding-the-MLE">¶</a></h3><p>Let's capture our sequence of steps in an algorithm to find the MLE of a parameter given an i.i.d. sample.</p>
@@ -134,7 +157,7 @@ $$<p>Again you should check that this yields a maximum and not a minimum, but ag
 <p>It is a remarkable fact about i.i.d. normal samples that $\hat{\mu}$ and $\hat{\sigma}^2$ are independent of each other even though they are statistics calculated from the same sample. Towards the end of this course you will see why.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Computational Note:</strong> MLEs can't always be derived analytically as easily as in our examples. It's important to keep in mind that maximizing log likelihood functions can often be intractable without a numerical optimization method.</p></div></div>
+<p><strong>Computational Note:</strong> MLEs can't always be derived analytically as easily as in our examples. It's important to keep in mind that maximizing log likelihood functions can often be intractable without a numerical optimization method. Also, not all likelihood functions have unique maxima.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span> 

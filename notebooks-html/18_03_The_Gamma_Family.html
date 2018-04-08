@@ -32,8 +32,8 @@ $$</div></div>
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="The-Rate-$\lambda$">The Rate $\lambda$<a class="anchor-link" href="#The-Rate-$\lambda$">¶</a></h3><p>For fixed $r$, the larger $\lambda$ is, the smaller $X$ is expected to be. Also like the exponential, the parameter $\lambda$ essentially identifies the units of measurement – for a positive constant $c$, the random variable $Y = cX$ has the gamma $(r, \lambda/c)$ distribution. You can see this by applying the linear change of variable formula for densities. For positive $y$, the density of $Y$ is</p>
 $$
-f_Y(y) ~ = ~ f_X(\frac{x}{c}) \cdot \frac{1}{c} ~ = ~ 
-\frac{(\lambda/c)^r}{\Gamma(r)} x^{r-1}e^{-(\lambda/c) x}
+f_Y(y) ~ = ~ f_X(\frac{y}{c}) \cdot \frac{1}{c} ~ = ~ 
+\frac{(\lambda/c)^r}{\Gamma(r)} y^{r-1}e^{-(\lambda/c) y}
 $$<p>SciPy calls $1/\lambda$ the "scale" parameter of the gamma distribution. Because the parameter just determines the scale on the horizontal axis of the graph of the density, it is often taken to be 1. That's what we will do to study the other parameter $r$.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
