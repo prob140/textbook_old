@@ -10,14 +10,20 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Sum-and-Difference">Sum and Difference<a class="anchor-link" href="#Sum-and-Difference">¶</a></h3><p>Let $\mathbf{X} = [X_1, X_2]^T$ have bivariate normal distribution mean vector $\boldsymbol{\mu} = [\mu_1, \mu_2]$ and covariance matrix $\boldsymbol{\Sigma}$.</p>
-<p>Then the sum $X_1 + X_2$ has the normal distribution with mean $\mu_1 + \mu_2$ and variance</p>
+<p>Then the sum $S = X_1 + X_2$ has the normal distribution with mean $\mu_1 + \mu_2$ and variance</p>
 $$
-Var(X_1 + X_2) ~ = ~ Var(X_1) + Var(X_2) + 2Cov(X_1, X_2)
+Var(S) ~ = ~ Var(X_1) + Var(X_2) + 2Cov(X_1, X_2)
 $$<p>which you can calculate based on $\boldsymbol{\Sigma}$.</p>
-<p>The difference $X_1 - X_2$ has the normal distribution with mean $\mu_1 - \mu_2$ and variance</p>
+<p>The difference $D= X_1 - X_2$ has the normal distribution with mean $\mu_1 - \mu_2$ and variance</p>
 $$
-Var(X_1 - X_2) ~ = ~ Var(X_1) + Var(X_2) - 2Cov(X_1, X_2)
-$$<p>No matter what the linear combination of $X_1$ and $X_2$, its distribution is normal and you can work out the mean and variance using properties of means and variances and then find the necessary components from the mean vector and covariance matrix. Once you have the mean and variance, you are all set to find probabilities by using the normal distribution.</p></div></div>
+Var(D) ~ = ~ Var(X_1) + Var(X_2) - 2Cov(X_1, X_2)
+$$<p>No matter what the linear combination of elements of $\mathbf{X}$, its distribution is normal. To identify the parameters of the distribution, work out the mean and variance using properties of means and variances and then find the necessary components from the mean vector and covariance matrix of $\mathbf{X}$. Once you have the mean and variance, you are all set to find probabilities by using the normal curve as usual.</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Joint-Distribution-of-Linear-Combinations">Joint Distribution of Linear Combinations<a class="anchor-link" href="#Joint-Distribution-of-Linear-Combinations">¶</a></h3><p>Definition 2 implies that the joint distribution of a finite number of linear combinations of $\mathbf{X}$ is multivariate normal. In the example above, not only does each of $S$ and $D$ have a normal distribution, the joint distribution of $S$ and $D$ is bivariate normal. We found the mean vector and all but one element of the covariance matrix in the calculations above. The remaining element is</p>
+$$
+Cov(S, D) ~ = ~ Cov(X_1 + X_2, X_1 - X_2) ~ = ~ Var(X_1) - Var(X_2)
+$$<p>by bilinearity and symmetry of covariance.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Marginals">Marginals<a class="anchor-link" href="#Marginals">¶</a></h3><p>Each $X_i$ is a linear combination of elements of $\mathbf{X}$: the combination that has coefficient 1 at index $i$ and 0 everywhere else. So each $X_i$ has the normal distribution. The parameters of this normal distribution can be read off the mean vector and covariance matrix: $E(X_i) = \boldsymbol{\mu}(i)$ and $Var(X_i) = \boldsymbol{\Sigma}(i, i)$.</p>
@@ -50,25 +56,25 @@ $$<p>No matter what the linear combination of $X_1$ and $X_2$, its distribution 
 <span class="n">new</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="../notebooks-images/23_03_Linear_Combinations_8_0.png"/></div>
+<img src="../notebooks-images/23_03_Linear_Combinations_9_0.png"/></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Empirical distribution of horizontal coordinate</span>
 
-<span class="n">new</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span>
-</pre></div></div></div>
-<div class="output_png output_subarea ">
-<img src="../notebooks-images/23_03_Linear_Combinations_9_0.png"/></div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Empirical distribution of vertical coordinate</span>
-
-<span class="n">new</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">new</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">'w'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
 <img src="../notebooks-images/23_03_Linear_Combinations_10_0.png"/></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Empirical distribution of vertical coordinate</span>
+
+<span class="n">new</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">'w'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">));</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/23_03_Linear_Combinations_11_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Both marginals are normal but the joint distribution is far from bivariate normal.</p>
@@ -77,15 +83,14 @@ $$<p>No matter what the linear combination of $X_1$ and $X_2$, its distribution 
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">new_density</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="mi">0</span>
 
-<span class="n">Plot_3d</span><span class="p">((</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">new_density</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Joint Density of $X$ and $Y$'</span><span class="p">);</span>
+<span class="n">Plot_3d</span><span class="p">((</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">new_density</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div></div></div>
 <div class="output_png output_subarea ">
-<img src="../notebooks-images/23_03_Linear_Combinations_12_0.png"/></div>
+<img src="../notebooks-images/23_03_Linear_Combinations_13_0.png"/></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span> 

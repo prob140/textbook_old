@@ -10,9 +10,10 @@
 $$
 f_\mathbf{X}(\mathbf{x}) ~ = ~ \frac{1}{(\sqrt{2\pi})^n \sqrt{\det(\boldsymbol{\Sigma})} }
 \exp\big{(}-\frac{1}{2}(\mathbf{x} - \boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x} - \boldsymbol{\mu})\big{)}
-$$<p>You should check that the formula is correct in the case $n = 1$. In this case $\boldsymbol{\Sigma} = [\sigma^2]$ is just a scalar. It is a number, not a larger matrix; its determinant is itself; its inverse is simply $1/\sigma^2$. Also, $\mathbf{x} = x$ and $\boldsymbol{\mu} = \mu$ are just numbers. The formula above reduces to the familiar normal density function with mean $\mu$ and variance $\sigma^2$.</p>
+$$<p>We will say that the elements of $\mathbf{X}$ are <em>jointly normal</em> or <em>jointly Gaussian</em>.</p>
+<p>You should check that the formula is correct in the case $n = 1$. In this case $\boldsymbol{\Sigma} = [\sigma^2]$ is just a scalar. It is a number, not a larger matrix; its determinant is itself; its inverse is simply $1/\sigma^2$. Also, $\mathbf{x} = x$ and $\boldsymbol{\mu} = \mu$ are just numbers. The formula above reduces to the familiar normal density function with mean $\mu$ and variance $\sigma^2$.</p>
 <p>You should also check that the formula is correct in the case when the elements of $\mathbf{X}$ are i.i.d. standard normal. In that case $\mathbf{\mu} = \mathbf{0}$ and $\boldsymbol{\Sigma} = \mathbf{I}_n$, the $n$-dimensional identity matrix.</p>
-<p>In lab you went through a detailed development of the joint density function, starting out with $\mathbf{Z}$ consisting of two i.i.d. standard normal components and then taking linear combinations. It turns out that all multivariate normal distributions can be generated that way. In fact, there are three useful equivalent definitions of the multivariate normal distribution.</p>
+<p>In lab you went through a detailed development of the multivariate normal joint density function, starting out with $\mathbf{Z}$ consisting of two i.i.d. standard normal components and then taking linear combinations. It turns out that all multivariate normal random variables can be generated in this way. In fact, there are three useful equivalent definitions of a random vector $\mathbf{X}$ with the multivariate normal distribution.</p>
 <p><strong>Definition 1:</strong> $\mathbf{X}$ has the joint density above.</p>
 <p><strong>Definition 2:</strong> $\mathbf{X} = \mathbf{AZ} + \mathbf{b}$ for some i.i.d. standard normal $\mathbf{Z}$, an invertible $\mathbf{A}$, and a column vector $\mathbf{b}$.</p>
 <p><strong>Definition 3:</strong> Every linear combination of elements of $\mathbf{X}$ is normally distributed.</p>
@@ -21,6 +22,30 @@ $$<p>You should check that the formula is correct in the case $n = 1$. In this c
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Quadratic-Form">Quadratic Form<a class="anchor-link" href="#Quadratic-Form">¶</a></h3><p>The shape of the density is determined by the <em>quadratic form</em> $\frac{1}{2}(\mathbf{x} - \boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\mathbf{x} - \boldsymbol{\mu})$. The level surfaces are ellipsoids; in two dimensions these are the ellipses you saw in lab.</p>
+<p>Here is the joint density surface of standard normal variables $X_1$ and $X_2$ that are jointly normal with $Cov(X_1, X_2) = 0.8$. The call is <code>Plot_bivariate_normal(mu, cov)</code> where the mean vector <code>mu</code> is a list and the covariance matrix is a list of lists specifying the rows.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">cov</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">Plot_bivariate_normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">cov</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/23_02_Multivariate_Normal_Distribution_4_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Note the elliptical contours, and that the probability is concentrated around a straight line.</p>
+<p>In more than two dimensions we can no longer draw joint density surfaces. In three dimensions we can make i.i.d. draws from a multivariate normal joint density and plot the resulting points. Here is an example of the empirical distribution of 1000 observations on standard normal variables $X_1$, $X_2$, and $X_3$ that are jointly normal with $Cov(X_1, X_2) = 0.6$, $Cov(X_1, X_3) = 0.5$, and $Cov(X_2, X_3) = 0.2$. Note the elliptical cloud.</p>
+<p>The call is <code>Scatter_multivariate_normal(mu, cov, n)</code> where <code>n</code> is the number of points to generate. The function checks whether the specified matrix is positive semidefinite.</p></div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mu2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">cov2</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">Scatter_multivariate_normal</span><span class="p">(</span><span class="n">mu2</span><span class="p">,</span> <span class="n">cov2</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</pre></div></div></div>
+<div class="output_png output_subarea ">
+<img src="../notebooks-images/23_02_Multivariate_Normal_Distribution_6_0.png"/></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>To see how the quadratic form arises, let $\mathbf{X}$ be multivariate normal. By Definition 2, $\mathbf{X} = \mathbf{AZ} + \mathbf{b}$ for some invertible $\mathbf{A}$ and vector $\mathbf{b}$, and some i.i.d. standard normal $\mathbf{Z}$.</p>
 <p>By multiplication of the marginals, the joint density of $\mathbf{Z}$ is</p>
 $$
@@ -63,7 +88,7 @@ $$</div></div>
 <p>To see that Definition 1 implies Definition 2, it helps to remember that a positive definite matrix $\boldsymbol{\Sigma}$ can be decomposed as $\boldsymbol{\Sigma} = \mathbf{AA}^T$ for some lower triangular $\mathbf{A}$ that has only positive elements on its diagonal and hence is invertible. This is called the <em>Cholesky decomposition</em>. Set $\mathbf{Z} = \mathbf{A}^{-1}(\mathbf{X} - \boldsymbol{\mu})$ to see that Definition 1 implies Definition 2.</p>
 <p>So Definitions 1 and 2 are equivalent.</p>
 <p>You already know that linear combinations of independent normal variables are normal. If $\mathbf{X}$ is a linear transformation of i.i.d. standard normal variables $\mathbf{Z}$, then any linear combination of elements of $\mathbf{X}$ is also a linear combination of elements of $\mathbf{Z}$ and hence is normal. This means that Definition 2 implies Definition 3.</p>
-<p>Showing that Definition 3 implies Definition 2 requires some technique. Multivarite moment generating functions are one way to see why the result is true, but we won't attempt that here.</p></div></div>
+<p>Showing that Definition 3 implies Definition 2 requires some math. Multivarite moment generating functions are one way to see why the result is true, if we accept that moment genrating functions determine distributions, but we won't go into that here.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span> 

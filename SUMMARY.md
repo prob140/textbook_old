@@ -129,3 +129,14 @@
 	* [21.2 The Beta-Binomial Distribution](notebooks-md/21_02_Beta_Binomial_Distribution.md)
 	* [21.3 Long Run Proportion of Heads](notebooks-md/21_03_Long_Run_Proportion_of_Heads.md)
 
+* [Chapter 22: Prediction](notebooks-md/22_00_Prediction.md)
+	* [22.1 Conditional Expectation As a Projection](notebooks-md/22_01_Conditional_Expectation_Projection.md)
+	* [22.2 Variance by Conditioning](notebooks-md/22_02_Variance_by_Conditioning.md)
+	* [22.3 Examples](notebooks-md/22_03_Examples.md)
+	* [22.4 Least Squares Predictor](notebooks-md/22_04_Least_Squares_Predictor.md)
+
+* [Chapter 23: Jointly Normal Random Variables](notebooks-md/23_00_Multivariate_Normal_RVs.md)
+	* [23.1 Random Vectors](notebooks-md/23_01_Random_Vectors.md)
+	* [23.2 Multivariate Normal Distribution](notebooks-md/23_02_Multivariate_Normal_Distribution.md)
+	* [23.3 Linear Combinations](notebooks-md/23_03_Linear_Combinations.md)
+	* [23.4 Independence](notebooks-md/23_04_Independence.md)
