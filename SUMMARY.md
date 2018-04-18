@@ -140,3 +140,4 @@
 	* [23.2 Multivariate Normal Distribution](notebooks-md/23_02_Multivariate_Normal_Distribution.md)
 	* [23.3 Linear Combinations](notebooks-md/23_03_Linear_Combinations.md)
 	* [23.4 Independence](notebooks-md/23_04_Independence.md)
+
