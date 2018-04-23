@@ -1,0 +1,35 @@
+<div id="ipython-notebook">
+            <a class="interact-button" href="http://prob140.berkeley.edu/hub/user-redirect/git-pull?repo=https://github.com/prob140/materials&branch=gh-pages&subPath=textbook/25_02_Best_Linear_Predictor.ipynb">Interact</a>
+            
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Best-Linear-Predictor">Best Linear Predictor<a class="anchor-link" href="#Best-Linear-Predictor">¶</a></h2></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="A-Linear-Predictor">A Linear Predictor<a class="anchor-link" href="#A-Linear-Predictor">¶</a></h3>$$
+\hat{Y}_\mathbf{b} ~ = ~ \mathbf{b}^T(\mathbf{X} - \mathbf{\mu}_\mathbf{X}) + \mu_Y
+$$<p>where
+$$
+\mathbf{b} ~ = ~ \boldsymbol{\Sigma}_\mathbf{X}^{-1} \boldsymbol{\Sigma}_{\mathbf{X}, Y}
+$$</p></div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Projection">Projection<a class="anchor-link" href="#Projection">¶</a></h3>$$
+W ~ = ~ Y - \hat{Y}_\mathbf{b}
+$$\begin{align*}
+Cov(W, \mathbf{a}^T\mathbf{X}) ~ &amp;= ~ Cov(Y - \hat{Y}_\mathbf{b}, \mathbf{a}^T\mathbf{X}) \\
+&amp;= ~ Cov(Y, \mathbf{a}^T\mathbf{X}) - Cov(\hat{Y}_\mathbf{b}, \mathbf{a}^T\mathbf{X}) \\
+&amp;= ~ Cov(Y, \mathbf{a}^T\mathbf{X}) - Cov(\mathbf{b}^T\mathbf{X}, \mathbf{a}^T\mathbf{X}) \\
+&amp;= ~ \mathbf{a}^T\boldsymbol{\Sigma}_{\mathbf{X}, Y} - \mathbf{a}^T\boldsymbol{\Sigma}_\mathbf{X} \mathbf{b} \\
+&amp;= ~ \mathbf{a}^T\boldsymbol{\Sigma}_{\mathbf{X}, Y} - \mathbf{a}^T\boldsymbol{\Sigma}_\mathbf{X} \boldsymbol{\Sigma}_\mathbf{X}^{-1}\boldsymbol{\Sigma}_{\mathbf{X}, Y} \\
+&amp;= ~ 0
+\end{align*}</div></div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Least-Squares">Least Squares<a class="anchor-link" href="#Least-Squares">¶</a></h3>$$
+\hat{Y}_\mathbf{h} ~ = ~ \mathbf{h}^T(\mathbf{X} - \mathbf{\mu}_\mathbf{X}) + \mu_Y
+$$</div></div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div></div></div></div>

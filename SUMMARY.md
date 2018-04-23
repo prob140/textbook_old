@@ -141,3 +141,8 @@
 	* [23.3 Linear Combinations](notebooks-md/23_03_Linear_Combinations.md)
 	* [23.4 Independence](notebooks-md/23_04_Independence.md)
 
+* [Chapter 24: Simple Linear Regression](notebooks-md/24_00_Simple_Linear_Regression.md)
+	* [24.1 Bivariate Normal Distribution](notebooks-md/24_01_Bivariate_Normal_Distribution.md)
+	* [24.2 Least Squares Linear Predictor](notebooks-md/24_02_Linear_Least_Squares.md)
+	* [24.3 Regression and the Bivariate Normal](notebooks-md/24_03_Regression_and_Bivariate_Normal.md)
+	* [24.4 The Regression Equation](notebooks-md/24_04_Regression_Equation.md)

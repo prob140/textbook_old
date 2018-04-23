@@ -7,7 +7,7 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The multivariate normal distribution is defined in terms of a mean vector and a covariance matrix. The units of covariance are often hard to understand, as they are the product of the units of the two variables.</p>
-<p>Normalizing the covariance so that it is easier to interpret is a good idea. As you have seen in exercises, for any two jointly distributed random variables $X$ and $Y$ the <em>correlation</em> between $X$ and $Y$ is defined as</p>
+<p>Normalizing the covariance so that it is easier to interpret is a good idea. As you have seen in exercises, for jointly distributed random variables $X$ and $Y$ the <em>correlation</em> between $X$ and $Y$ is defined as</p>
 $$
 r_{X,Y} ~ = ~ \frac{Cov(X, Y)}{\sigma_X\sigma_Y} ~ = ~ 
 E\Big{(}  \frac{X-\mu_X}{\sigma_X}  \cdot \frac{Y-\mu_Y}{\sigma_Y}  \Big{)}
@@ -29,7 +29,8 @@ So the variance of $X+Y$ is
 $$
 \sigma_{X+Y}^2 ~ = ~ \sigma_X^2 + \sigma_Y^2 + 2r_{X,Y}\sigma_X\sigma_Y
 $$</p>
-<p>Notice the parallel with the formula for the length of the sum of two vectors, with correlation playing the role of the cosine of the angle between two vectors. If the angle is 90 degrees, the the cosine is 0; this corresponds to correlation being zero and hence the random variables being uncorrelated. We will visualize this idea in the case where the joint distribution of $X$ and $Y$ is bivariate normal.</p></div></div>
+<p>Notice the parallel with the formula for the length of the sum of two vectors, with correlation playing the role of the cosine of the angle between two vectors. If the angle is 90 degrees, the the cosine is 0. This corresponds to correlation being zero and hence the random variables being uncorrelated.</p>
+<p>We will visualize this idea in the case where the joint distribution of $X$ and $Y$ is bivariate normal.</p></div></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Standard-Bivariate-Normal-Distribution">Standard Bivariate Normal Distribution<a class="anchor-link" href="#Standard-Bivariate-Normal-Distribution">¶</a></h3><p>Let $X$ and $Z$ be independent standard normal variables, that is, bivariate normal random variables with mean vector $\mathbf{0}$ and covariance matrix equal to the identity. Now fix a number $\rho$ (that's the Greek letter rho, the lower case r) so that $-1 &lt; \rho &lt; 1$, and let</p>
@@ -77,7 +78,7 @@ $$
 \rho &amp; 1
 \end{bmatrix}
 $$<p>We say that $X$ and $Y$ have the <em>standard bivariate normal distribution with correlation $\rho$</em>.</p>
-<p>The graph below shows the empirical distribution of 1000 $(X, Y)$ points in the case $\rho = 0.6$.</p></div></div>
+<p>The graph below shows the empirical distribution of 1000 $(X, Y)$ points in the case $\rho = 0.6$. You can change the value of $rho$ and see how the scatter diagram changes. It will remind you of numerous such simulations in Data 8.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Plotting parameters</span>
@@ -164,7 +165,7 @@ where $\rho = \cos(\theta)$.</p>
 <img src="../notebooks-images/24_01_Bivariate_Normal_Distribution_16_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Small-$\theta$">Small $\theta$<a class="anchor-link" href="#Small-$\theta$">¶</a></h3><p>When $\theta$ is very small, there is hardly any change in the position of the axis, and so $X$ and $Y$ are almost equal.</p></div></div>
+<h3 id="Small-$\theta$">Small $\theta$<a class="anchor-link" href="#Small-$\theta$">¶</a></h3><p>As we observed earlier, when $\theta$ is very small there is hardly any change in the position of the axis. So $X$ and $Y$ are almost equal.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">theta</span> <span class="o">=</span> <span class="mi">2</span>

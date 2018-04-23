@@ -10,7 +10,7 @@
 $$
 Y ~ = ~ \rho X + \sqrt{1 - \rho^2}Z
 $$</p>
-<p>where $X$ and $Z$ are independent standard normal variables leads directly the best predictor of $Y$ based on all functions of $X$. You know that the best predictor is the conditional expectation $E(Y \mid X)$. Clearly,</p>
+<p>where $X$ and $Z$ are independent standard normal variables leads directly the best predictor of $Y$ based on all functions of $X$. You know that the best predictor is the conditional expectation $E(Y \mid X)$, and clearly,</p>
 $$
 E(Y \mid X) ~ = ~ \rho X
 $$<p>because $Z$ is independent of $X$ and $E(Z) = 0$.</p>
@@ -18,7 +18,7 @@ $$<p>because $Z$ is independent of $X$ and $E(Z) = 0$.</p>
 <p><strong>If $X$ and $Y$ have a standard bivariate normal distribution, then the best predictor of $Y$ based on $X$ is linear,</strong> and has the equation of the regression line derived in the previous section.</p>
 <p>Every bivariate normal distribution can be constructed by linear transformations of standard bivariate normal variables. Therefore:</p>
 <p><strong>If $X$ and $Y$ are bivariate normal, then the best linear predictor of $Y$ based on $X$ is also the best among all predictors of $Y$ based on $X$.</strong></p>
-<p>The function <code>bivariate_normal_regression</code> takes $\rho$ and $n$ as its arguments and displays a scatter plot of $n$ points generated from the standard bivariate normal distribution with correlation $\rho$. It also shows the 45 degree line in red and the regression line $E(Y \mid X) = \rho X$ in green.</p>
+<p>The function <code>bivariate_normal_regression</code> takes $\rho$ and $n$ as its arguments and displays a scatter plot of $n$ points generated from the standard bivariate normal distribution with correlation $\rho$. It also shows the 45 degree "equal standard units" line in red and the regression line $E(Y \mid X) = \rho X$ in green.</p>
 <p>You saw this plot in Data 8 but run the cell a few times anyway to refresh your memory. You can see the regression effect when $\rho &gt; 0$: the green line is flatter than the red "equal standard units" 45 degree line.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
@@ -28,7 +28,7 @@ $$<p>because $Z$ is independent of $X$ and $E(Z) = 0$.</p>
 <img src="../notebooks-images/24_03_Regression_and_Bivariate_Normal_4_0.png"/></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Prediction-Error">Prediction Error<a class="anchor-link" href="#Prediction-Error">¶</a></h3><p>The definition of $Y$ says that $Y$ is "signal" that is a linear function of $X$, plus some noise equal to $\sqrt{1 - \rho^2}Z$. The best predictor of $Y$ based on $X$ is the linear function $\rho X$.</p>
+<h3 id="Prediction-Error">Prediction Error<a class="anchor-link" href="#Prediction-Error">¶</a></h3><p>By definition, $Y$ is equal to a "signal" that is a linear function of $X$, plus some noise equal to $\sqrt{1 - \rho^2}Z$. The best predictor of $Y$ based on $X$ is the linear function $\rho X$.</p>
 <p>The mean squared error of this prediction is</p>
 $$
 Var(Y \mid X) ~ = ~ (1 - \rho^2)Var(Z) ~ = ~ 1 - \rho^2
@@ -40,7 +40,7 @@ $$<p>which doesn't depend on $X$. This makes sense because the "noise" term in t
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Predicting-Ranks">Predicting Ranks<a class="anchor-link" href="#Predicting-Ranks">¶</a></h3><p>Suppose the scatter diagram of verbal and math test scores of a large population of students is roughly oval and that the correlation between the two variables is 0.5.</p>
 <p>Given that a randomly picked student is on the 80th percentile of verbal scores, what is your prediction of the student's percentile rank on the math scores?</p>
-<p>One way to answer such questions is by making some probabilistic assumptions. Reasonable approximations to the reality, based on the information given, are that the student's standardized math score $M$ and standardized verbal score $V$ have the standard bivariate normal distribution with correlation $\rho = 0.5$.</p>
+<p>One way to answer such questions is by making some probabilistic assumptions. Rough approximations to the reality, based on the information given, are that the student's standardized math score $M$ and standardized verbal score $V$ have the standard bivariate normal distribution with correlation $\rho = 0.5$.</p>
 <p>Given that the student is on the 80th percentile of verbal scores, we know they are at what Python calls the 80 percent point of the standard normal curve. So their score in standard units is approximately 0.84:</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
@@ -71,7 +71,7 @@ $$<p>which doesn't depend on $X$. This makes sense because the "noise" term in t
 <pre>0.6630533107760167</pre></div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Don't worry about decimal points and great accuracy in such settings. There calculation is based on a probabilistic model about data; possible deviations from that model will have a much larger effect on the quality of the prediction than whether your answer is the 67th percentile instead of the 66th.</p>
+<p>Don't worry about decimal points and great accuracy in such settings. The calculation is based on a probabilistic model about data; deviations from that model will have a much larger effect on the quality of the prediction than whether your answer is the 67th percentile instead of the 66th.</p>
 <p>You should notice, however, that the regression effect is clearly visible in the answer. The student's predicted math score is closer to average than their verbal score.</p></div></div>
 <div class="inner_cell">
     <div class="input_area">
