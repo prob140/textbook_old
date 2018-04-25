@@ -146,3 +146,8 @@
 	* [24.2 Least Squares Linear Predictor](notebooks-md/24_02_Linear_Least_Squares.md)
 	* [24.3 Regression and the Bivariate Normal](notebooks-md/24_03_Regression_and_Bivariate_Normal.md)
 	* [24.4 The Regression Equation](notebooks-md/24_04_Regression_Equation.md)
+
+* [Chapter 25: Multiple Regression](notebooks-md/25_00_Multiple_Regression.md)
+	* [25.1 Bilinearity in Matrix Notation](notebooks-md/25_01_Bilinearity_in_Matrix_Notation.md)
+	* [25.2 Best Linear Predictor](notebooks-md/25_02_Best_Linear_Predictor.md)
+	* [25.3 Regression and the Multivariate Normal](notebooks-md/25_03_Multivariate_Normal_Regression.md)
